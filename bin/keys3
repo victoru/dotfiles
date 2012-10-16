@@ -1,0 +1,6 @@
+#!/bin/bash
+export SSH_ASKPASS=/usr/lib/seahorse/seahorse-ssh-askpass
+#ssh-add /home/victor/Dropbox/keys/krunktarius_id_rsa < /dev/null
+ssh-add /home/victor/Dropbox/keys/krunktarius_id_rsa < /dev/null
+ssh-add /home/victor/Dropbox/keys/godship/id_rsa < /dev/null
+

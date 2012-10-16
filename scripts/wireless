@@ -1,0 +1,10 @@
+#!/bin/bash
+#W: (100% at ATT368) 192.168.1.115
+
+CMD='/home/victor/scripts/wifi.sh'
+
+SIGNAL=`$CMD signal`
+ESSID=`$CMD essid`
+INET=`$CMD inet`
+
+echo "W: (${SIGNAL}% at ${ESSID}) ${INET}"

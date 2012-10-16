@@ -1,0 +1,13 @@
+#!/bin/bash
+
+LNG=$(echo $LANG | cut -d '_' -f 1)
+CHARSET=$(echo $LANG | cut -d '.' -f 2)
+URL='https://www.google.com/?q=define:power#source=hp&q=define:power&btnK=Google+Search'
+lynx -accept_all_cookies -dump -hiddenlinks=ignore -nonumbers -assume_charset="$CHARSET" -display_charset="$CHARSET" "https://www.google.com/?q=define:${1}#source=hp&q=define:${1}&btnK=Google+Search" | grep -m 5 -C 2 -A 5 -w "*" > /tmp/deleteme
+if [ ! -s /tmp/deleteme ]; then
+    echo "Sorry, google doesn't know this one..."
+else
+    cat /tmp/deleteme | grep -v Search
+    echo ""
+fi
+rm -f /tmp/deleteme

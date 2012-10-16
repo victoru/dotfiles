@@ -1,0 +1,3 @@
+#!/bin/bash
+
+pactl list sinks | ack 'Volume:' | head -n 1

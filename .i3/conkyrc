@@ -1,0 +1,57 @@
+background        no
+out_to_console    yes
+out_to_x      no
+update_interval   2
+total_run_times   0
+short_units   yes
+pad_percents      3
+temperature_unit fahrenheit
+override_utf8_locale yes
+
+TEXT
+,[
+    #{
+        #"full_text": " $mpd_status: ${mpd_smart} $mpd_elapsed/$mpd_length ",
+        #"color": "\#94F467"
+    #},
+    {
+        "full_text": " ${execi 30 ~/scripts/wireless} ",
+        "color": "\#94F367"
+    },
+    {
+        "full_text": " $loadavg ",
+        "color": "\#99D7FF"
+    }, 
+     {
+        "full_text": " ${fs_free /} ${fs_free /var} ${fs_free /home} ${fs_free /tmp}",
+        "color": "\#909090"
+    }, 
+    {
+        "full_text": " $mem/$memmax",
+        "color": "\#F3D194"
+    }, 
+    {
+        "full_text": " ${downspeed wlan0} ${upspeed wlan0} ",
+        "color": "\#FFFE6A"
+    }, 
+    {
+        "full_text": " BAT: ${execi 20 /home/victor/scripts/battery.sh}% ",
+        "color": "\#94F397"
+    }, 
+    {
+        "full_text": " NGA: ${tztime WAT-1 %H:%M} ",
+        "color": "\#909090"
+    }, 
+    {
+        "full_text": " ${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ KAUS temperature}F ${weather http://weather.noaa.gov/pub/data/observations/metar/stations/ KAUS cloud_cover} "
+    }, 
+    {
+        "full_text": " ${exec date} ",
+        "color": "\#ffffff"
+    }
+    #, 
+    #{
+        #"full_text": " VOL: ${exec ~/scripts/dual_volume}% ",
+        #"color": "\#00FFFF"
+    #}
+]

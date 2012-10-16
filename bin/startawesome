@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#skype &
+redshiftgui &
+
+pidgin &
+gajim &
+xfce4-power-manager & 
+blueman-applet &
+#awesome > awesome.log 2>awesome.error.log
+awesome

@@ -1,0 +1,2 @@
+#/bin/bash
+echo "local naughty = require('naughty'); naughty.notify({title='Syntax Check', text = '$(awesome -k % 2>&1)', width = 200, timeout = 3})" | awesome-client

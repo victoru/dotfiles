@@ -1,0 +1,14 @@
+#!/bin/bash
+
+case $1 in
+    dropdown )
+        urxvtc -name dropdown -e zsh -c "tmux -q has -t dropdown && tmux attach -d -t dropdown || tmux new -s dropdown"
+        ;;
+    dev )
+        urxvtc -name development -e zsh -c "tmux -q has -t dev && tmux attach -d -t dev || cd ~/Workspace && tmux new -s dev"
+        ;;
+    * )
+        echo "wat"
+    ;;
+esac
+
