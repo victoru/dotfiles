@@ -231,11 +231,16 @@ let g:pydiction_location= '~/src/vim/pydiction/complete-dict'
 let g:ctrlp_map = '<leader>p'
 
 let g:path_to_matcher = "/home/victor/bin/matcher"
+let g:ctrlp_match_func = { 'match': 'GoodMatch' }
 
-let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
-let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate -I .']
-
-"let g:ctrlp_match_func = { 'match': 'GoodMatch' }
+"let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard']
+"let g:ctrlp_user_command = ['.hg/', 'hg --cwd %s locate -I .']
+let g:ctrlp_user_command = 'find %s -type f' 
+let g:ctrlp_working_path_mode = 'r'
+"let g:ctrlp_working_path_mode = 'ra'
+"
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.un~,*.pyc
+"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$|\.pyc$'
 
 function! GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
