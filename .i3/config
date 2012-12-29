@@ -77,17 +77,9 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-mode "focus" {
-    bindsym p focus parent
-    bindsym c focus child
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+bindsym $mod+p focus parent
+bindsym $mod+c focus child
 
-bindsym $mod+Shift+F mode "focus"
-# focus the parent container
-#bindsym $mod+a focus parent
-    
 bindsym $mod+Shift+59 focus parent
 bindsym $mod+Shift+60 focus child
 
@@ -163,7 +155,7 @@ mode "cheatsheet" {
 }
 
 bindsym $mod+r mode "resize"
-bindsym $mod+c mode "cheatsheet"
+#bindsym $mod+c mode "cheatsheet"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
