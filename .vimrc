@@ -96,12 +96,13 @@ let @c = '^dt#o"€kb'
 set cursorline cursorcolumn
 
 if has('gui_running')
-    colorscheme candycode
+    colorscheme jellybeans
     set guioptions-=m  "remove menu bar
     set guioptions-=T  "remove toolbar
     set guioptions-=r  "remove right-hand scroll bar
     set guioptions-=L
     "set guioptions-=M
+    set guifont=EnvyCodeRforPowerline
 else
     "colorscheme billw
     "colorscheme candycode
