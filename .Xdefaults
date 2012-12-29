@@ -8,10 +8,6 @@ Xft.dpi: 96
 Xft.rgba: rgb
 URxvt.depth: 32
 
-!URxvt*font:             -*-gohufont-medium-*-*-*-11-*-*-*-*-*-iso10646-*
-!URxvt*boldFont:         -*-gohufont-bold-*-*-*-11-*-*-*-*-*-iso10646-*
-!URxvt*font:             xft:DejaVuSansMonoForPowerline:size=12
-!URxvt*boldFont:         xft:DejaVuSansMonoForPowerline:bold:size=12
 URxvt*letterSpace: -2
 
 URxvt.font:              xft:EnvyCodeRForPowerline:size=9:autohint=true
