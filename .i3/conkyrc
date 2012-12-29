@@ -10,6 +10,10 @@ override_utf8_locale yes
 
 TEXT
 ,[
+    {
+        "full_text": " ${downspeed wlan0} ${upspeed wlan0} ",
+        "color": "\#FFFE6A"
+    }, 
     #{
         #"full_text": " $mpd_status: ${mpd_smart} $mpd_elapsed/$mpd_length ",
         #"color": "\#94F467"
@@ -29,10 +33,6 @@ TEXT
     {
         "full_text": " $mem/$memmax",
         "color": "\#F3D194"
-    }, 
-    {
-        "full_text": " ${downspeed wlan0} ${upspeed wlan0} ",
-        "color": "\#FFFE6A"
     }, 
     {
         "full_text": " BAT: ${execi 20 /home/victor/scripts/battery.sh}% ",
