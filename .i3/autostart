@@ -3,7 +3,6 @@
 safe_exec redshiftgui
 safe_exec pidgin
 safe_exec gajim
-#safe_exec xfce4-power-manager
 safe_exec blueman-applet
 safe_exec WhatPulse
 
