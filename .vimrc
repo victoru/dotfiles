@@ -196,8 +196,7 @@ set ruler           " Show the line and column number of the cursor position,
                     " separated by a comma.
 
 "set mouse=a         " Enable the use of the mouse.
-set dir=~/tmp
-set backupdir=~/tmp
+set dir=~/tmp/vimswap//
 
 set sessionoptions=blank,buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
 
