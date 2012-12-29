@@ -24,6 +24,8 @@ ps -C mpd || mpd &
 #start mpdsribble
 ps -C mpdscribble || mpdscribble &
 
+pcmanfm -d &
+
 eval $(keychain --eval)
 
 ps -C autocutsel
