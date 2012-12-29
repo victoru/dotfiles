@@ -40,7 +40,7 @@ URxvt*cursorColor2:       #151515
 !Theme Twenty-One
 !*background: rgb:1a/1a/1a
 !URxvt.background: [95]#1a1a1a
-URxvt.background: [80]#000000
+URxvt.background: [30]#000000
 *foreground: rgb:aa/aa/aa
 !*color0:     rgb:00/00/00
 !*color8:     rgb:66/66/66
