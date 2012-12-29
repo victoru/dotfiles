@@ -12,11 +12,11 @@ URxvt.depth: 32
 !URxvt*boldFont:         -*-gohufont-bold-*-*-*-11-*-*-*-*-*-iso10646-*
 !URxvt*font:             xft:DejaVuSansMonoForPowerline:size=12
 !URxvt*boldFont:         xft:DejaVuSansMonoForPowerline:bold:size=12
-URxvt*letterSpace: -1
+URxvt*letterSpace: -2
 
-URxvt.font:              xft:EnvyCodeRForPowerline:size=11:autohint=true
-URxvt.italicFont:        xft:EnvyCodeRForPowerline:size=11:italic:autohint=true
-URxvt.boldItalicFont:    xft:EnvyCodeRForPowerline:size=11:bold:italic:autohint=true
+URxvt.font:              xft:EnvyCodeRForPowerline:size=9:autohint=true
+URxvt.italicFont:        xft:EnvyCodeRForPowerline:size=9:italic:autohint=true
+URxvt.boldItalicFont:    xft:EnvyCodeRForPowerline:size=9:bold:italic:autohint=true
 
 URxvt*blurRadius: 20x20
 URxvt*colorBDMode:  true
