@@ -1,9 +1,6 @@
 set nocompatible
 filetype plugin indent on
 syntax enable
-
-call pathogen#infect('~/src/vim')
-
 set foldmethod=indent
 set foldlevel=99
 set hidden
