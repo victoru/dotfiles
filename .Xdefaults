@@ -93,31 +93,30 @@ URxvt.background: [30]#000000
 !*color7:     #899ca1
 !*color15:    #c0c0c0
 
-!fancy
 !black
-*color0:     #393939
-*color8:     #AF875F
+*color0:  #251f1f
+*color8:  #5e5e5e
 !red
-*color1:     #BF1E2D
-*color9:     #E7212A
+*color1:  #eb4509
+*color9:  #eb4509
 !green
-*color2:     #9DBA3A
-*color10:    #A9C938
+*color2:  #94e76b
+*color10: #95e76b
 !yellow
-*color3:     #F5B915
-*color11:    #F7D325
+*color3:  #ffac18
+*color11: #ffac18
 !blue
-*color4:     #1CA1DB
-*color12:    #00AFDA
+*color4:  #46aede
+*color12: #46aede
 !magenta
-*color5:     #652F90
-*color13:    #894E9F
+*color5:  #e32c57
+*color13: #e32c57
 !cyan
-*color6:     #EA7D24
-*color14:    #F79321
+*color6:  #06989a
+*color14: #06989a
 !white
-*color7:     #E7E8E9
-*color15:    #F3F3F4
+*color7:  #efefef
+*color15: #efefef
 
 !kuro
 !*color0:#2a1d17
