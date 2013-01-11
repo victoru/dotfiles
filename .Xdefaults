@@ -35,63 +35,9 @@ URxvt.cursorColor:        #FDA53C
 URxvt*cursorColor2:       #151515
 
 
-!URxvt.background: [85]#000000
 !
-!Theme Twenty-One
-!*background: rgb:1a/1a/1a
-!URxvt.background: [95]#1a1a1a
 URxvt.background: [30]#000000
 *foreground: rgb:aa/aa/aa
-!*color0:     rgb:00/00/00
-!*color8:     rgb:66/66/66
-!*color1:     rgb:9e/18/28
-!*color9:     rgb:bc/57/66
-!*color2:     rgb:00/88/00
-!*color10:    rgb:61/a1/71
-!*color3:     rgb:d2/bb/4b
-!*color11:    rgb:e7/db/52
-!*color4:     rgb:41/41/71
-!*color12:    rgb:50/85/af
-!*color5:     rgb:96/3c/59
-!*color13:    rgb:a9/7a/99
-!*color6:     rgb:41/81/79
-!*color14:    rgb:6b/a4/a4
-!*color7:     rgb:be/be/be
-!*color15:    rgb:ff/ff/ff
-!
-!*foreground: #FFFFFF
-
-! higher contrast background
-!*background: #000000
-!URxvt.background: [95]#121212
-!*foreground: #999999
-! black dark/light
-! higher contrast black dark/light
-!*color0:     #121212
-!*color8:     #3d3d3d
-!*color0:     #3d3d3d
-!*color8:     #5e5e5e
-!! red dark/light
-!*color1:     #8a2f58
-!*color9:     #cf4f88
-!! green dark/light
-!*color2:     #287373
-!*color10:    #53a6a6
-!! yellow dark/light
-!*color3:     #914e89
-!*color11:    #bf85cc
-!! blue dark/light
-!*color4:     #395573
-!*color12:    #4779b3
-!! magenta dark/light
-!*color5:     #5e468c
-!*color13:    #7f62b3
-!! cyan dark/light
-!*color6:     #2b7694
-!*color14:    #47959e
-!! white dark/light
-!*color7:     #899ca1
-!*color15:    #c0c0c0
 
 !black
 *color0:  #251f1f
@@ -118,64 +64,6 @@ URxvt.background: [30]#000000
 *color7:  #efefef
 *color15: #efefef
 
-!kuro
-!*color0:#2a1d17
-!*color8:#4f362b
-
-!!aka
-!*color1:#da1657
-!*color9:#da4375
-
-!!midori
-!*color2:#3ea250
-!*color10:#6cb87a
-
-!!kiiro
-!*color3:#e3d33d
-!*color11:#e3da84
-
-!!ao
-!*color4:#3ea290
-!*color12:#8ca8a3
-
-!!momoiro
-!*color5:#ff850d
-!*color13:#ffa64f
-
-!!mizuiro
-!*color6:#8c16da
-!*color14:#a167c7
-
-!!shiro
-!*color7:#e9e9e9
-!*color15:#fdfdfd
-
-!*foreground: #D7D0C7
-
-!!black
-!*color0: #222222
-!*color8: #666666
-!!red
-!*color1: #E84F4F
-!*color9: #D23D3D
-!!green
-!*color2: #B7CE42
-!*color10: #BDE077
-!!yellow
-!*color3: #FEA63C
-!*color11: #FFE863
-!!blue
-!*color4: #66AABB
-!*color12: #AACCBB
-!!magenta
-!*color5: #B7416E
-!*color13: #E16A98
-!!cyan
-!*color6: #6D878D
-!*color14: #42717B
-!!white
-!*color7: #DDDDDD
-!*color15: #FFFFFF
 !xterm config
 xterm*termName: xterm-color
 xterm*background: #000000
