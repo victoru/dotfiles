@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 for c in $HOME/etc/zsh/*.zsh; do
     if [[ $DEBUG > 0 ]]; then
         echo "zsh: sourcing $c"
@@ -5,12 +7,15 @@ for c in $HOME/etc/zsh/*.zsh; do
     source $c
 done
 
-if [ -z "$TMUX" ]; then
-    #
-else
-    export PROMPT_COMMAND='echo -ne "\033]2;${USER}@${HOSTNAME}: ${PWD}\007\033k${USER}@${HOSTNAME}\033\\"'
-fi
+[ -n "$TMUX" ] && export TERM=xterm-256color
 
-function collapse_pwd {
-    echo $(pwd | sed -e "s,^$HOME,~,")
-}
+eval `keychain --dir $HOME/etc/keychain -q --eval`
+
+ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="agnoster"
+plugins=(git mercurial cpv encode64)
+
+source $ZSH/oh-my-zsh.sh
+
+
+echo "$(fortune)\n"
