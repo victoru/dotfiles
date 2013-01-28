@@ -7,8 +7,6 @@ for c in $HOME/etc/zsh/*.zsh; do
     source $c
 done
 
-[ -n "$TMUX" ] && export TERM=xterm-256color
-
 eval `keychain --dir $HOME/etc/keychain -q --eval`
 
 ZSH=$HOME/.oh-my-zsh
