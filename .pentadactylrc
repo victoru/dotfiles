@@ -5,3 +5,5 @@ group user
 
 " vim: set ft=pentadactyl:
 set defsearch=duckduckgo-http
+
+set hintkeys=asdfghjkl
