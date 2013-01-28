@@ -10,7 +10,7 @@ done
 eval `keychain --dir $HOME/etc/keychain -q --eval`
 
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="agnoster"
+ZSH_THEME="minimal"
 plugins=(git mercurial cpv encode64)
 
 source $ZSH/oh-my-zsh.sh
