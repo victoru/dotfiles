@@ -16,8 +16,8 @@ focus_follows_mouse no
 # font for window titles. ISO 10646 = Unicode
 #set $system_font -*-proggyclean-*-r-*-*-*-*-*-*-*-*-*-*
 #set $system_font -*-gohufont-medium-*-*-*-*-*-*-*-*-*-iso10646-*
-set $system_font xft:EnvyCodeRForPowerline 8
-#set $system_font -*-gohufont-*-*-*-*-*-*-*-*-*-*-iso10646-*
+set $system_font xft:PragmataPro 9
+#set $system_font xft:EnvyCodeRForPowerline 8
 font $system_font
 
 # Use Mouse+$mod to drag floating windows to their wanted position
