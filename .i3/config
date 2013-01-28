@@ -11,6 +11,8 @@
 
 set $mod Mod4
 
+focus_follows_mouse no
+
 # font for window titles. ISO 10646 = Unicode
 #set $system_font -*-proggyclean-*-r-*-*-*-*-*-*-*-*-*-*
 #set $system_font -*-gohufont-medium-*-*-*-*-*-*-*-*-*-iso10646-*
