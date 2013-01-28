@@ -170,11 +170,11 @@ bar {
         #font -*-anorexia-medium-*-*-*-11-*-*-*-*-*-*-*
         workspace_buttons yes
         colors {
-            background #101010
+            background #000000
             statusline #999999
-            focused_workspace #825969 #191919
-            active_workspace #825969 #101010
-            inactive_workspace #9a878f #191919
+            focused_workspace #000000 #9a878f
+            active_workspace #000000 #000000
+            inactive_workspace #9a878f #000000
             urgent_workspace #2e3436 #9a878f
         }
 }
