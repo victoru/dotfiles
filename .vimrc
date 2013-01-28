@@ -48,7 +48,7 @@ fun! SetupVAM()
   exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
 
   " Tell VAM which plugins to fetch & load:
-  call vam#ActivateAddons(['ctrlp', 'Gundo', 'CSApprox', 'Powerline', 'riv',
+  call vam#ActivateAddons(['ctrlp', 'Gundo', 'CSApprox', 'riv', 'fugitive',
   			               \ 'Syntastic', 'The_NERD_Commenter', 'kwbdi', 
                            \ 'snipmate', 'ack', 'Tagbar', 
                            \ 'Buffergator', 'SuperTab%1643', 'python_fold'], 
@@ -261,11 +261,11 @@ nmap <F8> :TagbarToggle<CR>
         ""bufname": display buffer name
 "}}}
 
-"Powerline
-"=========
-call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
-let g:Powerline_colorscheme = 'wonton'
-let g:Powerline_symbols = 'fancy'
+""Powerline
+""=========
+"call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
+"let g:Powerline_colorscheme = 'wonton'
+"let g:Powerline_symbols = 'fancy'
 
 "
 "Gundo
