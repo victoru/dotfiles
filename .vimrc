@@ -261,11 +261,11 @@ nmap <F8> :TagbarToggle<CR>
         ""bufname": display buffer name
 "}}}
 
-""Powerline
-""=========
-"call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
-"let g:Powerline_colorscheme = 'wonton'
-"let g:Powerline_symbols = 'fancy'
+"Powerline
+"=========
+call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')
+let g:Powerline_colorscheme = 'wonton'
+let g:Powerline_symbols = 'fancy'
 
 "
 "Gundo
