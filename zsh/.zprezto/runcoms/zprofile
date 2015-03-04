@@ -6,20 +6,11 @@
 #
 
 #
-# Browser
+# make sure gpg-agent is running
 #
 
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
-fi
+gpg-connect-agent /bye
 
-#
-# Editors
-#
-
-export EDITOR='nano'
-export VISUAL='nano'
-export PAGER='less'
 
 #
 # Language
@@ -43,6 +34,8 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  /home/victor/bin
+  $GOPATH/bin
   /usr/local/{bin,sbin}
   $path
 )

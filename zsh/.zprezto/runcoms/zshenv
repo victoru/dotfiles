@@ -5,7 +5,33 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+#export ZDOTDIR="${XDG_CONFIG_HOME}"
+#
+#export -TU PERL5LIB perl5lib
+#export -TU GOPATH gopath
+
+export XDG_CONFIG_HOME="$HOME/etc"
+export XDG_CACHE_HOME="$HOME/etc/cache"
+export XDG_DATA_HOME="$HOME/var"
+export DEVEL_HOME="$HOME/dev"
+export BIN_HOME="$HOME/bin"
+#export PATH="$PATH:$BIN_HOME:/home/victor/.gem/ruby/2.0.0/bin"
+
+export GOPATH=/home/victor/go
+
+#export PATH=$PATH:$BIN_HOME:$GOPATH/bin
+
+export HISTSIZE=1000
+export SAVEHIST=1000
+export HISTFILE=$XDG_CONFIG_HOME/zsh/history
+export DISPLAY=:0
+
+export PWD=$(pwd)
+export MPD_HOST="/home/victor/.mpd/socket"
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
