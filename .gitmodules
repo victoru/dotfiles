@@ -7,9 +7,3 @@
 [submodule "zsh/.zprezto/modules/completion/external"]
 	path = zsh/.zprezto/modules/completion/external
 	url = https://github.com/zsh-users/zsh-completions.git
-[submodule "zsh/.zprezto/modules/prompt/external/powerline"]
-	path = zsh/.zprezto/modules/prompt/external/powerline
-	url = https://github.com/davidjrice/prezto_powerline.git
-[submodule "zsh/.zprezto/modules/prompt/external/agnoster"]
-	path = zsh/.zprezto/modules/prompt/external/agnoster
-	url = https://gist.github.com/3712874.git
