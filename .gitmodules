@@ -13,6 +13,3 @@
 [submodule "zsh/.zprezto/modules/prompt/external/agnoster"]
 	path = zsh/.zprezto/modules/prompt/external/agnoster
 	url = https://gist.github.com/3712874.git
-[submodule "zsh/.zprezto/modules/prompt/functions/pure"]
-	path = zsh/.zprezto/modules/prompt/external/pure
-	url = https://github.com/sindresorhus/pure.git
