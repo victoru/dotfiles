@@ -73,7 +73,7 @@ prompt_pure_precmd() {
 	# git info
 	vcs_info
 
-	local prompt_pure_preprompt="\n%F{blue}%~%F{242}$vcs_info_msg_0_`prompt_pure_git_dirty`$prompt_pure_username%f%F{yellow}`prompt_pure_cmd_exec_time`%f"
+	local prompt_pure_preprompt="\n%F{242}$prompt_pure_username%f%F{blue}%~%F{242}$vcs_info_msg_0_`prompt_pure_git_dirty`%f%F{yellow}`prompt_pure_cmd_exec_time`%f"
 	print -P $prompt_pure_preprompt
 
 	# check async if there is anything to pull
@@ -119,14 +119,22 @@ prompt_pure_setup() {
 	zstyle ':vcs_info:git*' formats ' %b'
 	zstyle ':vcs_info:git*' actionformats ' %b|%a'
 
-	# show username@host if logged in through SSH
-	[[ "$SSH_CONNECTION" != '' ]] && prompt_pure_username=' %n@%m '
+
+	zstyle ':prezto:module:editor:info:keymap:primary' format '[INSERT]'
+	zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '[REPLACE]'
+	zstyle ':prezto:module:editor:info:keymap:alternate' format '[NORMAL]'
+	zstyle ':prezto:module:editor:info:completing' format '...'
+
+
+	#show username@host
+	prompt_pure_username=' %n@%m '
 
 	# show username@host if root, with username in white
 	[[ $UID -eq 0 ]] && prompt_pure_username=' %F{white}%n%F{242}@%m '
 
 	# prompt turns red if the previous command didn't exit with 0
 	PROMPT="%(?.%F{magenta}.%F{red})${PURE_PROMPT_SYMBOL:-❯}%f "
+	RPROMPT='$editor_info[keymap]'
 }
 
 prompt_pure_setup "$@"
