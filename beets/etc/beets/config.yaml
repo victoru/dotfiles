@@ -1,0 +1,3 @@
+directory: ~/Music
+library: ~/etc/beets/library.db
+plugins: duplicates

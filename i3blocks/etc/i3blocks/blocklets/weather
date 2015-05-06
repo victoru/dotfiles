@@ -1,0 +1,7 @@
+#!/bin/bash
+
+weather=$($XDG_CONFIG_HOME/i3blocks/scripts/weather.py $BLOCK_INSTANCE)
+
+echo $weather
+echo $weather
+echo \#85A9FF

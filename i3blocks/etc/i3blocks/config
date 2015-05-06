@@ -1,0 +1,101 @@
+full_text=|
+align=center
+separator_block_width=7
+separator=false
+#command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
+
+#[separator]
+
+[download]
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/bandwidth
+min_width=0000 kB/s
+align=right
+interval=1 # IMPORTANT
+
+[upload]
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/bandwidth
+min_width=0000 kB/s
+align=right
+interval=1 # IMPORTANT
+
+[separator]
+
+[wireless]
+instance=wlp3s0
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
+interval=10
+
+[separator]
+
+
+[loadavg]
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
+interval=5
+
+[separator]
+
+[disk-root]
+command=df -h | awk -v pattern=rootfs '$0 ~ pattern { print $4 }'
+color=#909090
+interval=30
+
+[disk-home]
+command=df -h | awk -v pattern=/home '$0 ~ pattern { print $4 }'
+color=#909090
+interval=30
+
+[disk-tmp]
+command=df -h | awk -v pattern=/tmp '$0 ~ pattern { print $4 }'
+color=#909090
+interval=30
+#
+[separator]
+
+# USED G/TOTAL G
+[memory]
+command=awk -v pattern='(MemTotal|MemAvailable:)' '$0 ~ pattern { printf  "%.1f/", $2/(1024*1024) }' /proc/meminfo | awk -F '/' '{printf "%s/%sG", $1-$2,$1}' 
+separator=false
+interval=15
+color=#f3d194
+
+[separator]
+
+[battery]
+label=BAT:
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
+interval=10
+
+[separator]
+
+[nga]
+label=NGA
+command=TZ=WAT-1 date '+%H:%M'
+interval=60
+
+[separator]
+
+[weather]
+instance=KAUS
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
+interval=300
+
+[separator]
+
+[time]
+command=date
+interval=2
+
+[separator]
+
+[volume]
+label=VOL
+instance=130/5
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
+interval=once
+
+[mic]
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
+color=#FFFFFF
+interval=20
+
+# vim: set ft=config :

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+STATUS=$( acpi | awk '{print $3}' )
+THRESHOLD=5
+
+if [ "$STATUS" = "Discharging," ]
+then
+        STATUS="Δ"
+else
+        STATUS="ϟ"
+fi
+
+PERCENT=$( acpi | awk '{print $4}' )
+VAL=${PERCENT//[^0-9]/}
+
+R=$(expr \( 255 \* \( 100 - $VAL \) \) / 100 )
+G=$(expr \( 255 \* $VAL \) / 100 )
+B=20
+
+echo $(printf '%s %d%%' $STATUS $VAL)
+echo $(printf '%s %d%%' $STATUS $VAL)
+printf '#%02X%02X%02X' $R $G $B
+
+[ $VAL -le $THRESHOLD ] && exit 33 || exit 0;

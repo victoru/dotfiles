@@ -1,0 +1,74 @@
+#!/bin/bash
+
+case $BLOCK_NAME in
+	upload)
+		TYPE=tx
+		COLOR='#FF3333'
+		;;
+	download)
+		TYPE=rx
+		COLOR='#00FF00'
+		;;
+	*)
+		echo  666 TB/s
+		echo  666 TB/s
+		echo '#F10399'
+		exit 1
+		;;
+esac
+
+FILE=/tmp/i3blocks_bandwidth_$TYPE
+touch $FILE
+
+PREV=$(cat $FILE)
+CUR=0
+
+NETDIR=/sys/class/net
+for IFACE in $(ls -1 $NETDIR); do
+    # Skip the loopback interface
+    if [ "$IFACE" == "lo" ]; then
+        continue
+    fi
+    F=$NETDIR/$IFACE/statistics/${TYPE}_bytes
+    N=$(cat $F)
+    CUR=$(expr $CUR + $N)
+done
+
+delta=$(expr $CUR - $PREV)
+RATE=$(expr $delta / 1000)
+
+echo $RATE kB/s
+echo $RATE kB/s
+echo $COLOR
+
+echo $CUR > $FILE
+exit 0;
+#FILE=/tmp/i3blocks_bandwidth_rx1
+#touch $FILE
+
+#PREV=$(cat $TX_FILE)
+#CUR=0
+
+#NETDIR=/sys/class/net
+#for IFACE in $(ls -1 $NETDIR); do
+    ## Skip the loopback interface
+    #if [ "$IFACE" == "lo" ]; then
+        #continue
+    #fi
+    #RX=$NETDIR/$IFACE/statistics/rx_bytes
+    #TX=$NETDIR/$IFACE/statistics/tx_bytes
+    #TX_N=$(cat $TX)
+    #RX_N=$(cat $RX)
+    #TX_CUR=$(expr $TX_CUR + $TX_N)
+    #RX_CUR=$(expr $RX_CUR + $RX_N)
+#done
+
+#rx_delta=$(expr $RX_CUR - $RX_PREV)
+#tx_delta=$(expr $TX_CUR - $TX_PREV)
+
+##$(expr $rx_delta / 1000) kB/s
+
+#printf '%s kB/S %s kB/S' $(expr $rx_delta / 1000) $(expr $tx_delta / 1000)
+
+#echo $TX_CUR > $TX_FILE
+#echo $RX_CUR > $RX_FILE

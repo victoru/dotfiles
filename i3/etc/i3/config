@@ -14,7 +14,9 @@ set $mod Mod4
 focus_follows_mouse no
 
 # font for window titles. ISO 10646 = Unicode
-set $system_font xft:PragmataPro 7
+#set $system_font xft:PragmataPro 7
+set $system_font xft:Fira Mono for Powerline 6
+#set $system_font xft:Terminus 7
 #set $system_font xft:EnvyCodeRForPowerline 8
 font $system_font
 
@@ -30,6 +32,7 @@ bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
+#bindsym $mod+s exec i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -203,9 +206,14 @@ for_window [class="^Pavucontrol$" instance="pavucontrol"] floating enable
 bindsym XF86AudioNext exec echo -n "n" > /home/victor/etc/pianobar/ctl
 bindsym XF86AudioPlay exec echo -n "p" > /home/victor/etc/pianobar/ctl
 #bindsym XF86AudioStop exec spc stop
-bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
-bindsym XF86AudioLowerVolume exec amixer set Master 5%-
-bindsym XF86AudioMute exec amixer sset Master toggle
+#bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
+#bindsym XF86AudioLowerVolume exec amixer set Master 5%-
+bindsym XF86AudioRaiseVolume exec ponymix --max-volume 150 increase 5 >/dev/null
+bindsym XF86AudioLowerVolume exec ponymix --max-volume 150 decrease 5 >/dev/null
+bindsym XF86AudioMute exec amixer -c0 set Master toggle
+bindsym XF86AudioMicMute exec amixer -c0 set Capture toggle
+#bindsym XF86AudioMute exec amixer sset Master toggle
+#ponymix toggle --input --device alsa_input.0.analog-stereo
 
 #toggle touchpad
 bindsym XF86TouchpadToggle exec /home/victor/scripts/toggle_touchpad
@@ -274,6 +282,6 @@ bar {
             focused_workspace #000000 #9a878f
             active_workspace #000000 #000000
             inactive_workspace #9a878f #000000
-            urgent_workspace #2e3436 #9a878f
+            urgent_workspace #ffffff #990000 #ffffff
         }
 }

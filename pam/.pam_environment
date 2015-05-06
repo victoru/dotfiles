@@ -1,0 +1,9 @@
+XDG_CONFIG_HOME=${HOME}/etc
+XDG_CACHE_HOME=${HOME}/etc/cache
+XDG_DATA_HOME=${HOME}/var
+EDITOR=vim
+VISUAL=vim
+PAGER=vimpager
+GOPATH=${HOME}/go
+
+PATH=${HOME}/bin:${GOPATH}/bin:${PATH}

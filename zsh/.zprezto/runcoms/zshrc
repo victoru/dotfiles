@@ -1,67 +1,26 @@
-#
+#!/bin/bash
 # Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
-#
-#
-#
 autoload -U compinit
 compinit
-#setopt completealiases
-
-# Editors
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='vimpager'
-export MANPAGER=$PAGER
 
 export GPG_TTY=$(tty)
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
 	export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
 fi
 
-#
-# Base16 Shell
-BASE16_SHELL="$HOME/etc/base16-shell/base16-bright.dark.sh"
-#BASE16_SHELL="$HOME/etc/base16-shell/base16-colors.dark.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# skip if $TMUX is non-zero
+if [[ -n "$TMUX" ]]; then
+	return
+fi
 
-## skip if $TMUX is non-zero
-#if [[ -n "$TMUX" ]]; then
-	#return
-#fi
-
-# bindkeys
 source $XDG_CONFIG_HOME/zsh/03-bindkeys.zsh
-
 source $XDG_CONFIG_HOME/zsh/06-syntax-rules.zsh
-
-# aliases
 source $XDG_CONFIG_HOME/zsh/21-aliases.zsh
-
-# functions
 source $XDG_CONFIG_HOME/zsh/20-functions.zsh
-
-# styles
 source $XDG_CONFIG_HOME/zsh/07-zstyle.zsh
-
-#PATH="/home/victor/perl5/bin${PATH+:}$PATH"; 
-#export PATH;
-
-#PERL5LIB="/home/victor/perl5/lib/perl5${PERL5LIB+:}$PERL5LIB"; 
-#export PERL5LIB;
-#PERL_LOCAL_LIB_ROOT="/home/victor/perl5${PERL_LOCAL_LIB_ROOT+:}$PERL_LOCAL_LIB_ROOT";
-#export PERL_LOCAL_LIB_ROOT;
-#PERL_MB_OPT="--install_base \"/home/victor/perl5\"";
-#export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=/home/victor/perl5";
-#export PERL_MM_OPT;
