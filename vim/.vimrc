@@ -93,7 +93,7 @@ set colorcolumn=80
 
 let mapleader = ','
 
-set dir=~/tmp/vimswap//
+set undodir=~/tmp/vimswap//
 
 set undofile
 
