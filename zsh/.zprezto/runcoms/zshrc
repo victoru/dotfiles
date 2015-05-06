@@ -14,11 +14,6 @@ if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
 	export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
 fi
 
-# skip if $TMUX is non-zero
-if [[ -n "$TMUX" ]]; then
-	return
-fi
-
 source $XDG_CONFIG_HOME/zsh/03-bindkeys.zsh
 source $XDG_CONFIG_HOME/zsh/06-syntax-rules.zsh
 source $XDG_CONFIG_HOME/zsh/21-aliases.zsh

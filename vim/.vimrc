@@ -25,7 +25,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 		  \ }
 
 	NeoBundle 'LaTeX-Suite-aka-Vim-LaTeX'
-	NeoBundle 'chriskempson/base16-vim'
 	NeoBundle 'wavded/vim-stylus'
 	NeoBundle 'itchyny/lightline.vim'
 	NeoBundle 'airblade/vim-gitgutter'
@@ -93,8 +92,6 @@ set noshowmode
 set colorcolumn=80
 
 let mapleader = ','
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.un~,*.pyc,*.orig
 
 set dir=~/tmp/vimswap//
 
@@ -472,7 +469,7 @@ if neobundle#tap('syntastic')
 	nm <F5> :Errors<CR>
 	nmap <leader>E :Errors<CR>
 
-	augroup StuffCmd 
+	augroup StuffCmd
 		au CursorHold * SyntasticCheck
 	augroup END
 
@@ -704,35 +701,54 @@ if neobundle#tap('neocomplete.vim')
 	call neobundle#untap()
 endif
 
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.un~,*.pyc,*.orig
+set wildignore+=.swp,.swo,~$,.git,.svn/,.hg/
+set wildignore+=^tags$,.taghl$,.ropeproject/,node_modules/
+set wildignore+=log/,tmp/,obj/,/vendor/gems/,/vendor/cache/
+set wildignore+=.bundle/,.sass-cache/,/tmp/cache/assets/.*/sprockets/
+set wildignore+=/tmp/cache/assets/.*/sass/,thirdparty/,Debug/
+set wildignore+=Release/,.pyc$,pb2.py$,.class$,.jar$
+set wildignore+=.min.js$,.jpg$,.jpeg$,.bmp$,.png$
+set wildignore+=.gif$,.o$,.out$,.obj$,.rbc$,.rbo$
+set wildignore+=.gem$,.zip$,.tar.gz$,.tar.bz2$,.rar$,.tar.xz$
+
 if neobundle#tap('unite.vim')
 	let g:unite_source_history_yank_enable = 1
+	"call unite#filters#sorter_default#use(['sorter_rank'])
+
+	let g:unite_source_rec_max_cache_files = 0
+	let g:unite_winheight = 10
+	let g:unite_source_rec_async_command = 'ag --nogroup --nocolor --column'
+
 	call unite#filters#matcher_default#use(['matcher_fuzzy'])
-	call unite#filters#sorter_default#use(['sorter_rank'])
+	call unite#custom#source('file_rec/async', 'converters', [])
+	call unite#custom#source('file_rec/async', 'sorters', [])
+	call unite#custom#source('file_rec/async', 'max_candidates', 25)
 
 	" Fuzzy matching for plugins not using matcher_default as filter
-	"call unite#custom#source('outline,line,grep,session', 'matchers', ['matcher_fuzzy'])
+	call unite#custom#source('outline,line,grep,session', 'matchers', ['matcher_fuzzy'])
 
 	" Ignore some things
 	" KEEP THESE IN SYNC WITH WILDIGNORE!
 	" Need to escape dots in the patterns!
-	call unite#custom#source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-				\ 'ignore_pattern', join([
-				\ '\.swp', '\.swo', '\~$',
-				\ '\.git/', '\.svn/', '\.hg/',
-				\ '^tags$', '\.taghl$',
-				\ '\.ropeproject/',
-				\ 'node_modules/', 'log/', 'tmp/', 'obj/',
-				\ '/vendor/gems/', '/vendor/cache/', '\.bundle/', '\.sass-cache/',
-				\ '/tmp/cache/assets/.*/sprockets/', '/tmp/cache/assets/.*/sass/',
-				\ 'thirdparty/', 'Debug/', 'Release/',
-				\ '\.pyc$', 'pb2\.py$', '\.class$', '\.jar$', '\.min\.js$',
-				\ '\.jpg$', '\.jpeg$', '\.bmp$', '\.png$', '\.gif$',
-				\ '\.o$', '\.out$', '\.obj$', '\.rbc$', '\.rbo$', '\.gem$',
-				\ '\.zip$', '\.tar\.gz$', '\.tar\.bz2$', '\.rar$', '\.tar\.xz$'
-				\ ], '\|'))
+	"call unite#custom#source(
+		"\ 'file_rec,file_rec/async,file_mru,file,buffer,grep',
+		"\ 'ignore_pattern', join(split(substitute(&wildignore, '\.', '\\.', 'g'), ','), '\|')
+	"\)
 
-	"let g:unite_source_rec_max_cache_files = 0
-	"call unite#custom#source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+		""\ 'ignore_pattern', join([
+			""\ '\.swp', '\.swo', '\~$','\.git/', '\.svn/', '\.hg/',
+			""\ '^tags$', '\.taghl$','\.ropeproject/', 'node_modules/',
+			""\ 'log/', 'tmp/', 'obj/', '/vendor/gems/', '/vendor/cache/',
+			""\ '\.bundle/', '\.sass-cache/', '/tmp/cache/assets/.*/sprockets/',
+			""\ '/tmp/cache/assets/.*/sass/', 'thirdparty/', 'Debug/',
+			""\ 'Release/', '\.pyc$', 'pb2\.py$', '\.class$', '\.jar$',
+			""\ '\.min\.js$', '\.jpg$', '\.jpeg$', '\.bmp$', '\.png$',
+			""\ '\.gif$', '\.o$', '\.out$', '\.obj$', '\.rbc$', '\.rbo$',
+			""\ '\.gem$', '\.zip$', '\.tar\.gz$', '\.tar\.bz2$', '\.rar$',
+			""\ '\.tar\.xz$'
+	""let g:unite_source_rec_max_cache_files = 0
+	""call unite#custom#source('file_rec,file_rec/async,file_mru,file,buffer,grep',
 				"\ 'max_candidates', 0)
 
 	" Prettier prompt
@@ -747,8 +763,8 @@ if neobundle#tap('unite.vim')
 	" Unite grep:$buffers<cr> " grep contents of buffers
 
 	if executable('ack')
-	   let g:unite_source_grep_command = 'ack'
-	   let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
+	   let g:unite_source_grep_command = 'ag'
+	   "let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
 	   let g:unite_source_grep_recursive_opt = ''
 	endif
 
