@@ -82,8 +82,7 @@ NeoBundleCheck
 " Options {{{
 filetype plugin indent on
 syntax enable
-"set omnifunc=syntaxcomplete#Complete
-"set foldlevel=99
+
 set foldmethod=indent
 set hidden
 
@@ -263,9 +262,6 @@ cmap <C-Space>  <C-@>
 
 	" Useful save mappings.
 	nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
-
-	" Easily syntax change.
-	"nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype filetype/new<CR>
 
 	" Exchange gj and gk to j and k. "{{{
 	command! -nargs=? -bar -bang ToggleGJK call s:ToggleGJK()
@@ -701,7 +697,7 @@ if neobundle#tap('neocomplete.vim')
 	call neobundle#untap()
 endif
 
-"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.un~,*.pyc,*.orig
+set wildignore=*/tmp/*,*.so,*.swp,*.zip,*.un~,*.pyc,*.orig
 set wildignore+=.swp,.swo,~$,.git,.svn/,.hg/
 set wildignore+=^tags$,.taghl$,.ropeproject/,node_modules/
 set wildignore+=log/,tmp/,obj/,/vendor/gems/,/vendor/cache/
