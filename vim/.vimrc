@@ -714,59 +714,53 @@ set wildignore+=.gem$,.zip$,.tar.gz$,.tar.bz2$,.rar$,.tar.xz$
 
 if neobundle#tap('unite.vim')
 	let g:unite_source_history_yank_enable = 1
+
 	"call unite#filters#sorter_default#use(['sorter_rank'])
 
 	let g:unite_source_rec_max_cache_files = 0
 	let g:unite_winheight = 10
-	let g:unite_source_rec_async_command = 'ag --nogroup --nocolor --column'
+
+	if executable('ag')
+		" Using ag as recursive command.
+		let g:unite_source_rec_async_command = 
+			\ 'ag --follow --nocolor --nogroup --hidden -g ""'
+		
+	  	" Use ag in unite grep source.
+		let g:unite_source_grep_command = 'ag'
+		let g:unite_source_grep_default_opts =
+			\ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
+			\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+		let g:unite_source_grep_recursive_opt = ''
+	elseif executable('ack')
+		" Using ack as recursive command.
+		let g:unite_source_rec_async_command = 'ack -f --nofilter'
+
+		" Use ack in unite grep source.
+		let g:unite_source_grep_command = 'ack'
+		let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
+		let g:unite_source_grep_recursive_opt = ''
+	endif
 
 	call unite#filters#matcher_default#use(['matcher_fuzzy'])
-	call unite#custom#source('file_rec/async', 'converters', [])
-	call unite#custom#source('file_rec/async', 'sorters', [])
+	"call unite#custom#source('file_rec/async', 'converters', [])
+	"call unite#custom#source('file_rec/async', 'sorters', [])
 	call unite#custom#source('file_rec/async', 'max_candidates', 25)
 
 	" Fuzzy matching for plugins not using matcher_default as filter
 	call unite#custom#source('outline,line,grep,session', 'matchers', ['matcher_fuzzy'])
 
-	" Ignore some things
-	" KEEP THESE IN SYNC WITH WILDIGNORE!
-	" Need to escape dots in the patterns!
-	"call unite#custom#source(
-		"\ 'file_rec,file_rec/async,file_mru,file,buffer,grep',
-		"\ 'ignore_pattern', join(split(substitute(&wildignore, '\.', '\\.', 'g'), ','), '\|')
-	"\)
-
-		""\ 'ignore_pattern', join([
-			""\ '\.swp', '\.swo', '\~$','\.git/', '\.svn/', '\.hg/',
-			""\ '^tags$', '\.taghl$','\.ropeproject/', 'node_modules/',
-			""\ 'log/', 'tmp/', 'obj/', '/vendor/gems/', '/vendor/cache/',
-			""\ '\.bundle/', '\.sass-cache/', '/tmp/cache/assets/.*/sprockets/',
-			""\ '/tmp/cache/assets/.*/sass/', 'thirdparty/', 'Debug/',
-			""\ 'Release/', '\.pyc$', 'pb2\.py$', '\.class$', '\.jar$',
-			""\ '\.min\.js$', '\.jpg$', '\.jpeg$', '\.bmp$', '\.png$',
-			""\ '\.gif$', '\.o$', '\.out$', '\.obj$', '\.rbc$', '\.rbo$',
-			""\ '\.gem$', '\.zip$', '\.tar\.gz$', '\.tar\.bz2$', '\.rar$',
-			""\ '\.tar\.xz$'
 	""let g:unite_source_rec_max_cache_files = 0
 	""call unite#custom#source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-				"\ 'max_candidates', 0)
+		"\ 'max_candidates', 0)
 
 	" Prettier prompt
-	nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/git<cr>
-	nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-	nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-	"nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files -start-insert file<cr> "use ranger instead
-	"nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-	nnoremap [Space]mru :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+	nnoremap <leader>p :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
+	nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank   history/yank<cr>
+	nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
+	nnoremap [Space]mru :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
 	"nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
 	"
 	" Unite grep:$buffers<cr> " grep contents of buffers
-
-	if executable('ack')
-	   let g:unite_source_grep_command = 'ag'
-	   "let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
-	   let g:unite_source_grep_recursive_opt = ''
-	endif
 
 	" Custom mappings for the unite buffer
 	augroup StuffCmd
