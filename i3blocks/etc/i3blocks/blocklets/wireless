@@ -3,7 +3,7 @@ if [ -z $BLOCK_INSTANCE ]; then
 	exit 0;
 fi
 
-if [ `iwconfig $BLOCK_INSTANCE | grep ESSID | grep -a off` ]; then
+if iwconfig $BLOCK_INSTANCE | grep -a -q ESSID\:off; then
 	echo "W: DOWN"
 	echo "W: DOWN"
 	echo \#FF0000

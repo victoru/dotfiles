@@ -1,9 +1,9 @@
-XDG_CONFIG_HOME=${HOME}/etc
-XDG_CACHE_HOME=${HOME}/etc/cache
-XDG_DATA_HOME=${HOME}/var
-EDITOR=vim
-VISUAL=vim
-PAGER=vimpager
-GOPATH=${HOME}/go
-
-PATH=${HOME}/bin:${GOPATH}/bin:${PATH}
+XDG_CONFIG_HOME     DEFAULT=/home/victor/etc
+XDG_CACHE_HOME      DEFAULT=/home/victor/etc/cache
+XDG_DATA_HOME       DEFAULT=/home/victor/var
+EDITOR              DEFAULT=vim
+VISUAL              DEFAULT=vim
+MANPAGER            DEFAULT=vimpager
+PAGER               DEFAULT=vimpager
+GOPATH              DEFAULT=/home/victor/go
+PATH                DEFAULT=/home/victor/bin:${GOPATH}/bin:${PATH}

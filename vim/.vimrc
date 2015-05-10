@@ -28,7 +28,6 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 	NeoBundle 'wavded/vim-stylus'
 	NeoBundle 'itchyny/lightline.vim'
 	NeoBundle 'airblade/vim-gitgutter'
-	NeoBundle 'bling/vim-bufferline'
 	NeoBundle 'godlygeek/tabular'
 	NeoBundleLazy 'gabrielelana/vim-markdown', {
 		  \ 'filetypes' : ['markdown', 'mkd']
@@ -81,6 +80,7 @@ NeoBundleCheck
 
 " Options {{{
 filetype plugin indent on
+set omnifunc=syntaxcomplete#Complete
 syntax enable
 
 set foldmethod=indent
@@ -165,6 +165,11 @@ set ruler           " Show the line and column number of the cursor position,
 
 set t_Co=256
 set encoding=utf-8
+" Vim can not recognize the character code of your vimrc when :scriptencoding
+" is defined before :set encoding. When writing :set encoding, it should be
+" described before :scriptencoding.
+"
+scriptencoding utf-8
 "set cursorline cursorcolumn
 "" For multi-byte character support (CJK support, for example):
 ""set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
@@ -345,6 +350,16 @@ cmap <C-Space>  <C-@>
 	" Map <Leader>ff to display all lines with keyword under cursor
 	" and ask which one to jump to
 	nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+
+execute "set <M-h>=\eh"
+execute "set <M-j>=\ej"
+execute "set <M-k>=\ek"
+execute "set <M-l>=\el"
+
+nmap <silent> <M-k> :wincmd k<CR>
+nmap <silent> <M-j> :wincmd j<CR>
+nmap <silent> <M-h> :wincmd h<CR>
+nmap <silent> <M-l> :wincmd l<CR>
 
 "}}}
 
@@ -603,7 +618,6 @@ if neobundle#tap('lightline.vim')
 			\ ('' != MyModified() ? ' ' . MyModified() : '')
 	endfunction
 
-
 	let g:ctrlp_status_func = {
 	  \ 'main': 'CtrlPStatusFunc_1',
 	  \ 'prog': 'CtrlPStatusFunc_2',
@@ -694,6 +708,33 @@ endif
 
 if neobundle#tap('neocomplete.vim')
 	let g:neocomplete#enable_at_startup = 1
+	let g:neocomplete#enable_smart_case = 1
+	" Set minimum syntax keyword length.
+	let g:neocomplete#sources#syntax#min_keyword_length = 3
+	" Plugin key-mappings.
+	inoremap <expr><C-g>     neocomplete#undo_completion()
+	inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+	" <TAB>: completion.
+	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+	" Recommended key-mappings.
+	" <CR>: close popup and save indent.
+	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+	function! s:my_cr_function()
+	  return neocomplete#close_popup() . "\<CR>"
+	  " For no inserting <CR> key.
+	  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+	endfunction
+
+	" <C-h>, <BS>: close popup and delete backword char.
+	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+	inoremap <expr><C-y>  neocomplete#close_popup()
+	inoremap <expr><C-e>  neocomplete#cancel_popup()
+	
 	call neobundle#untap()
 endif
 

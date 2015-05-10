@@ -1,0 +1,13 @@
+[Unit]
+Description=tmux sessions
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/tmux -2 new-session -s dropdown -d
+ExecStart=/usr/bin/tmux -2 new-session -s development -c /home/victor/Workspace -d
+ExecStop=/usr/bin/tmux kill-session -t dropdown
+ExecStop=/usr/bin/tmux kill-session -t development
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

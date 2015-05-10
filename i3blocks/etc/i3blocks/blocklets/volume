@@ -36,6 +36,6 @@ else
 	STATE="$(ponymix get-volume)%"
 fi
 
-echo "$STATE"	# full_text
-echo "$STATE"	# short_text
+echo "$STATE "	# full_text
+echo "$STATE "	# short_text
 echo "#00FFFF"	# color

@@ -21,4 +21,20 @@ echo $(printf '%s %d%%' $STATUS $VAL)
 echo $(printf '%s %d%%' $STATUS $VAL)
 printf '#%02X%02X%02X' $R $G $B
 
+if [ $VAL -le 15 ]; then
+	summary='Low Battery'
+    icon="battery-low"
+
+	if [ $VAL -le 5 ]; then
+	   summary='Battery Critical'
+	   icon="battery-caution"
+	fi
+
+	/usr/bin/notify-send \
+		$summary \
+		"$VAL% remaining" \
+		-u CRITICAL \
+		-i $icon
+fi
+
 [ $VAL -le $THRESHOLD ] && exit 33 || exit 0;

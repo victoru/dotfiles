@@ -1,21 +1,29 @@
-#!/bin/bash
-# Executes commands at the start of an interactive session.
+#!/bin/zsh
 
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+PROMPT_SYMBOL="❯"
+PROMPT_ALTERNATE_SYMBOL="❮"
+source "$HOME/.zprezto/init.zsh"
 
-autoload -U compinit
-compinit
 
-export GPG_TTY=$(tty)
+export GPG_TTY=$(/usr/bin/tty)
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
 	export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
 fi
 
-source $XDG_CONFIG_HOME/zsh/03-bindkeys.zsh
-source $XDG_CONFIG_HOME/zsh/06-syntax-rules.zsh
-source $XDG_CONFIG_HOME/zsh/21-aliases.zsh
-source $XDG_CONFIG_HOME/zsh/20-functions.zsh
-source $XDG_CONFIG_HOME/zsh/07-zstyle.zsh
+configs=(
+	03-bindkeys.zsh
+	06-syntax-rules.zsh
+	21-aliases.zsh
+	20-functions.zsh
+	07-zstyle.zsh
+)
+
+for config in $configs; do
+	configfile=$XDG_CONFIG_HOME/zsh/$config
+	if [[ -s "$configfile" ]]; then
+		source $configfile
+	fi
+done
+
+fortune

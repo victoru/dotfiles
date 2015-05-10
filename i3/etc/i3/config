@@ -24,7 +24,7 @@ font $system_font
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec /usr/bin/urxvtc
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -229,45 +229,31 @@ bindsym Print exec scrot -e 'mv $f ~/Screenshots/ 2>/dev/null'
 set $black #000000
 set $white #FFFFFF
 
-set $gold_fish_orange #F38630
 set $food_pill_orange #FA6900
 set $cocktail_orange #E97F02
-
-
-set $balloon_green #8A9B0F
 set $party_purple #490A3D
-set $euphoria_yellow #F8CA00
-set $hot_pink #E51F14
-
-set $light_blue #3FBCCB
-set $dark_blue #034F66
-set $darker_blue #041E37
 set $teal #ACE6CB
-
-set $purple1 #5C00B8
-
-set $purple3 #3C1F5A
 set $purple4 #290052
-
 set $slate_purple #87769A
+set $red #FF0000
 
-#client.background #FF0000
-# class                 border               backgr.             text     indicator
-client.focused          $party_purple        $purple1            $white   $food_pill_orange
-client.focused_inactive $slate_purple        $slate_purple       $teal    $food_pill_orange
-client.unfocused        $purple4             $purple4            $teal    $food_pill_orange
-client.urgent           $food_pill_orange    $cocktail_orange    $teal    $food_pill_orange
+set $p1 #210042
+set $p2 #BABABA
+set $p3 #635077
 
-exec_always ~/scripts/tmuxify dropdown
-exec_always ~/scripts/tmuxify dev
+# class                 border               backgr.          	text     indicator
+client.focused          $party_purple        $p1             	$white   $food_pill_orange
+client.focused_inactive $slate_purple        $p2       		 	$teal    $food_pill_orange
+client.unfocused        $purple4             $p3             	$teal    $food_pill_orange
+client.urgent           $food_pill_orange    $cocktail_orange 	$teal    $food_pill_orange
 
-#exec --no-startup-id udiskie
+exec urxvtc -name dropdown -e zsh -c "tmux -q has -t dropdown && tmux attach -d -t dropdown"
+exec urxvtc -name development -e zsh -c "tmux -q has development && tmux attach -d -t development"
+
+exec --no-startup-id udiskie
 exec --no-startup-id dunst
-exec --no-startup-id compton -b
+exec --no-startup-id dex -a
 
-#exec_always pidgin
-#exec_always gajim
-#
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -277,11 +263,11 @@ bar {
         mode dock
         workspace_buttons yes
         colors {
-            background #000000
+            background $black
             statusline #999999
-            focused_workspace #000000 #9a878f
-            active_workspace #000000 #000000
-            inactive_workspace #9a878f #000000
-            urgent_workspace #ffffff #990000 #ffffff
+            focused_workspace $black #9a878f
+            active_workspace $black $black
+            inactive_workspace #9a878f $black
+            urgent_workspace $white $red $white
         }
 }
