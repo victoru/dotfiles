@@ -7,3 +7,9 @@
 [submodule "zsh/.zprezto/modules/completion/external"]
 	path = zsh/.zprezto/modules/completion/external
 	url = https://github.com/zsh-users/zsh-completions.git
+[submodule "vim/.vim/bundle/neobundle.vim"]
+	path = vim/.vim/bundle/neobundle.vim
+	url = https://github.com/Shougo/neobundle.vim.git
+[submodule "vim/.vim/bundle/vimproc.vim"]
+	path = vim/.vim/bundle/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
