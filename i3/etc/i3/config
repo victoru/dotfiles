@@ -14,10 +14,7 @@ set $mod Mod4
 focus_follows_mouse no
 
 # font for window titles. ISO 10646 = Unicode
-#set $system_font xft:PragmataPro 7
 set $system_font xft:Fira Mono for Powerline 6
-#set $system_font xft:Terminus 7
-#set $system_font xft:EnvyCodeRForPowerline 8
 font $system_font
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -178,9 +175,6 @@ bindsym $mod+Shift+W mode "window"
 #bindsym $mod+a scratchpad show
 
 bindsym $mod+a [instance="dropdown"] scratchpad show
-
-#exec urxvtc -name dropdown -e zsh -c "tmux -q has -t dropdown && tmux attach -d -t dropdown || tmux new -s dropdown"
-#exec urxvtc -name development -e zsh -c "tmux -q has -t dev && tmux attach -d -t dev || cd ~/Workspace && tmux new -s dev"
 
 assign [class="^Gajim$" instance="gajim"] 2
 assign [class="^Pidgin$" instance="Pidgin"] 2
