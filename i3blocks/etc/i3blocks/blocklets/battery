@@ -1,13 +1,17 @@
 #!/bin/bash
 
+discharging_status="Δ"
+charging_status="ϟ"
+
+
 STATUS=$( acpi | awk '{print $3}' )
 THRESHOLD=5
 
 if [ "$STATUS" = "Discharging," ]
 then
-        STATUS="Δ"
+        STATUS=$discharging_status
 else
-        STATUS="ϟ"
+        STATUS=$charging_status
 fi
 
 PERCENT=$( acpi | awk '{print $4}' )
@@ -21,7 +25,7 @@ echo $(printf '%s %d%%' $STATUS $VAL)
 echo $(printf '%s %d%%' $STATUS $VAL)
 printf '#%02X%02X%02X' $R $G $B
 
-if [ $VAL -le 15 ]; then
+if [ $VAL -le 15 ] && [ $STATUS == $discharging_status ]; then
 	summary='Low Battery'
     icon="battery-low"
 
@@ -31,10 +35,10 @@ if [ $VAL -le 15 ]; then
 	fi
 
 	/usr/bin/notify-send \
-		$summary \
+		"$summary" \
 		"$VAL% remaining" \
 		-u CRITICAL \
-		-i $icon
+		-i "$icon"
 fi
 
 [ $VAL -le $THRESHOLD ] && exit 33 || exit 0;

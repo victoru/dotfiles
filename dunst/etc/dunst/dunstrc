@@ -145,7 +145,7 @@
     icon_position = left
 
     # Paths to default icons.
-    icon_folders = /usr/share/icons/oxygen/32x32/status/:/usr/sharei/icons/oxygen/32x32/devices/
+    icon_folders = /usr/share/icons/oxygen/22x22/status/:/usr/share/icons/oxygen/22x22/devices/
 
 [frame]
     width = 3
