@@ -3,9 +3,9 @@ Description=tmux sessions
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/tmux -2 new-session -s dropdown -d
-ExecStart=/usr/bin/tmux -2 new-session -s development -c /home/victor/Workspace -d
-ExecStop=/usr/bin/tmux kill-session -t dropdown
+ExecStart=/usr/bin/tmux -2 new-session -d -s scratchpad
+ExecStart=/usr/bin/tmux -2 new-session -d -s development -c /home/victor/Workspace
+ExecStop=/usr/bin/tmux kill-session -t scratchpad
 ExecStop=/usr/bin/tmux kill-session -t development
 RemainAfterExit=yes
 

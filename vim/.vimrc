@@ -1,12 +1,20 @@
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
 " NeoBundle {{{
-set nocompatible " Be iMproved
+set nocompatible 
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 	NeoBundleFetch 'Shougo/neobundle.vim'
 	NeoBundle 'Shougo/vimproc.vim', {'build': {'unix': 'make'}}
 	NeoBundle 'Shougo/neocomplete.vim'
+
 	NeoBundle 'tpope/vim-fugitive'
 	NeoBundle 'tpope/vim-obsession'
+
+	NeoBundle 'nathanaelkane/vim-indent-guides'
+
+	NeoBundle 'evanmiller/nginx-vim-syntax'
+	NeoBundle 'elzr/vim-json'
 
 	NeoBundle 'scrooloose/nerdcommenter'
 	NeoBundle 'majutsushi/tagbar'
@@ -87,7 +95,7 @@ set foldmethod=indent
 set hidden
 
 set laststatus=2
-set noshowmode
+"set noshowmode
 set colorcolumn=80
 
 let mapleader = ','
@@ -104,7 +112,7 @@ set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
 
 set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
 
-"set expandtab      " Use the appropriate number of spaces to insert a <Tab>.
+set expandtab      " Use the appropriate number of spaces to insert a <Tab>.
 					" Spaces are used in indents with the '>' and '<' commands
 					" and when 'autoindent' is on. To insert a real tab when
 					" 'expandtab' is on, use CTRL-V <Tab>.
@@ -163,7 +171,13 @@ set formatoptions=c,q,r,t   " This is a sequence of letters which describes how
 set ruler           " Show the line and column number of the cursor position,
 					" separated by a comma.
 
-set t_Co=256
+"set t_Co=256
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  "set t_ut=y
+endif
 set encoding=utf-8
 " Vim can not recognize the character code of your vimrc when :scriptencoding
 " is defined before :set encoding. When writing :set encoding, it should be
@@ -351,6 +365,7 @@ cmap <C-Space>  <C-@>
 	" and ask which one to jump to
 	nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
+"mimic alt keys
 execute "set <M-h>=\eh"
 execute "set <M-j>=\ej"
 execute "set <M-k>=\ek"
@@ -366,17 +381,16 @@ nmap <silent> <M-l> :wincmd l<CR>
 " Color {{{
 augroup ColorCmds
 	" Create crosshair effect
-	autocmd VimEnter,WinEnter * setlocal cursorline cursorcolumn
-	"hi CursorLine cterm=reverse gui=reverse
-	"hi CursorColumn cterm=reverse gui=reverse
+        "set cursorline cursorcolumn
+        autocmd VimEnter,WinEnter * setlocal cursorline cursorcolumn
+        "remove crosshair from unfocused window
+        autocmd WinLeave * setlocal nocursorcolumn
 
-	autocmd WinLeave * setlocal nocursorline nocursorcolumn
-	"au ColorScheme,VimEnter * hi normal ctermbg=NONE
-	"au ColorScheme,VimEnter * hi nontext ctermbg=NONE
+    au ColorScheme,VimEnter * hi normal ctermbg=NONE
+    au ColorScheme,VimEnter * hi nontext ctermbg=NONE
 
-	" invert current line and column colors
-	"au ColorScheme * hi CursorLine cterm=reverse gui=reverse
-	"au ColorScheme * hi CursorColumn cterm=reverse gui=reverse
+	" invert current line colors
+    au ColorScheme,VimEnter * hi CursorLine cterm=reverse
 
 	" Highlight TODO, FIXME, NOTE, etc.
 	autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
@@ -472,10 +486,13 @@ if neobundle#tap('syntastic')
 	"let g:syntastic_error_symbol='✖'
 	let g:syntastic_error_symbol='⇒'
 
-
-	"let g:syntastic_warning_symbol='⁈'
 	let g:syntastic_warning_symbol='⚠'
 	let g:syntastic_check_on_open=1
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
 
 	nm <F5> :Errors<CR>
 	nmap <leader>E :Errors<CR>
@@ -531,7 +548,6 @@ if neobundle#tap('ctrlp-funky')
 	nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 	call neobundle#untap()
 endif
-
 if neobundle#tap('airblade/vim-gitgutter')
 	let g:gitgutter_max_signs = 1000
 	call neobundle#untap()
@@ -548,6 +564,7 @@ endif
 
 if neobundle#tap('lightline.vim')
 	let g:lightline = {
+        \ 'colorscheme': 'solarized',
 		\ 'active': {
 		\   'left': [ [ 'mode', 'paste', 'command' ],
 		\             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
@@ -560,6 +577,9 @@ if neobundle#tap('lightline.vim')
 		\ 	'readonly': 'MyReadonly',
 		\ 	'modified': 'MyModified',
 		\ 	'filename': 'MyFilename',
+        \   'fileformat': 'MyFileformat',
+        \   'filetype': 'MyFiletype',
+        \   'fileencoding': 'MyFileencoding',
 		\ },
 		\ 'component_expand': {
 		\   'syntastic': 'SyntasticStatuslineFlag',
@@ -569,8 +589,6 @@ if neobundle#tap('lightline.vim')
 		\ },
 		\ 'subseparator': { 'left': '|', 'right': '|' }
 		\ }
-
-		"\ 'colorscheme': 'wombat',
 
 	function! MyFugitive()
 	  let _ = fugitive#head()
@@ -591,7 +609,6 @@ if neobundle#tap('lightline.vim')
 	function! MyMode()
 	  let fname = expand('%:t')
 	  return fname == '__Tagbar__' ? 'Tagbar' :
-			\ fname == 'ControlP' ? 'CtrlP' :
 			\ fname == 'unite' ? 'UNITE' :
 			\ fname == '__Gundo__' ? 'Gundo' :
 			\ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
@@ -603,14 +620,13 @@ if neobundle#tap('lightline.vim')
 	endfunction
 
 	function! MyReadonly()
-	  let mark = '⭤'
+	  let mark = ''
 	  return &ft !~? 'help' && &readonly ? mark : ''
 	endfunction
 
 	function! MyFilename()
 	  let fname = expand('%:t')
-	  return fname == 'ControlP' ? g:lightline.ctrlp_item :
-			\ fname == '__Tagbar__' ? g:lightline.fname :
+	  return fname == '__Tagbar__' ? g:lightline.fname :
 			\ fname =~ '__Gundo\|NERD_tree' ? '' :
 			\ &ft == 'vimfiler' ? vimfiler#get_status_string() :
 			\ &ft == 'vimshell' ? vimshell#get_status_string() :
@@ -618,22 +634,17 @@ if neobundle#tap('lightline.vim')
 			\ ('' != MyModified() ? ' ' . MyModified() : '')
 	endfunction
 
-	let g:ctrlp_status_func = {
-	  \ 'main': 'CtrlPStatusFunc_1',
-	  \ 'prog': 'CtrlPStatusFunc_2',
-	  \ }
+    function! MyFileformat()
+      return winwidth(0) > 70 ? &fileformat : ''
+    endfunction
 
-	function! CtrlPStatusFunc_1(focus, byfname, regex, prev, item, next, marked)
-	  let g:lightline.ctrlp_regex = a:regex
-	  let g:lightline.ctrlp_prev = a:prev
-	  let g:lightline.ctrlp_item = a:item
-	  let g:lightline.ctrlp_next = a:next
-	  return lightline#statusline(0)
-	endfunction
+    function! MyFiletype()
+      return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+    endfunction
 
-	function! CtrlPStatusFunc_2(str)
-	  return lightline#statusline(0)
-	endfunction
+    function! MyFileencoding()
+      return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+    endfunction
 
 	let g:tagbar_status_func = 'TagbarStatusFunc'
 
@@ -750,6 +761,7 @@ set wildignore+=.gif$,.o$,.out$,.obj$,.rbc$,.rbo$
 set wildignore+=.gem$,.zip$,.tar.gz$,.tar.bz2$,.rar$,.tar.xz$
 
 if neobundle#tap('unite.vim')
+    let g:unite_force_overwrite_statusline = 0
 	let g:unite_source_history_yank_enable = 1
 
 	"call unite#filters#sorter_default#use(['sorter_rank'])
@@ -779,8 +791,6 @@ if neobundle#tap('unite.vim')
 	endif
 
 	call unite#filters#matcher_default#use(['matcher_fuzzy'])
-	"call unite#custom#source('file_rec/async', 'converters', [])
-	"call unite#custom#source('file_rec/async', 'sorters', [])
 	call unite#custom#source('file_rec/async', 'max_candidates', 25)
 
 	" Fuzzy matching for plugins not using matcher_default as filter
@@ -817,3 +827,9 @@ if neobundle#tap('unite.vim')
 	call neobundle#untap()
 endif
 " }}}
+if neobundle#tap('vim-indent-guides')
+	let g:indent_guides_auto_colors = &tabstop
+	"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+	"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+	call neobundle#untap()
+endif
