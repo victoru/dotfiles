@@ -31,7 +31,7 @@ NeoBundleLazy 'fatih/vim-go', {
 
 NeoBundle 'LaTeX-Suite-aka-Vim-LaTeX'
 NeoBundle 'wavded/vim-stylus'
-NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'bling/vim-airline'
 NeoBundle 'bling/vim-bufferline'
 
 NeoBundleLazy 'lambdalisue/vim-gita', {
@@ -879,5 +879,31 @@ if neobundle#tap('vim-indent-guides')
     let g:indent_guides_auto_colors = &tabstop
     "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
     "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+    call neobundle#untap()
+endif
+
+if neobundle#tap('vim-airline')
+    set noshowmode
+    set laststatus=2
+    let g:airline_theme='dark'
+    let g:airline#extensions#bufferline#enabled = 1
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+    let g:airline_left_sep=''
+    let g:airline_right_sep='▓'
+    let g:airline_powerline_fonts = 1
+    "let g:airline_symbols.readonly = ''
+
+    "let g:airline_section_a = airline#section#create(['mode', 'paste', 'iminsert'])
+    "let g:airline_section_b = airline#section#create(['mode', '::', 'branch'])
+    "let g:airline_section_c = airline#section#create(['mode', '::', 'branch'])
+    "let g:airline_section_x = airline#section#create(['mode', '::', 'branch'])
+    "let g:airline_section_y = airline#section#create(['mode', '::', 'branch'])
+    "let g:airline_section_z = airline#section#create(['mode', '::', 'branch'])
+
+
+"\ 'separator': { 'left': '', 'right': '▓' },
+"\ 'subseparator': { 'left': '|', 'right': '⌠' }
     call neobundle#untap()
 endif
