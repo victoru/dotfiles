@@ -1,88 +1,68 @@
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
 " NeoBundle {{{
-set nocompatible 
+set nocompatible
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
+
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc.vim', {'build': {'unix': 'make'}}
 NeoBundle 'Shougo/neocomplete.vim'
 
-NeoBundle 'nathanaelkane/vim-indent-guides'
-
-NeoBundle 'evanmiller/nginx-vim-syntax'
-NeoBundle 'elzr/vim-json'
-
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'majutsushi/tagbar'
-NeoBundleLazy 'nanotech/jellybeans.vim'
-NeoBundleLazy 'Rykka/riv.vim', {
-            \ 'filetypes' : 'rst'
-            \ }
-
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'sjl/gundo.vim'
 NeoBundle 'ack.vim'
-NeoBundle 'kwbdi.vim'
-NeoBundle 'Shutnik/jshint2.vim'
-NeoBundleLazy 'fatih/vim-go', {
-            \ 'filetypes' : 'go',
-            \ }
-
-NeoBundle 'LaTeX-Suite-aka-Vim-LaTeX'
-NeoBundle 'wavded/vim-stylus'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'aquach/vim-http-client'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'bling/vim-bufferline'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'evanmiller/nginx-vim-syntax'
+NeoBundle 'godlygeek/tabular'
 
-NeoBundleLazy 'lambdalisue/vim-gita', {
-            \ 'autoload': {
-            \   'commands': ['Gita'],
-            \}}
+NeoBundle 'kwbdi.vim'
+NeoBundle 'LaTeX-Suite-aka-Vim-LaTeX'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'Shutnik/jshint2.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-obsession'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline', {'depends': ['Shougo/unite.vim']}
+NeoBundle 'wavded/vim-stylus'
 
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'godlygeek/tabular'
-NeoBundleLazy 'gabrielelana/vim-markdown', {
-            \ 'filetypes' : ['markdown', 'mkd']
-            \ }
-NeoBundleLazy 'vim-scripts/SQLUtilities', {
-            \ 'filetypes' : 'sql',
-            \ }
-NeoBundle 'aquach/vim-http-client'
-NeoBundle 'shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline', {'depends': ['shougo/unite.vim']}
-NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', {
-            \ 'filetypes' : 'i3',
-            \ }
+NeoBundleLazy 'fatih/vim-go', {'filetypes' : 'go'}
+NeoBundleLazy 'gabrielelana/vim-markdown', {'filetypes' : ['markdown', 'mkd']}
 NeoBundleLazy 'godlygeek/csapprox.git', { 'terminal' : 1 }
+NeoBundleLazy 'lambdalisue/vim-gita', {'autoload': {'commands': ['Gita']}}
+NeoBundleLazy 'nanotech/jellybeans.vim'
+NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', {'filetypes' : 'i3'}
+NeoBundleLazy 'Rykka/riv.vim', {'filetypes' : 'rst'}
 NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
-if neobundle#is_installed('vimproc.vim')
-    NeoBundleLazy 'Shougo/vimshell.vim', {
-                \ 'commands' : [{ 'name' : 'VimShell',
-                \                 'complete' : 'customlist,vimshell#complete'},
-                \               ],
-                \ 'mappings': '<Plug>',
-                \ 'depends': ['Shougo/vimproc.vim']
-                \ }
-
-    "NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-    "\ 'filetypes': 'php',
-    "\ 'depends': ['Shougo/vimproc.vim'],
-    "\ 'build': {'unix': 'curl -sS https://getcomposer.org/installer | php -- --install-dir=bin'},
-    "\ }
-
-endif
+NeoBundleLazy 'Shougo/vimshell.vim', {
+            \ 'commands' : [{ 'name' : 'VimShell',
+            \                 'complete' : 'customlist,vimshell#complete'},
+            \               ],
+            \ 'mappings': '<Plug>',
+            \ 'depends': ['Shougo/vimproc.vim']
+            \ }
+NeoBundleLazy 'vim-scripts/SQLUtilities', {'filetypes' : 'sql' }
 NeoBundleLazy 'vim-php/phpctags', {
             \ 'build': {'unix': 'make'},
             \ 'filetypes': 'php',
             \ }
 
+"NeoBundleLazy 'm2mdas/phpcomplete-extended', {
+"\ 'filetypes': 'php',
+"\ 'depends': ['Shougo/vimproc.vim'],
+"\ 'build': {'unix': 'curl -sS https://getcomposer.org/installer | php -- --install-dir=bin'},
+"\ }
+
 if neobundle#is_installed('tagbar')
-    NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
-                \ 'filetypes': 'php',
-                \ }
+    NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {'filetypes': 'php'}
 endif
 
 call neobundle#end()
@@ -439,6 +419,12 @@ else
     colorscheme candy
 endif
 "}}}
+"
+
+augroup StuffCmd
+    autocmd!
+augroup END
+
 
 " Plugins {{{
 if neobundle#tap('phpcomplete-extended')
@@ -506,10 +492,6 @@ if neobundle#tap('syntastic')
 
     nm <F5> :Errors<CR>
     nmap <leader>E :Errors<CR>
-
-    augroup StuffCmd
-        au CursorHold * SyntasticCheck
-    augroup END
 
     call neobundle#untap()
 endif
@@ -819,9 +801,7 @@ if neobundle#tap('unite.vim')
 
     if executable('ag')
         " Using ag as recursive command.
-        let g:unite_source_rec_async_command = 
-                    \ 'ag --follow --nocolor --nogroup --hidden -g ""'
-
+        let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
         " Use ag in unite grep source.
         let g:unite_source_grep_command = 'ag'
         let g:unite_source_grep_default_opts =
@@ -903,7 +883,7 @@ if neobundle#tap('vim-airline')
     "let g:airline_section_z = airline#section#create(['mode', '::', 'branch'])
 
 
-"\ 'separator': { 'left': '', 'right': '▓' },
-"\ 'subseparator': { 'left': '|', 'right': '⌠' }
+    "\ 'separator': { 'left': '', 'right': '▓' },
+    "\ 'subseparator': { 'left': '|', 'right': '⌠' }
     call neobundle#untap()
 endif
