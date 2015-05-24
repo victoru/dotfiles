@@ -7,4 +7,4 @@ OnUnitActiveSec=1800s
 Unit=wallpaper.service
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical.target
