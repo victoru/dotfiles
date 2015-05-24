@@ -82,8 +82,6 @@ set foldmethod=indent
 set hidden
 set colorcolumn=80
 
-let mapleader = ','
-
 set undodir=~/tmp/vimswap//
 
 set undofile
@@ -180,10 +178,6 @@ scriptencoding utf-8
 
 " Mappings {{{
 
-" Use <C-Space>.
-nmap <C-Space>  <C-@>
-cmap <C-Space>  <C-@>
-
 " Visual mode keymappings: "{{{
 " <TAB>: indent.
 xnoremap <TAB>  >
@@ -218,6 +212,10 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ?
 " <C-y>: paste.
 cnoremap <C-y>          <C-r>*
 "}}}
+
+" Use <C-Space>.
+nmap <C-Space>  <C-@>
+cmap <C-Space>  <C-@>
 
 " [Space]: Other useful commands "{{{
 " Smart space mapping.
@@ -298,6 +296,10 @@ endfunction"}}}
 
 
 nnoremap <leader>v V`]
+
+let mapleader = '[Space]'
+"let mapleader = ','
+
 
 "remap f1 to esc
 inoremap <F1> <ESC>
@@ -833,8 +835,7 @@ if neobundle#tap('unite.vim')
     nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank   history/yank<cr>
     nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
     nnoremap [Space]mru :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
-    "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-    "
+    "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr> "
     " Unite grep:$buffers<cr> " grep contents of buffers
 
     " Custom mappings for the unite buffer
@@ -868,22 +869,11 @@ if neobundle#tap('vim-airline')
     let g:airline_theme='dark'
     let g:airline#extensions#bufferline#enabled = 1
     let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_sep = ''
     let g:airline#extensions#tabline#left_alt_sep = '|'
-    let g:airline_left_sep=''
+    let g:airline_left_sep='║'
     let g:airline_right_sep='▓'
     let g:airline_powerline_fonts = 1
-    "let g:airline_symbols.readonly = ''
 
-    "let g:airline_section_a = airline#section#create(['mode', 'paste', 'iminsert'])
-    "let g:airline_section_b = airline#section#create(['mode', '::', 'branch'])
-    "let g:airline_section_c = airline#section#create(['mode', '::', 'branch'])
-    "let g:airline_section_x = airline#section#create(['mode', '::', 'branch'])
-    "let g:airline_section_y = airline#section#create(['mode', '::', 'branch'])
-    "let g:airline_section_z = airline#section#create(['mode', '::', 'branch'])
-
-
-    "\ 'separator': { 'left': '', 'right': '▓' },
-    "\ 'subseparator': { 'left': '|', 'right': '⌠' }
     call neobundle#untap()
 endif
