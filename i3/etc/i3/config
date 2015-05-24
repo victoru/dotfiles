@@ -13,8 +13,7 @@ set $mod Mod4
 
 focus_follows_mouse no
 
-# font for window titles. ISO 10646 = Unicode
-set $system_font xft:Fira Mono for Powerline 6
+set $system_font pango:M+ 1mn 7
 font $system_font
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -209,14 +208,10 @@ for_window [window_role="task_dialog"] floating enable
 bindsym XF86AudioNext exec echo -n "n" > /home/victor/etc/pianobar/ctl
 bindsym XF86AudioPlay exec echo -n "p" > /home/victor/etc/pianobar/ctl
 #bindsym XF86AudioStop exec spc stop
-#bindsym XF86AudioRaiseVolume exec amixer set Master 5%+
-#bindsym XF86AudioLowerVolume exec amixer set Master 5%-
 bindsym XF86AudioRaiseVolume exec ponymix --max-volume 150 increase 5 >/dev/null
 bindsym XF86AudioLowerVolume exec ponymix --max-volume 150 decrease 5 >/dev/null
-bindsym XF86AudioMute exec amixer -c0 set Master toggle
+bindsym XF86AudioMute exec ponymix --sink toggle
 bindsym XF86AudioMicMute exec amixer -c0 set Capture toggle
-#bindsym XF86AudioMute exec amixer sset Master toggle
-#ponymix toggle --input --device alsa_input.0.analog-stereo
 
 #toggle touchpad
 bindsym XF86TouchpadToggle exec /home/victor/scripts/toggle_touchpad
