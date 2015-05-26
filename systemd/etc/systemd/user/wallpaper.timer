@@ -1,5 +1,7 @@
 [Unit]
 Description=Random wallpaper with feh
+After=desktop.target
+DefaultDependencies=no
 
 [Timer]
 OnActiveSec=0s
@@ -7,4 +9,4 @@ OnUnitActiveSec=1800s
 Unit=wallpaper.service
 
 [Install]
-WantedBy=graphical.target
+WantedBy=timers.target

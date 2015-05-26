@@ -1,0 +1,13 @@
+[Unit]
+Description=i3 tiling window manager
+After=xorg.target
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/i3
+ExecReload=/usr/bin/i3-msg reload
+Restart=always
+RestartSec=10
+ 
+[Install]
+Alias=window-manager.service

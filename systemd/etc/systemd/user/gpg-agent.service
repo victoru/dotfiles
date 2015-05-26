@@ -1,0 +1,11 @@
+[Unit]
+Description=GPG Agent service
+IgnoreOnIsolate=true
+Before=default.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/gpg-agent --daemon
+
+[Install]
+WantedBy=multi-user.target

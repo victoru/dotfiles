@@ -5,6 +5,3 @@ Description=Random wallpaper with feh
 Type=oneshot
 Environment=DISPLAY=:0
 ExecStart=/usr/bin/bash -c '/usr/bin/feh --bg-fill "$(/usr/bin/find ${HOME}/.wallpapers -type f |/usr/bin/shuf|/usr/bin/head -n 1)"'
-
-[Install]
-WantedBy=graphical.target

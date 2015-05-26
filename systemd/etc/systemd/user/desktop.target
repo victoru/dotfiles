@@ -1,0 +1,7 @@
+[Unit]
+Description=Desktop
+After=xorg.target window-manager.service
+Requires=dbus.socket xorg.target window-manager.service
+
+[Install]
+Alias=default.target

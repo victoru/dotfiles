@@ -10,4 +10,4 @@ ExecStop=/usr/bin/tmux kill-session -t development
 RemainAfterExit=yes
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target

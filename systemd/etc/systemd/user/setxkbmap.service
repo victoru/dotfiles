@@ -1,0 +1,13 @@
+[Unit]
+Description=setxkbmap
+Requires=xorg.target
+After=xorg.target
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/setxkbmap -option ctrl:nocaps
+Restart=no
+
+[Install]
+WantedBy=xorg.target
