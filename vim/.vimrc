@@ -397,11 +397,10 @@ endif
 
 if has('gui')
     NeoBundleSource csapprox
-    "colorscheme jellybeans
+    set background=dark
+    colorscheme jellybeans
     "colorscheme flatcolor
     "colorscheme symfony
-    set background=dark
-    colorscheme darkspectrum
 
     "if neobundle#tap('jellybeans.vim')
     ""256ctermfg and 256ctermbg
