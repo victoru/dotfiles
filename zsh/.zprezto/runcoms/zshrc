@@ -26,4 +26,6 @@ for config in $configs; do
 	fi
 done
 
+eval $(dircolors ~/.dircolors)
+
 fortune
