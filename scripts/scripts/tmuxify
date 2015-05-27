@@ -4,4 +4,4 @@ if [[ -z $1 ]]; then
     exit 0;
 fi
 
-/usr/bin/urxvtc -name $1 -e tmux attach -d -t $1
+/usr/bin/termite --name=$1 -e "tmux attach -d -t $1"

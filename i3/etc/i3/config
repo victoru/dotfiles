@@ -20,7 +20,7 @@ font $system_font
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec /usr/bin/urxvtc
+bindsym $mod+Return exec /usr/bin/termite
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -184,10 +184,10 @@ bindsym $mod+a [instance="scratchpad"] scratchpad show
 
 assign [class="^Gajim$" instance="gajim"] 2
 assign [class="^Pidgin$" instance="Pidgin"] 2
-assign [class="^URxvt$" instance="dev"] 4
+assign [class="^Termite$" instance="development"] 4
 assign [class="^Thg$" instance="thg"] 10
 
-for_window [class="^URxvt$" instance="scratchpad"] floating enable, resize grow width 1024 px, move absolute position center, move scratchpad
+for_window [class="^Termite$" instance="scratchpad"] floating enable, resize grow width 1024 px, move absolute position center, move scratchpad
 for_window [class="^Firefox$" instance="(Download|Places)"] floating enable
 for_window [class="^Firefox$" window_role="(Permissions|Preferences)"] floating enable
 for_window [class="^Steam$" instance="Steam"] floating enable
