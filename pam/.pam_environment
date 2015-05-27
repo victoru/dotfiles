@@ -6,4 +6,3 @@ VISUAL              DEFAULT=vim
 MANPAGER            DEFAULT=vimpager
 PAGER               DEFAULT=vimpager
 GOPATH              DEFAULT=/home/victor/go
-PATH                DEFAULT=/home/victor/bin:${GOPATH}/bin:${PATH}
