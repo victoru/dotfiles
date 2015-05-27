@@ -1,14 +1,12 @@
 [Unit]
-Description=Lightweight Notification Daemon
-Requires=dbus.socket 
+Description=Pidgin
+Requires=dbus.socket graphical.target
 After=dbus.socket graphical.target
 
 [Service]
 Type=simple
-#Restart=always
-#RestartSec=10
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/dunst
+ExecStart=/usr/bin/pidgin
 
 [Install]
 WantedBy=desktop.target

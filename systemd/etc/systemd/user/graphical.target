@@ -1,0 +1,9 @@
+[Unit]
+Description=Graphical Interface
+
+Requires=multi-user.target graphical.service
+After=multi-user.target graphical.service
+Wants=desktop.target
+Before=desktop.target
+AllowIsolate=yes
+#Conflicts=rescue.service rescue.target

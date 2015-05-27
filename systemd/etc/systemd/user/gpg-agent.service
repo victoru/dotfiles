@@ -1,6 +1,6 @@
 [Unit]
 Description=GPG Agent service
-IgnoreOnIsolate=true
+DefaultDependencies=no
 Before=default.target
 
 [Service]

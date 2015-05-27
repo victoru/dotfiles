@@ -11,4 +11,9 @@ enable lingering for specific user:
 
    $ loginctl enable-linger username
 
-..  vim:set ft=rst
+.. link: https://wiki.archlinux.org/index.php/Systemd/User
+.. link: https://bitbucket.org/KaiSforza/systemd-user-units/wiki/Home
+.. link: https://github.com/zoqaeski/systemd-user-units
+.. link: https://github.com/grawity/systemd-user-units
+
+.. vim:set ft=rst:

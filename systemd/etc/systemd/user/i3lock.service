@@ -1,0 +1,11 @@
+[Unit]
+Description=i3 screen locker
+Before=sleep.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/i3lock -c 111111 -d
+
+[Install]
+Alias=screen-locker.service
+WantedBy=sleep.target

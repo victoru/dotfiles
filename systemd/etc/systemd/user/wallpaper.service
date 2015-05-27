@@ -1,5 +1,7 @@
 [Unit]
 Description=Random wallpaper with feh
+DefaultDependencies=no
+After=desktop.target
 
 [Service]
 Type=oneshot

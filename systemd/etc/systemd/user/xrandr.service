@@ -1,13 +1,12 @@
 [Unit]
-Description=setxkbmap
+Description=xrandr
 Requires=graphical.target
 After=graphical.target
 
 [Service]
 Type=oneshot
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/setxkbmap -option ctrl:nocaps
-Restart=no
+ExecStart=/usr/bin/xrandr --dpi 96
 
 [Install]
-WantedBy=graphical.target
+WantedBy=desktop.target
