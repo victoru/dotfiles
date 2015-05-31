@@ -1,13 +1,12 @@
 [Unit]
-Description=tmux sessions
+Description=tmux server
+Documentation=man:tmux(1)
+DefaultDependencies=no
 
 [Service]
-Type=oneshot
-ExecStart=/usr/bin/tmux -2 new-session -d -s scratchpad
-ExecStart=/usr/bin/tmux -2 new-session -d -s development -c /home/victor/Workspace
-ExecStop=/usr/bin/tmux kill-session -t scratchpad
-ExecStop=/usr/bin/tmux kill-session -t development
-RemainAfterExit=yes
+Type=forking
+ExecStart=/usr/bin/tmux -S %t/tmux -2 start-server
+ExecStop=-/usr/bin/tmux -S %t/tmux kill-server
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=basic.target
