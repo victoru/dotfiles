@@ -1,9 +1,7 @@
 [Unit]
 Description=Random wallpaper with feh
-DefaultDependencies=no
-After=desktop.target
+Requisite=desktop.target
 
 [Service]
 Type=oneshot
-Environment=DISPLAY=:0
-ExecStart=/usr/bin/bash -c '/usr/bin/feh --bg-fill "$(/usr/bin/find ${HOME}/.wallpapers -type f |/usr/bin/shuf|/usr/bin/head -n 1)"'
+ExecStart=/usr/bin/sh -c '/usr/bin/feh --bg-fill "$(/usr/bin/find %h/.wallpapers -type f |/usr/bin/shuf|/usr/bin/head -n 1)"'

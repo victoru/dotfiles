@@ -1,6 +1,16 @@
 [Unit]
-Description=Desktop
-Requires=graphical.target
-Wants=window-manager.service wallpaper.service
-After=graphical.target
-#After=window-manager.service
+Description=Desktop Interface
+AllowIsolate=no
+
+BindsTo=window-manager.service
+Requires=basic.target dbus.socket 
+
+Wants=compositor.service
+Wants=notification.service
+Wants=wallpaper.service
+
+After=compositor.service
+After=dbus.socket
+After=notification.service
+After=wallpaper.service
+After=window-manager.service

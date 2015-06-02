@@ -1,14 +1,14 @@
 [Unit]
 Description=Lightweight Notification Daemon
-Requires=dbus.socket 
-After=dbus.socket graphical.target
+Requires=desktop.target
+After=dbus.socket
 
 [Service]
 Type=simple
-#Restart=always
-#RestartSec=10
+Restart=always
+RestartSec=5
 Environment=DISPLAY=:0
 ExecStart=/usr/bin/dunst
 
 [Install]
-WantedBy=desktop.target
+Alias=notification.service

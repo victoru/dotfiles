@@ -1,11 +1,9 @@
 [Unit]
 Description=GPG Agent service
-DefaultDependencies=no
-Before=default.target
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/gpg-agent --daemon
+ExecStart=/usr/bin/gpg-agent --verbose --daemon
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=basic.target

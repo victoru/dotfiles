@@ -1,0 +1,10 @@
+[Unit]
+Description=Chromium
+
+[Socket]
+ListenStream=/home/victor/etc/chromium/SingletonSocket
+SocketMode=0755
+KeepAlive=true
+
+[Install]
+WantedBy=sockets.target

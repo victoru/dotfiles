@@ -1,0 +1,11 @@
+[Unit]
+Description=Devmon Service
+
+[Service]
+Type=simple
+# Set DISPLAY for popup dialogs
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/devmon
+
+[Install]
+WantedBy=desktop.target
