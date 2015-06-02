@@ -1,16 +1,9 @@
-"set noloadplugins
 runtime commonrc
-
-"let vimpager_passthrough = 1
-"let vimpager_disable_x11 = 1
-"let vimpager_scrolloff = 0
 
 if exists("vimpager_ptree") && vimpager_ptree[-2] == 'wman'
   set ft=man
 endif
 
 color jellybeans
-
-"set viminfo=""
 
 " vim: set ft=vim:

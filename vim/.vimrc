@@ -391,7 +391,7 @@ augroup END
 
 if has('gui_running')
     colorscheme jellybeans
-    set guifont=PragmataProForPowerline
+    set guifont=Fantasque\ Sans\ Mono\ 10
     set guioptions=aegit
 endif
 
