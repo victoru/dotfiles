@@ -7,11 +7,14 @@ mpd_music_dir = "~/Music"
 mpd_connection_timeout = "5"
 
 visualizer_in_stereo = "yes"
-visualizer_fifo_path = "/tmp/mpd.fifo"
+visualizer_fifo_path = "/home/victor/.mpd/mpd.fifo"
 visualizer_output_name = "FIFO"
 visualizer_sync_interval = "30"
 visualizer_type = "spectrum"
 visualizer_look = "◆▋"
+#visualizer_color = "red"
+#visualizer_sync_interval = "1"
+
 message_delay_time = "3"
 playlist_shorten_total_times = "yes"
 playlist_display_mode = "columns"
@@ -20,19 +23,11 @@ search_engine_display_mode = "columns"
 playlist_editor_display_mode = "columns"
 autocenter_mode = "yes"
 centered_cursor = "yes"
-user_interface = "alternative"
 follow_now_playing_lyrics = "yes"
 locked_screen_width_part = "60"
 display_bitrate = "yes"
 external_editor = "vim"
 use_console_editor = "yes"
-header_window_color = "cyan"
-volume_color = "red"
-state_line_color = "yellow"
-state_flags_color = "red"
-progressbar_color = "yellow"
-statusbar_color = "cyan"
-visualizer_color = "red"
 
 ## playlist
 #song_columns_list_format = "(7f)[green]{l} (25)[blue]{a} (40)[red]{t|f} (30)[magenta]{b}"
@@ -44,8 +39,8 @@ visualizer_color = "red"
 #centered_cursor = "yes"
 
 ## bars
-#song_status_format = "$5%a $b$1•$/b $2%t $b$1•$/b $6%b {(Disc %d) }$b$1•$/b $3%y$1"
-#progressbar_look = "─╼·"
+song_status_format = "$5%a $b$1•$/b $2%t $b$1•$/b $6%b {(Disc %d) }$b$1•$/b $3%y$1"
+progressbar_look = "─╼·"
 
 ## browser
 #browser_playlist_prefix = "$2playlist »$9 "
@@ -56,9 +51,9 @@ visualizer_color = "red"
 ##media_library_album_format = "{(%y) }%b"
 
 ## user interface
-#user_interface = "alternative" (classic/alternative)
-#alternative_header_first_line_format = "$b$1$aqqu$/a$9 $3{%t}|{%f}$9 $1$atqq$/a$9$/b"
-#alternative_header_second_line_format = "$b{{$5%a$9}{ $1-$9 $2%b$9}$/b{ $b$1($9$/b$3%y$9$b$1)$9$/b}}|{%D}"
+user_interface = "alternative" (classic/alternative)
+alternative_header_first_line_format = "$b$1$aqqu$/a$9 $3{%t}|{%f}$9 $1$atqq$/a$9$/b"
+alternative_header_second_line_format = "$b{{$5%a$9}{ $1-$9 $2%b$9}$/b{ $b$1($9$/b$3%y$9$b$1)$9$/b}}|{%D}"
 
 ## others
 #selected_item_prefix = "$b$2"
@@ -67,22 +62,22 @@ visualizer_color = "red"
 #search_engine_display_mode = "columns" (classic/columns)
 
 ## colors
-#colors_enabled = "yes"
-#color1 = "cyan"
-#color2 = "magenta"
-#empty_tag_color = "magenta"
-#header_window_color = "magenta"
-#volume_color = "magenta"
-#state_flags_color = "black"
-#state_line_color = "black"
-#main_window_color = "cyan"
-#main_window_highlight_color = "green"
-#progressbar_color = "black"
-#alternative_ui_separator_color = "black"
-#active_column_color = "red"
-#statusbar_color = "red"
-#window_border_color = "black"
-#active_window_border = "red"
+colors_enabled = "yes"
+color1 = "cyan"
+color2 = "magenta"
+empty_tag_color = "magenta"
+header_window_color = "magenta"
+volume_color = "magenta"
+state_flags_color = "black"
+state_line_color = "black"
+main_window_color = "cyan"
+main_window_highlight_color = "green"
+progressbar_color = "black"
+alternative_ui_separator_color = "black"
+active_column_color = "red"
+statusbar_color = "red"
+window_border_color = "black"
+active_window_border = "red"
 
 ## various settings
 #incremental_seeking = "yes"
@@ -99,12 +94,6 @@ visualizer_color = "red"
 #fancy_scrolling = "yes"
 #follow_now_playing_lyrics = "no"
 #ncmpc_like_songs_adding = "no" (enabled - add/remove, disabled - always add)
-#enable_window_title = "yes"
+enable_window_title = "yes"
 #display_bitrate = "yes"
-
-#visualizer_fifo_path = "/tmp/mpd.fifo"
-#visualizer_output_name = "my_fifo"
-#visualizer_sync_interval = "1"
-##visualizer_type = "wave" (spectrum/wave)
-#visualizer_type = "spectrum" (spectrum/wave)
 
