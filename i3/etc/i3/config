@@ -151,6 +151,8 @@ mode "$mode_run" {
 }
 bindsym $mod+d mode "$mode_run"
 
+set $mode_pianobar Run: (n) next, (+) like song (-) ban song
+
 bindsym $mod+r mode "resize"
 #bindsym $mod+c mode "cheatsheet"
 
