@@ -1,0 +1,10 @@
+runtime commonrc
+set nomodifiable
+let vimpager_disable_x11 = 1
+
+if exists("vimpager_ptree") && get(vimpager_ptree, -2) == 'wman'
+  set ft=man
+endif
+color jellybeans
+
+" vim: set ft=vim:

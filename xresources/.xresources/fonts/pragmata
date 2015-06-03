@@ -1,0 +1,4 @@
+URxvt.font:              xft:PragmataPro for Powerline:size=8
+URxvt*letterSpace: -1
+
+! vim: set filetype=xdefaults:

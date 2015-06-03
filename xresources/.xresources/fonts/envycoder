@@ -1,0 +1,4 @@
+URxvt.font:              xft:EnvyCodeRForPowerline:size=10
+URxvt*letterSpace: -1
+
+! vim: set filetype=xdefaults:

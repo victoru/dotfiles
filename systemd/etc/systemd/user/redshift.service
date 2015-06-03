@@ -1,0 +1,11 @@
+[Unit]
+Description=Redshift: color temperature adjustment
+Requisite=desktop.target
+After=desktop.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/redshift -v
+
+[Install]
+WantedBy=desktop.target

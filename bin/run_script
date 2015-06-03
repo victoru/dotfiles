@@ -1,9 +1,0 @@
-#!/bin/bash
-
-SCRIPT=${1}
-
-if [[ -f $SCRIPT ]]; then
-    $(${SCRIPT} $@[1:])
-else
-    echo "wat"
-fi

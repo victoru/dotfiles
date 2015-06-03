@@ -1,0 +1,68 @@
+local prompt_symbol=${PROMPT_SYMBOL:-❯❯}
+local prompt_alternate_symbol=${PROMPT_ALTERNATE_SYMBOL:-❮}
+
+function prompt_foo_precmd {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+
+  # Get Git repository information.
+  if (( $+functions[git-info] )); then
+    git-info
+  fi
+
+  # Define prompts.
+  local prompt_preprompt="\n%F{blue}%~%f ${git_info:+${(e)git_info[prompt]}} %F{yellow}`prompt_pure_cmd_exec_time`%f"
+
+  print -P $prompt_preprompt
+
+  # reset value since `preexec` isn't always triggered
+  unset cmd_timestamp
+}
+# turns seconds into human readable time
+# 165392 => 1d 21h 56m 32s
+prompt_pure_human_time() {
+	echo -n " "
+	local tmp=$1
+	local days=$(( tmp / 60 / 60 / 24 ))
+	local hours=$(( tmp / 60 / 60 % 24 ))
+	local minutes=$(( tmp / 60 % 60 ))
+	local seconds=$(( tmp % 60 ))
+	(( $days > 0 )) && echo -n "${days}d "
+	(( $hours > 0 )) && echo -n "${hours}h "
+	(( $minutes > 0 )) && echo -n "${minutes}m "
+	echo "${seconds}s"
+}
+
+
+# displays the exec time of the last command if set threshold was exceeded
+prompt_pure_cmd_exec_time() {
+	local stop=$EPOCHSECONDS
+	local start=${cmd_timestamp:-$stop}
+	integer elapsed=$stop-$start
+	(($elapsed > ${PURE_CMD_MAX_EXEC_TIME:=5})) && prompt_pure_human_time $elapsed
+}
+
+prompt_foo_preexec() {
+	cmd_timestamp=$EPOCHSECONDS
+}
+
+function prompt_foo_setup {
+	setopt LOCAL_OPTIONS
+	unsetopt XTRACE KSH_ARRAYS
+	prompt_opts=(cr percent subst)
+
+	# Load required functions.
+	autoload -Uz add-zsh-hook
+	autoload -Uz vcs_info
+	zmodload zsh/datetime
+
+	# Add hook for calling git-info before each command.
+	add-zsh-hook precmd prompt_foo_precmd
+	add-zsh-hook preexec prompt_foo_preexec
+
+	local primary_symbol="%(?.%F{green}.%F{red})${prompt_symbol}%f%b"
+	#local alternate_symbol="%B%F{magenta}${prompt_alternate_symbol}%f%b"
+	PROMPT="${primary_symbol} "
+}
+
+prompt_foo_setup "$@"

@@ -1,0 +1,4 @@
+.*~
+__pycache__/
+mpd/.mpd/playlists
+vim/.vim/bundle/.neobundle/doc

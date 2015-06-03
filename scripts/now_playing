@@ -1,8 +1,0 @@
-#!/bin/sh
-
-#STATUS=`~/bin/mpd.awk`
-STATUS=`mpc | head -n 2 | tail -n 1 | awk '{print $1}'`
-TITLE=`mpc | head -n 1`
-MTIME=`mpc | head -n 2 | tail -n 1 | awk '{print $3}'`
-
-echo -n "$STATUS $TITLE $MTIME"

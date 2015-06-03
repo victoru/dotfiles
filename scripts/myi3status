@@ -1,9 +1,0 @@
-#!/bin/sh
-# shell script to prepend i3status with more stuff
-
-i3status | while :
-do
-        MPD=$(mpd.sh | awk 'BEGIN { FS = "|" }; {print $1 $2 $3}')
-        read line
-        echo "^fg(blue)$MPD | $line" || exit 1
-done

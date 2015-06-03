@@ -1,0 +1,9 @@
+[Unit]
+Description=GPG Agent service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/gpg-agent --verbose --daemon
+
+[Install]
+WantedBy=basic.target

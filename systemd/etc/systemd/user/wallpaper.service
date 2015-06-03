@@ -1,0 +1,7 @@
+[Unit]
+Description=Random wallpaper with feh
+Requisite=desktop.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/sh -c '/usr/bin/feh --bg-fill "$(/usr/bin/find %h/.wallpapers -type f |/usr/bin/shuf|/usr/bin/head -n 1)"'

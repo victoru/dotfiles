@@ -1,3 +1,0 @@
-#!/bin/bash
-
-ssh-add /home/victor/Dropbox/keys/krunktarius_id_rsa /home/victor/Dropbox/keys/godship/id_rsa

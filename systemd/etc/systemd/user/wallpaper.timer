@@ -1,0 +1,6 @@
+[Unit]
+Description=Random wallpaper timer
+Requisite=desktop.target
+
+[Timer]
+OnUnitActiveSec=1800s

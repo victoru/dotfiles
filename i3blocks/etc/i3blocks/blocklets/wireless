@@ -1,0 +1,32 @@
+#!/bin/bash
+if [ -z $BLOCK_INSTANCE ]; then
+	exit 0;
+fi
+
+if iwconfig $BLOCK_INSTANCE | grep -a -q ESSID\:off; then
+	echo "W: DOWN"
+	echo "W: DOWN"
+	echo \#FF0000
+	exit 33;
+fi
+
+
+q=$(iwconfig $BLOCK_INSTANCE | grep 'Link Quality' | awk '{print $2}')
+signal=$(echo ${q#Quality=} | bc -l | awk '{printf "%02d", $1 * 100}')
+addr=$(ip addr show $BLOCK_INSTANCE | grep inet\ | awk '{print $2}')
+essid=$(iwgetid -r)
+
+case $BLOCK_BUTTON in
+  1)
+	echo  "W: ${addr%\/*}"
+	echo  
+	echo \#94F367
+	exit;
+	#exit 33;
+	;;
+esac
+
+echo "W: $essid"
+echo 
+echo \#94F367 
+exit 0;

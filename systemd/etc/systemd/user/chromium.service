@@ -1,0 +1,8 @@
+[Unit]
+Description=Chromium
+Requires=chromium.socket
+After=desktop.target chromium.socket
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/chromium

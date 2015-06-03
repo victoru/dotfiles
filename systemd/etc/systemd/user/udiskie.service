@@ -1,0 +1,11 @@
+[Unit]
+Description=automounter for removable media
+Requires=dbus.socket
+Requisite=desktop.target
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/udiskie --smart-tray
+
+[Install]
+WantedBy=desktop.target

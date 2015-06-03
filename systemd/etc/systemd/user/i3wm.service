@@ -1,0 +1,12 @@
+[Unit]
+Description=i3 tiling window manager
+Requires=desktop.target
+
+[Service]
+Environment=DISPLAY=:0
+Environment=DE=i3
+ExecStart=/usr/bin/i3
+ExecReload=/usr/bin/i3-msg reload
+
+[Install]
+Alias=window-manager.service

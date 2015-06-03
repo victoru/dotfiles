@@ -1,0 +1,19 @@
+Automatic start-up of systemd user instances
+--------------------------------------------
+The systemd user instance is started after the first login of a user and killed
+after the last session of the user is closed. Sometimes it may be useful to
+start it right after boot, and keep the systemd user instance running after the
+last session closes, for instance to have some user process running without any
+open session. Lingering is used to that effect. Use the following command to
+enable lingering for specific user:
+
+.. code-block:: bash
+
+   $ loginctl enable-linger username
+
+.. link: https://wiki.archlinux.org/index.php/Systemd/User
+.. link: https://bitbucket.org/KaiSforza/systemd-user-units/wiki/Home
+.. link: https://github.com/zoqaeski/systemd-user-units
+.. link: https://github.com/grawity/systemd-user-units
+
+.. vim:set ft=rst:

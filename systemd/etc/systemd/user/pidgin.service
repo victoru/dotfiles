@@ -1,0 +1,13 @@
+[Unit]
+Description=Pidgin
+Requisite=desktop.target
+After=desktop.target
+# mimic "restore last open programs"
+PartOf=desktop.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/pidgin
+
+[Install]
+WantedBy=desktop.target

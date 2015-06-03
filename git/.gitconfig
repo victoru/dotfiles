@@ -1,0 +1,18 @@
+[user]
+	name = Victor Unegbu
+	email = victor@unegbu.com
+
+[alias]
+    st = status
+    ci = commit
+    br = branch
+    co = checkout
+    df = diff
+    lg = log -p
+    who = shortlog -s --
+	alias = !sh -c "[ $# = 2 ] && git config --global alias.\"$1\" \"$2\" && exit 0 || echo \"usage: git alias <new alias> <original command>\" >&2 && exit 1" -
+    aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+[cola]
+	fontdiff = Fantasque Sans Mono,8,-1,5,50,0,0,0,0,0
+[color]
+	ui = auto
