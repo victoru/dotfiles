@@ -3,9 +3,11 @@ if [ -z $BLOCK_INSTANCE ]; then
 	exit 0;
 fi
 
+LABEL=" "
+
 if iwconfig $BLOCK_INSTANCE | grep -a -q ESSID\:off; then
-	echo "W: DOWN"
-	echo "W: DOWN"
+	echo "$LABEL DOWN"
+	echo "$LABEL DOWN"
 	echo \#FF0000
 	exit 33;
 fi
@@ -18,15 +20,15 @@ essid=$(iwgetid -r)
 
 case $BLOCK_BUTTON in
   1)
-	echo  "W: ${addr%\/*}"
-	echo  
+	echo  "$LABEL ${addr%\/*}"
+	echo
 	echo \#94F367
 	exit;
 	#exit 33;
 	;;
 esac
 
-echo "W: $essid"
-echo 
-echo \#94F367 
+echo "$LABEL $essid"
+echo
+echo \#94F367
 exit 0;
