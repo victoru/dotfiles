@@ -1,8 +1,14 @@
-" Note: Skip initialization for vim-tiny or vim-small.
-if !1 | finish | endif
 " NeoBundle {{{
-set nocompatible
-set runtimepath+=~/.vim/bundle/neobundle.vim/
+" Note: Skip initialization for vim-tiny or vim-small.
+if 0 | endif
+
+if has('vim_starting')
+    if &compatible
+        set nocompatible               " Be iMproved
+    endif
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
