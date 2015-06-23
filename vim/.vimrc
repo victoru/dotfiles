@@ -774,8 +774,8 @@ if neobundle#tap('neocomplete.vim')
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
-    inoremap <expr><C-y>  neocomplete#close_popup()
-    inoremap <expr><C-e>  neocomplete#cancel_popup()
+    inoremap <expr><C-y>  neocomplete#close_popup()."\<C-y>"
+    inoremap <expr><C-e>  neocomplete#cancel_popup()."\<C-e>"
 
     call neobundle#untap()
 endif
