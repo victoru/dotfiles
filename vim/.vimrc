@@ -13,16 +13,31 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc.vim', {'build': {'unix': 'make'}}
-NeoBundle 'Shougo/neocomplcache.vim'
+NeoBundle 'Shougo/neocomplete.vim'
+
+"NeoBundle 'http://www.vim.org/scripts/download_script.php?src_id=8705', {
+    "\ 'type__filename' : 'openser.vim',
+    "\ 'script_type' : 'syntax',
+    "\}
+
+NeoBundle 'gregsexton/gitv', {'depends': ['tpope/vim-fugitive']}
+NeoBundle '~/src/kamailio/utils/misc/vim'
+NeoBundle 'http://www.vim.org/scripts/download_script.php?src_id=8770', {
+    \ 'type__filename' : 'nagios.vim',
+    \ 'script_type' : 'syntax',
+    \}
+
+NeoBundleLazy 'Glench/Vim-Jinja2-Syntax', {'filetypes': 'jinja'}
+NeoBundleLazy 'vim-scripts/SQLUtilities', {'filetypes' : 'sql' }
 
 NeoBundle 'ack.vim'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'aquach/vim-http-client'
-NeoBundle 'bling/vim-airline'
+"NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'bling/vim-bufferline'
+NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'evanmiller/nginx-vim-syntax'
 NeoBundle 'godlygeek/tabular'
+NeoBundle 'chase/vim-ansible-yaml'
 
 NeoBundle 'kwbdi.vim'
 NeoBundle 'LaTeX-Suite-aka-Vim-LaTeX'
@@ -30,12 +45,12 @@ NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 
+NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'Shutnik/jshint2.vim'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-obsession'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline', {'depends': ['Shougo/unite.vim']}
 NeoBundle 'wavded/vim-stylus'
@@ -68,7 +83,7 @@ NeoBundleLazy 'vim-php/phpctags', {
 "\ }
 
 if neobundle#is_installed('tagbar')
-    NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {'filetypes': 'php'}
+    NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {'filetypes': 'php', 'depends': ['majutsushi/tagbar']}
 endif
 
 call neobundle#end()
@@ -81,14 +96,17 @@ NeoBundleCheck
 
 " Options {{{
 filetype plugin indent on
-set omnifunc=syntaxcomplete#Complete
 syntax enable
+
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set foldmethod=indent
 set hidden
 set colorcolumn=80
 
-set undodir=~/tmp/vimswap//
+set undodir=~/tmp/vim/undo//
+set backupdir=~/tmp/vim/backup//
+set directory=~/tmp/vim/swap//
 
 set undofile
 
@@ -135,7 +153,7 @@ set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
 " separated by commas. Each item allows a way to backspace
 " over something.
 
-"set autoindent      " Copy indent from current line when starting a new line
+set autoindent      " Copy indent from current line when starting a new line
 " (typing <CR> in Insert mode or when using the "o" or "O"
 " command).
 
@@ -164,7 +182,7 @@ if &term =~ '256color'
     " disable Background Color Erase (BCE) so that color schemes
     " render properly when inside 256-color tmux and GNU screen.
     " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-    "set t_ut=y
+    set t_ut=y
 endif
 set encoding=utf-8
 " Vim can not recognize the character code of your vimrc when :scriptencoding
@@ -269,42 +287,12 @@ nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
 
 " Useful save mappings.
 nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
-
-" Exchange gj and gk to j and k. "{{{
-command! -nargs=? -bar -bang ToggleGJK call s:ToggleGJK()
-nnoremap <silent> [Space]gj :<C-u>ToggleGJK<CR>
-xnoremap <silent> [Space]gj :<C-u>ToggleGJK<CR>
-function! s:ToggleGJK()
-    if exists('b:enable_mapping_gjk') && b:enable_mapping_gjk
-        let b:enable_mapping_gjk = 0
-        noremap <buffer> j j
-        noremap <buffer> k k
-        noremap <buffer> gj gj
-        noremap <buffer> gk gk
-
-        xnoremap <buffer> j j
-        xnoremap <buffer> k k
-        xnoremap <buffer> gj gj
-        xnoremap <buffer> gk gk
-    else
-        let b:enable_mapping_gjk = 1
-        noremap <buffer> j gj
-        noremap <buffer> k gk
-        noremap <buffer> gj j
-        noremap <buffer> gk k
-
-        xnoremap <buffer> j gj
-        xnoremap <buffer> k gk
-        xnoremap <buffer> gj j
-        xnoremap <buffer> gk k
-    endif
-endfunction"}}}
-
-
 nnoremap <leader>v V`]
+nnoremap <c-l> :nohl<cr><c-l>
 
 let mapleader = '[Space]'
 "let mapleader = ','
+"let localleader = ''
 
 
 "remap f1 to esc
@@ -338,7 +326,7 @@ fun! RangerChooser()
 
     let cmd = printf("sil !ranger --choosefile=%s %s", sfilename, expand("%:p:h"))
     if has("gui_running") && (has("gui_gtk") || has("gui_motif"))
-        let cmd = substitute(cmd, '!', '! urxvt -name vimranger -e ', '')
+        let cmd = substitute(cmd, '!', '! termite -name vimranger -e ', '')
     endif
     exec cmd
     redraw!
@@ -348,7 +336,7 @@ fun! RangerChooser()
     endif
     redraw!
 endfun
-map ,r :call RangerChooser()<CR>
+map <leader>r :call RangerChooser()<CR>
 
 "save as root
 command! W w !sudo tee % > /dev/null
@@ -373,7 +361,7 @@ nmap <silent> <M-l> :wincmd l<CR>
 " Create crosshair effect
 augroup Crosshair
     au!
-    autocmd WinLeave *  setlocal nocursorcolumn
+    autocmd WinLeave *  setlocal nocursorcolumn nocursorline
     autocmd VimEnter,BufWinEnter,WinEnter * setlocal cursorline cursorcolumn
     " invert current line colors
     au ColorScheme,VimEnter,BufWinEnter,WinEnter * hi CursorLine cterm=reverse
@@ -398,13 +386,14 @@ augroup END
 if has('gui_running')
     colorscheme jellybeans
     set guifont=Fantasque\ Sans\ Mono\ 10
-    set guioptions=aegit
-endif
-
-if has('gui')
+    set guioptions=c
+else
     NeoBundleSource csapprox
     set background=dark
-    colorscheme jellybeans
+    colorscheme candy
+    "colorscheme 0x7A69_dark
+    "colorscheme Chasing_Logic
+    "colorscheme jellybeans
     "colorscheme flatcolor
     "colorscheme symfony
 
@@ -415,18 +404,12 @@ if has('gui')
     "\              'ctermfg': 'Black', 'ctermbg': 'Yellow',
     "\              'attr': 'bold' },
     "\}
-
     "colorscheme jellybeans
     "call neobundle#untap()
     "endif
-else
-    " Use guicolorscheme.vim
-    "NeoBundleSource vim-guicolorscheme
-    "autocmd StuffCmd VimEnter,BufAdd * GuiColorScheme candy
-    colorscheme candy
 endif
+
 "}}}
-"
 
 augroup StuffCmd
     autocmd!
@@ -458,7 +441,6 @@ if neobundle#tap('LaTeX-Suite-aka-Vim-LaTeX')
     call neobundle#untap()
 endif
 
-let g:session_autosave = 'yes'
 let g:session_autoload = 'no'
 
 if neobundle#tap('kwbdi.vim')
@@ -558,35 +540,31 @@ if neobundle#tap('vim-bufferline')
 endif
 
 if neobundle#tap('lightline.vim')
-    "get rid of the extraneous default vim mode information that is now provided by lightline
     set noshowmode
     set laststatus=2
+                "\ 'tabline': {
+                "\   'left': [
+                "\   ],
+                "\ },
+    let g:nomodefiletypes = ['gundo', 'tagbar', 'vimshell']
     let g:lightline = {
-                \ 'colorscheme': 'Tomorrow_Night',
+                \ 'colorscheme': 'Tomorrow_Night_Bright',
                 \ 'active': {
                 \   'left': [ [ 'mode', 'paste', 'command' ],
-                \             [ 'git_branch', 'git_traffic', 'git_status'],
-                \             [ 'readonly', 'filename', 'modified' ],
+                \             [ 'readonly', 'fugitive', 'filename' ],
                 \             ['bufferline'] ],
                 \   'right': [ [ 'syntastic', 'lineinfo' ],
                 \              ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
                 \ },
-                \ 'tabline': {
-                \   'left': [
-                \   ],
-                \ },
                 \ 'component_function': {
+                \   'bufferline': 'MyBufferline',
+                \   'fileencoding': 'MyFileencoding',
+                \   'fileformat': 'MyFileformat',
+                \   'filename': 'MyFilename',
+                \   'filetype': 'MyFiletype',
+                \   'fugitive': 'MyFugitive',
                 \   'mode': 'MyMode',
                 \   'readonly': 'MyReadonly',
-                \   'modified': 'MyModified',
-                \   'filename': 'MyFilename',
-                \   'bufferline': 'MyBufferline',
-                \   'fileformat': 'MyFileformat',
-                \   'filetype': 'MyFiletype',
-                \   'git_branch': 'g:lightline.my.git_branch',
-                \   'git_traffic': 'g:lightline.my.git_traffic',
-                \   'git_status': 'g:lightline.my.git_status',
-                \   'fileencoding': 'MyFileencoding',
                 \ },
                 \ 'component_expand': {
                 \   'syntastic': 'SyntasticStatuslineFlag',
@@ -596,25 +574,16 @@ if neobundle#tap('lightline.vim')
                 \ },
                 \ 'component_visible_condition': {
                 \   'readonly': '(&filetype!="help"&& &readonly)',
-                \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
                 \ },
-                \ 'separator': { 'left': '', 'right': '▓' },
-                \ 'subseparator': { 'left': '|', 'right': '⌠' }
+                \ 'separator': { 'left': '┇', 'right': '┆' },
+                \ 'subseparator': { 'left': '╏', 'right': '╎'}
                 \ }
-
-    let g:lightline.my = {}
-    function! g:lightline.my.git_branch() " {{{
-        let mark = ' '
-        return winwidth(0) > 70 ? mark.gita#statusline#preset('branch') : ''
-    endfunction " }}}
-    function! g:lightline.my.git_traffic() " {{{
-        return winwidth(0) > 70 ? gita#statusline#preset('traffic') : ''
-    endfunction " }}}
-    function! g:lightline.my.git_status() " {{{
-        return winwidth(0) > 70 ? gita#statusline#preset('status') : ''
-    endfunction " }}}
-
-    augroup AutoSyntastic
+                "\ 'foo': { 'left': ' ▒  ┆ ▓  | ⥓  ▝ ╎ ╷╵╷  ╫ ┃╏┃ ▎▊ ▋ ▊', 'right': '▓' },
+    augroup reload_vimrc
+    autocmd!
+        autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
+    augroup END
+    augroup AutoSyntasticForLightline
         autocmd!
         autocmd BufWritePost *.c,*.cpp call s:syntastic()
     augroup END
@@ -624,32 +593,49 @@ if neobundle#tap('lightline.vim')
         call lightline#update()
     endfunction
 
-    function! MyMode()
-        let fname = expand('%:t')
-        return fname == '__Tagbar__' ? 'Tagbar' :
-                    \ fname == 'unite' ? 'UNITE' :
-                    \ fname == '__Gundo__' ? 'Gundo' :
-                    \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
-                    \ winwidth(0) > 60 ? lightline#mode() : ''
-    endfunction
-
-    function! MyModified()
-        return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+    function! MyFugitive()
+        if !exists('*fugitive#head') || (exists('*fugitive#head') && strlen(fugitive#head()))
+            if floor(((strlen(fugitive#head()) * 1.0) / winwidth(0)) * 100) < 25
+                return '⭠ ' . fugitive#head()
+            endif
+        endif
+        return ''
     endfunction
 
     function! MyReadonly()
-        let mark = ''
-        return &ft !~? 'help' && &readonly ? mark : ''
+         " ⭤
+        let icon = ''
+        if &ft == "help" || &readonly
+            return icon
+        endif
+        return ''
+    endfunction
+
+    function! IsModeOnlyFileType()
+        return index(g:nomodefiletypes, tolower(&filetype)) != -1
     endfunction
 
     function! MyFilename()
         let fname = expand('%:t')
-        return fname == '__Tagbar__' ? g:lightline.fname :
-                    \ fname =~ '__Gundo\|NERD_tree' ? '' :
-                    \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-                    \ &ft == 'vimshell' ? vimshell#get_status_string() :
-                    \ ('' != fname ? fname : '[No Name]') .
-                    \ ('' != MyModified() ? ' ' . MyModified() : '')
+        return ('' == fname ? '[No Name]' :
+                    \ IsModeOnlyFileType() ? '': fname . MyModified())
+    endfunction
+
+    function! MyMode()
+        let fname = expand('%:t')
+        if IsModeOnlyFileType()
+            return &filetype == 'tagbar' ? '[Tagbar]' :
+                    \ &filetype =~ 'unite' ? fname :
+                    \ &filetype =~ 'vimshell' ? '[VimShell]' :
+                    \ fname == '__Gundo__' ? '[Gundo]' :
+                    \ fname == '__Gundo_Preview__' ? '[Gundo Preview]' : "[".&filetype."]"
+        endif
+        return  lightline#mode()
+        " return  winwidth(0) > 60 ? lightline#mode() : ''
+    endfunction
+
+    function! MyModified()
+        return &ft =~ 'help' || !&modified ? '' : '+' "&modifiable ? '' : '-'
     endfunction
 
     function! MyFileformat()
@@ -664,13 +650,10 @@ if neobundle#tap('lightline.vim')
         return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
     endfunction
 
-    let g:tagbar_status_func = 'TagbarStatusFunc'
-
-    function! TagbarStatusFunc(current, sort, fname, ...) abort
-        let g:lightline.fname = a:fname
-        return lightline#statusline(0)
-    endfunction
     function! MyBufferline()
+        if winwidth(0) < 120 || IsModeOnlyFileType()
+            return ''
+        endif
         call bufferline#refresh_status()
         let b = g:bufferline_status_info.before
         let c = g:bufferline_status_info.current
@@ -690,7 +673,6 @@ if neobundle#tap('lightline.vim')
     endfunction
 
     call neobundle#untap()
-
 endif
 
 if neobundle#tap('vimshell.vim') "{{{
@@ -801,8 +783,7 @@ if neobundle#tap('neocomplcache.vim')
     inoremap <expr><C-y>  neocomplcache#close_popup()."\<C-y>"
     inoremap <expr><C-e>  neocomplcache#cancel_popup()."\<C-e>"
 
-    " Close popup by <Space>.
-    inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
+    inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup()."\<Space>" : "\<Space>"
 
     "let g:neocomplcache_enable_cursor_hold_i = 1
     " Or set this.
@@ -811,6 +792,7 @@ if neobundle#tap('neocomplcache.vim')
     " AutoComplPop like behavior.
     "let g:neocomplcache_enable_auto_select = 1
 
+    "set omnifunc=syntaxcomplete#Complete
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -829,13 +811,11 @@ if neobundle#tap('neocomplcache.vim')
     "" For perlomni.vim setting.
     "" https://github.com/c9s/perlomni.vim
     "let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
 endif
 
 if neobundle#tap('neocomplete.vim')
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
     let g:neocomplete#sources#syntax#min_keyword_length = 3
     " Plugin key-mappings.
     inoremap <expr><C-g>     neocomplete#undo_completion()
@@ -856,7 +836,7 @@ if neobundle#tap('neocomplete.vim')
 
     " <C-h>, <BS>: close popup and delete backword char.
     inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
     inoremap <expr><C-y>  neocomplete#close_popup()."\<C-y>"
     inoremap <expr><C-e>  neocomplete#cancel_popup()."\<C-e>"
@@ -915,9 +895,9 @@ if neobundle#tap('unite.vim')
 
     " Prettier prompt
     nnoremap <leader>p :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
-    nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank   history/yank<cr>
-    nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer buffer<cr>
-    nnoremap [Space]mru :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
+    nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank -start-insert history/yank<cr>
+    nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer -start-insert buffer<cr>
+    nnoremap <leader>mru :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
     "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr> "
     " Unite grep:$buffers<cr> " grep contents of buffers
 
