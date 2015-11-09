@@ -14,73 +14,56 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vimproc.vim', {'build': {'unix': 'make'}}
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline', {'depends': ['Shougo/unite.vim']}
 
-"NeoBundle 'http://www.vim.org/scripts/download_script.php?src_id=8705', {
-    "\ 'type__filename' : 'openser.vim',
-    "\ 'script_type' : 'syntax',
-    "\}
+NeoBundleLazy 'godlygeek/csapprox.git', { 'terminal' : 1 }
+NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
+NeoBundle 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 
-NeoBundle 'gregsexton/gitv', {'depends': ['tpope/vim-fugitive']}
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'bling/vim-bufferline'
+NeoBundle 'majutsushi/tagbar'
+
 NeoBundle '~/src/kamailio/utils/misc/vim'
 NeoBundle 'http://www.vim.org/scripts/download_script.php?src_id=8770', {
     \ 'type__filename' : 'nagios.vim',
     \ 'script_type' : 'syntax',
     \}
 
+NeoBundle 'elzr/vim-json'
+NeoBundle 'chase/vim-ansible-yaml'
+NeoBundleLazy 'evanmiller/nginx-vim-syntax', {'filetypes': 'nginx'}
 NeoBundleLazy 'Glench/Vim-Jinja2-Syntax', {'filetypes': 'jinja'}
 NeoBundleLazy 'vim-scripts/SQLUtilities', {'filetypes' : 'sql' }
+NeoBundleLazy 'Rykka/riv.vim', {'filetypes' : 'rst'}
+NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', {'filetypes' : 'i3'}
+NeoBundleLazy 'plasticboy/vim-markdown', {'filetypes' : ['markdown', 'mkd']}
+NeoBundle 'godlygeek/tabular'
 
 NeoBundle 'ack.vim'
-"NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'bling/vim-bufferline'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'evanmiller/nginx-vim-syntax'
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'chase/vim-ansible-yaml'
-
 NeoBundle 'kwbdi.vim'
-NeoBundle 'LaTeX-Suite-aka-Vim-LaTeX'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'nathanaelkane/vim-indent-guides'
 
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'Shutnik/jshint2.vim'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline', {'depends': ['Shougo/unite.vim']}
-NeoBundle 'wavded/vim-stylus'
+NeoBundle 'gregsexton/gitv', {'depends': ['tpope/vim-fugitive']}
+NeoBundleLazy 'lambdalisue/vim-gita', {'autoload': {'commands': ['Gita']}}
+
+
+"NeoBundle 'unblevable/quick-scope'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'sjl/gundo.vim'
+
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'Shutnik/jshint2.vim'
 
 NeoBundleLazy 'fatih/vim-go', {'filetypes' : 'go'}
-NeoBundleLazy 'gabrielelana/vim-markdown', {'filetypes' : ['markdown', 'mkd']}
-NeoBundleLazy 'godlygeek/csapprox.git', { 'terminal' : 1 }
-NeoBundleLazy 'lambdalisue/vim-gita', {'autoload': {'commands': ['Gita']}}
-NeoBundleLazy 'nanotech/jellybeans.vim'
-NeoBundleLazy 'PotatoesMaster/i3-vim-syntax', {'filetypes' : 'i3'}
-NeoBundleLazy 'Rykka/riv.vim', {'filetypes' : 'rst'}
-NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
-NeoBundleLazy 'Shougo/vimshell.vim', {
-            \ 'commands' : [{ 'name' : 'VimShell',
-            \                 'complete' : 'customlist,vimshell#complete'},
-            \               ],
-            \ 'mappings': '<Plug>',
-            \ 'depends': ['Shougo/vimproc.vim']
-            \ }
-NeoBundleLazy 'vim-scripts/SQLUtilities', {'filetypes' : 'sql' }
+
 NeoBundleLazy 'vim-php/phpctags', {
             \ 'build': {'unix': 'make'},
             \ 'filetypes': 'php',
             \ }
-
-"NeoBundleLazy 'm2mdas/phpcomplete-extended', {
-"\ 'filetypes': 'php',
-"\ 'depends': ['Shougo/vimproc.vim'],
-"\ 'build': {'unix': 'curl -sS https://getcomposer.org/installer | php -- --install-dir=bin'},
-"\ }
 
 if neobundle#is_installed('tagbar')
     NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {'filetypes': 'php', 'depends': ['majutsushi/tagbar']}
@@ -104,86 +87,6 @@ set foldmethod=indent
 set hidden
 set colorcolumn=80
 
-set undodir=~/tmp/vim/undo//
-set backupdir=~/tmp/vim/backup//
-set directory=~/tmp/vim/swap//
-
-set undofile
-
-set pastetoggle=<F12>
-
-set equalalways     " Equal size splits
-
-set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
-
-set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
-
-set expandtab      " Use the appropriate number of spaces to insert a <Tab>.
-" Spaces are used in indents with the '>' and '<' commands
-" and when 'autoindent' is on. To insert a real tab when
-" 'expandtab' is on, use CTRL-V <Tab>.
-
-set smarttab        " When on, a <Tab> in front of a line inserts blanks
-" according to 'shiftwidth'. 'tabstop' is used in other
-" places. A <BS> will delete a 'shiftwidth' worth of space
-" at the start of the line.
-
-set showcmd         " Show (partial) command in status line.
-
-set number          " Show line numbers.
-
-set showmatch       " When a bracket is inserted, briefly jump to the matching
-" one. The jump is only done if the match can be seen on the
-" screen. The time to show the match can be set with
-" 'matchtime'.
-
-set hlsearch        " When there is a previous search pattern, highlight all
-" its matches.
-
-set incsearch       " While typing a search command, show immediately where the
-" so far typed pattern matches.
-
-set ignorecase      " Ignore case in search patterns.
-
-set smartcase       " Override the 'ignorecase' option if the search pattern
-" contains upper case characters.
-
-set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
-" and CTRL-U in Insert mode. This is a list of items,
-" separated by commas. Each item allows a way to backspace
-" over something.
-
-set autoindent      " Copy indent from current line when starting a new line
-" (typing <CR> in Insert mode or when using the "o" or "O"
-" command).
-
-set smartindent
-
-"set textwidth=79   " Maximum width of text that is being inserted. A longer
-" line will be broken after white space to get this width.
-
-set formatoptions=c,q,r,t   " This is a sequence of letters which describes how
-" automatic formatting is to be done.
-"
-" letter    meaning when present in 'formatoptions'
-" ------    ---------------------------------------
-" c         Auto-wrap comments using textwidth, inserting
-"           the current comment leader automatically.  q
-"           Allow formatting of comments with "gq".
-" r         Automatically insert the current comment leader
-"           after hitting <Enter> in Insert mode.
-" t         Auto-wrap text using textwidth (does not apply
-"           to comments)
-set ruler           " Show the line and column number of the cursor position,
-" separated by a comma.
-
-"set t_Co=256
-if &term =~ '256color'
-    " disable Background Color Erase (BCE) so that color schemes
-    " render properly when inside 256-color tmux and GNU screen.
-    " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-    set t_ut=y
-endif
 set encoding=utf-8
 " Vim can not recognize the character code of your vimrc when :scriptencoding
 " is defined before :set encoding. When writing :set encoding, it should be
@@ -197,12 +100,90 @@ scriptencoding utf-8
 "" places. A <BS> will delete a 'shiftwidth' worth of space
 "" at the start of the line.
 
+
+set undodir=~/tmp/vim/undo//
+set backupdir=~/tmp/vim/backup//
+set directory=~/tmp/vim/swap//
+
+set undofile
+set scrolloff=5         " keep at least 5 lines above/below
+set sidescrolloff=5     " keep at least 5 lines left/right
+set pastetoggle=<F12>
+set equalalways         " Equal size splits
+set tabstop=4           " Number of spaces that a <Tab> in the file counts for.
+set shiftwidth=4        " Number of spaces to use for each step of (auto)indent.
+set showcmd             " Show (partial) command in status line.
+set number              " Show line numbers.
+
+set showmatch           " When a bracket is inserted, briefly jump to the matching
+                        " one. The jump is only done if the match can be seen on the
+                        " screen. The time to show the match can be set with
+                        " 'matchtime'.
+
+set expandtab           " Use the appropriate number of spaces to insert a <Tab>.
+                        " Spaces are used in indents with the '>' and '<' commands
+                        " and when 'autoindent' is on. To insert a real tab when
+                        " 'expandtab' is on, use CTRL-V <Tab>.
+
+set smarttab            " When on, a <Tab> in front of a line inserts blanks
+                        " according to 'shiftwidth'. 'tabstop' is used in other
+                        " places. A <BS> will delete a 'shiftwidth' worth of space
+                        " at the start of the line.
+
+set hlsearch            " When there is a previous search pattern, highlight all
+                        " its matches.
+
+set incsearch           " While typing a search command, show immediately where the
+                        " so far typed pattern matches.
+
+set ignorecase          " Ignore case in search patterns.
+
+set smartcase           " Override the 'ignorecase' option if the search pattern
+                        " contains upper case characters.
+
+set backspace=2         " Influences the working of <BS>, <Del>, CTRL-W
+                        " and CTRL-U in Insert mode. This is a list of items,
+                        " separated by commas. Each item allows a way to backspace
+                        " over something.
+
+set autoindent          " Copy indent from current line when starting a new line
+                        " (typing <CR> in Insert mode or when using the "o" or "O"
+                        " command).
+
+set smartindent
+
+set ruler               " Show the line and column number of the cursor position,
+                        " separated by a comma.
+
+"set textwidth=79   " Maximum width of text that is being inserted. A longer
+" line will be broken after white space to get this width.
+
+set formatoptions=c,q,r,t   " This is a sequence of letters which describes how
+                            " automatic formatting is to be done.
+" letter    meaning when present in 'formatoptions'
+" ------    ---------------------------------------
+" c         Auto-wrap comments using textwidth, inserting
+"           the current comment leader automatically.  q
+"           Allow formatting of comments with "gq".
+" r         Automatically insert the current comment leader
+"           after hitting <Enter> in Insert mode.
+" t         Auto-wrap text using textwidth (does not apply
+"           to comments)
+
+"set t_Co=256
+if &term =~ '256color'
+    " disable Background Color Erase (BCE) so that color schemes
+    " render properly when inside 256-color tmux and GNU screen.
+    " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+    "set t_ut=y
+endif
+
 ""set textwidth=79   " Maximum width of text that is being inserted. A longer
 "" line will be broken after white space to get this width.
 
-" Mappings {{{
-
-" Visual mode keymappings: "{{{
+" Mappings
+" ========
+" Visual mode keymappings
 " <TAB>: indent.
 xnoremap <TAB>  >
 " <S-TAB>: unindent.
@@ -213,7 +194,12 @@ nnoremap > >>
 nnoremap < <<
 xnoremap > >gv
 xnoremap < <gv
-"}}}
+
+"Smart way to move between windows:
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
 
 " Command-line mode keymappings:"{{{
 " <C-a>, A: move to head.
@@ -237,9 +223,12 @@ cnoremap <C-k> <C-\>e getcmdpos() == 1 ?
 cnoremap <C-y>          <C-r>*
 "}}}
 
-" Use <C-Space>.
-nmap <C-Space>  <C-@>
-cmap <C-Space>  <C-@>
+"" Use <C-Space>.
+"nmap <C-Space>  <C-@>
+"cmap <C-Space>  <C-@>
+
+"nnoremap  [Space]   <Nop>
+"xnoremap  [Space]   <Nop>
 
 " [Space]: Other useful commands "{{{
 " Smart space mapping.
@@ -288,7 +277,6 @@ nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
 " Useful save mappings.
 nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
 nnoremap <leader>v V`]
-nnoremap <c-l> :nohl<cr><c-l>
 
 let mapleader = '[Space]'
 "let mapleader = ','
@@ -314,11 +302,11 @@ noremap L :bn<CR>
 " remove trailing whitespaces
 nnoremap <leader>W ms:%s/\s\+$//e \| let @/=''<CR>`s
 
-"stop annoying jumping hash
+""stop annoying jumping hash
+""inoremap # X<BS>#
 "inoremap # X<BS>#
-inoremap # X<BS>#
-set cinkeys-=0#
-set indentkeys-=0#
+"set cinkeys-=0#
+"set indentkeys-=0#
 
 " Use ranger as vim file manager
 fun! RangerChooser()
@@ -344,17 +332,6 @@ command! W w !sudo tee % > /dev/null
 " Map <Leader>ff to display all lines with keyword under cursor
 " and ask which one to jump to
 nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
-"mimic alt keys
-execute "set <M-h>=\eh"
-execute "set <M-j>=\ej"
-execute "set <M-k>=\ek"
-execute "set <M-l>=\el"
-
-nmap <silent> <M-k> :wincmd k<CR>
-nmap <silent> <M-j> :wincmd j<CR>
-nmap <silent> <M-h> :wincmd h<CR>
-nmap <silent> <M-l> :wincmd l<CR>
 
 "}}}
 
@@ -390,23 +367,7 @@ if has('gui_running')
 else
     NeoBundleSource csapprox
     set background=dark
-    colorscheme candy
-    "colorscheme 0x7A69_dark
-    "colorscheme Chasing_Logic
-    "colorscheme jellybeans
-    "colorscheme flatcolor
-    "colorscheme symfony
-
-    "if neobundle#tap('jellybeans.vim')
-    ""256ctermfg and 256ctermbg
-    "let g:jellybeans_overrides = {
-    "\    'Todo': { 'guifg': '303030', 'guibg': 'f0f000',
-    "\              'ctermfg': 'Black', 'ctermbg': 'Yellow',
-    "\              'attr': 'bold' },
-    "\}
-    "colorscheme jellybeans
-    "call neobundle#untap()
-    "endif
+    colorscheme dracula
 endif
 
 "}}}
@@ -464,6 +425,7 @@ endif
 
 if neobundle#tap('vim-markdown')
     "let g:vim_markdown_folding_disabled=1
+    "let g:vim_markdown_no_default_key_mappings=1
     call neobundle#untap()
 endif
 
@@ -676,15 +638,15 @@ if neobundle#tap('lightline.vim')
 endif
 
 if neobundle#tap('vimshell.vim') "{{{
-    " <C-Space>: switch to vimshell.
-    nmap <C-@>  <Plug>(vimshell_switch)
-    nnoremap !  q:VimShellExecute<Space>
-    nnoremap [Space]i  q:VimShellInteractive<Space>
-    nnoremap [Space]t  q:VimShellTerminal<Space>
+    "" <C-Space>: switch to vimshell.
+    "nmap <C-@>  <Plug>(vimshell_switch)
+    "nnoremap !  q:VimShellExecute<Space>
+    "nnoremap [Space]i  q:VimShellInteractive<Space>
+    "nnoremap [Space]t  q:VimShellTerminal<Space>
 
-    let g:vimshell_force_overwrite_statusline = 0
+    "let g:vimshell_force_overwrite_statusline = 0
 
-    call neobundle#untap()
+    "call neobundle#untap()
 endif "}}}
 
 if neobundle#tap('vim-go')
@@ -923,20 +885,5 @@ if neobundle#tap('vim-indent-guides')
     let g:indent_guides_auto_colors = &tabstop
     "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
     "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
-    call neobundle#untap()
-endif
-
-if neobundle#tap('vim-airline')
-    set noshowmode
-    set laststatus=2
-    let g:airline_theme='dark'
-    let g:airline#extensions#bufferline#enabled = 1
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#left_sep = ''
-    let g:airline#extensions#tabline#left_alt_sep = '|'
-    let g:airline_left_sep='║'
-    let g:airline_right_sep='▓'
-    let g:airline_powerline_fonts = 1
-
     call neobundle#untap()
 endif

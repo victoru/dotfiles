@@ -1,12 +1,10 @@
 set $mod Mod4
-
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
 focus_follows_mouse no
 
 set $system_font pango:M+ 1mn 10
 font $system_font
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec /usr/bin/termite
@@ -44,7 +42,6 @@ bindsym $mod+s split h
 # split in vertical orientation
 bindsym $mod+v split v
 
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
 
@@ -65,37 +62,40 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+p focus parent
 bindsym $mod+c focus child
 
-bindsym $mod+Shift+59 focus parent
-bindsym $mod+Shift+60 focus child
-
-# focus the child container
-#bindcode $mod+d focus child
-
 # switch between the current and the previously focused one
 bindsym $mod+b workspace back_and_forth
+
+#
+set $WS1 ★
+#
+set $WS2 
+#set $WS4 
+set $WS4 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
+bindsym $mod+1 workspace $WS1
+bindsym $mod+2 workspace $WS2
 bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
+bindsym $mod+4 workspace $WS4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+bindcode $mod+20 workspace omega
 
 # move focused container to workspace
-bindsym $mod+Shift+exclam move container to workspace 1
-bindsym $mod+Shift+at move container to workspace 2
+bindsym $mod+Shift+exclam move container to workspace $WS1
+bindsym $mod+Shift+at move container to workspace $WS2
 bindsym $mod+Shift+numbersign move container to workspace 3
-bindsym $mod+Shift+dollar move container to workspace 4
+bindsym $mod+Shift+dollar move container to workspace $WS4
 bindsym $mod+Shift+percent move container to workspace 5
 bindsym $mod+Shift+asciicircum move container to workspace 6
 bindsym $mod+Shift+ampersand move container to workspace 7
 bindsym $mod+Shift+asterisk move container to workspace 8
 bindsym $mod+Shift+parenleft move container to workspace 9
 bindsym $mod+Shift+parenright move container to workspace 10
+bindsym $mod+Shift+underscore move container to workspace omega
 
 # reload the configuration file
 bindsym $mod+Shift+C reload
@@ -159,26 +159,28 @@ bindsym $mod+r mode "resize"
 mode "window" {
 # vim style splitting
 # split in horizontal orientation
-bindsym v split h; mode "default"
+    bindsym v split h; mode "default"
 
 # split in vertical orientation
-bindsym s split v; mode "default"
+    bindsym s split v; mode "default"
 # back to normal: Enter or Escape
-bindsym Return mode "default"
-bindsym Escape mode "default"
-
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 bindsym $mod+Shift+W mode "window"
-#bindsym $mod+a scratchpad show
 
 bindsym $mod+a [instance="scratchpad"] scratchpad show
 
-assign [class="^Gajim$" instance="gajim"] 2
-assign [class="^Pidgin$" instance="Pidgin"] 2
-assign [class="^Termite$" instance="development"] 4
+assign [class="^Gajim$" instance="gajim"] $WS2
+assign [class="^Pidgin$" instance="Pidgin"] $WS2
+assign [class="^Termi(te|nology)$" instance="development"] $WS4
 assign [class="^Thg$" instance="thg"] 10
 
-for_window [class="^Termite$" instance="scratchpad"] floating enable, resize grow width 1024 px, move absolute position center, move scratchpad
+new_window pixel 2
+
+for_window [class="^Termite$" instance="scratchpad|development"] border 1pixel
+for_window [instance="scratchpad"] move scratchpad; [instance='scratchpad'] scratchpad show, resize grow width 1080, move position absolute center, move scratchpad
+
 for_window [class="^Firefox$" instance="(Download|Places)"] floating enable
 for_window [class="^Firefox$" window_role="(Permissions|Preferences)"] floating enable
 for_window [class="^Steam$" instance="Steam"] floating enable
@@ -217,29 +219,33 @@ bindsym XF86ScreenSaver exec $lock_screen
 bindsym Print exec scrot -e 'mv $f ~/Screenshots/ 2>/dev/null'
 #bindsym Shift+Print exec scrot -e 'mv $f /tmp; gimp /$f > /dev/null'
 
-set $black #000000
-set $white #FFFFFF
+set $black      #100E11
+set $white      #FFFFFF
 
-set $food_pill_orange #FA6900
-set $cocktail_orange #E97F02
-set $party_purple #490A3D
-set $teal #ACE6CB
-set $purple4 #290052
-set $slate_purple #87769A
+set $orange     #FA6900
 set $red #FF0000
 
-set $dark_purple #210042
-set $p2 #BABABA
-set $p3 #635077
+set $f1 #691b8f
+set $f2 #FFFFFF
 
-# class                 border               backgr.          	text     indicator
-client.focused          $party_purple        $dark_purple       $white   $food_pill_orange
-client.focused_inactive $slate_purple        $p2       		 	$teal    $food_pill_orange
-client.unfocused        $purple4             $p3             	$teal    $food_pill_orange
-client.urgent           $food_pill_orange    $cocktail_orange 	$teal    $food_pill_orange
+set $fi1 #463350
+set $fi2 #bababa
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+set $uf1 #100b12
+set $uf2 #bababa
+
+set $urg1 #FF0000
+set $urg2 #
+set $urg3 #FFFFFF
+set $urg4 #FF0000
+
+
+# class                 border      backgr      text        indicator
+client.focused          $f1         $f1         $f2         $orange
+client.focused_inactive $fi1        $fi1        $fi2        $orange
+client.unfocused        $uf1        $uf1        $uf2        $orange
+client.urgent           $red        $orange     $urg3       $urg4
+
 bar {
 		status_command i3blocks
         font $system_font
@@ -249,9 +255,10 @@ bar {
         colors {
             background $black
             statusline #999999
-            focused_workspace   $black      $p2             $dark_purple
-            active_workspace    $black      $black          #ff0000
-            inactive_workspace  $black      $dark_purple    $white
-            urgent_workspace    $black      $red            $white
+            # colorclass        <border>    <background>    <text>
+            focused_workspace   $black      #FFFFFF         #301F38
+            active_workspace    $black      #3E204D         #FF0000
+            inactive_workspace  $black      #45125E         #FFFFFF
+            urgent_workspace    #FFFFFF     #FF0000         #FFFFFF
         }
 }

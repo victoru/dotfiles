@@ -4,4 +4,10 @@ Requisite=desktop.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/sh -c '/usr/bin/feh --bg-fill "$(/usr/bin/find %h/.wallpapers -type f |/usr/bin/shuf|/usr/bin/head -n 1)"'
+SyslogIdentifier=wallpaper
+StandardOutput=journal
+StandardError=journal
+ExecStart=/usr/bin/sh -c "\
+i=$(file -i `/usr/bin/find %h/.wallpapers -type f | shuf | head -n1`);\
+echo $i | grep 'image/.*;' && /usr/bin/feh --bg-fill $(echo $i | awk -F ': ' '{print $1}')\
+|| (echo $i && exit 1);"

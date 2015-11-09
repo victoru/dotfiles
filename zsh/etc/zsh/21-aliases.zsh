@@ -9,5 +9,3 @@ alias gopager='vimpager -c "set ft=go"'
 alias -s go=vim
 alias -s php=vim
 alias -s json=vim
-
-alias ffmpeg=avconv

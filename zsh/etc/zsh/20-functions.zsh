@@ -20,11 +20,12 @@ say() {
         local lang=${LANG%_*};
         local text="$*";
     fi;
-    mplayer "http://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${text}" &> /dev/null ; }
+    mplayer "http://translate.google.com/translate_tts?ie=UTF-8&client=&tl=${lang}&q=${text}" &> /dev/null ;
+}
 
 gocd () { cd `go list -f '{{.Dir}}' $1` }
 
 #ownedby,owner
-pkgowner() { pacman -Qo `which $1` }
+owner () { pacman -Qo `which $1` }
 
-
+function join { local IFS="$1"; shift; echo "$*"; }

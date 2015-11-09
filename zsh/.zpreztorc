@@ -32,7 +32,6 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'prompt' \
   'git'
-  #'environment' \
 #
 # Git
 #

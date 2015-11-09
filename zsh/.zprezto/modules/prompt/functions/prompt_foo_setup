@@ -39,7 +39,7 @@ prompt_pure_cmd_exec_time() {
 	local stop=$EPOCHSECONDS
 	local start=${cmd_timestamp:-$stop}
 	integer elapsed=$stop-$start
-	(($elapsed > ${PURE_CMD_MAX_EXEC_TIME:=5})) && prompt_pure_human_time $elapsed
+	(($elapsed > ${PURE_CMD_MAX_EXEC_TIME:=1})) && prompt_pure_human_time $elapsed
 }
 
 prompt_foo_preexec() {
@@ -60,9 +60,18 @@ function prompt_foo_setup {
 	add-zsh-hook precmd prompt_foo_precmd
 	add-zsh-hook preexec prompt_foo_preexec
 
+	# Set git-info parameters.
+	zstyle ':prezto:module:git:info' verbose 'no'
+	zstyle ':prezto:module:git:info:branch' format '%F{242}%b%f'
+	zstyle ':prezto:module:git:info:dirty' format '%B%F{red}*%f%b'
+	zstyle ':prezto:module:git:info:indexed' format ' '
+	zstyle ':prezto:module:git:info:unindexed' format ' '
+	zstyle ':prezto:module:git:info:untracked' format ' '
+	zstyle ':prezto:module:git:info:keys' format 'prompt' '%b%D '
+
 	local primary_symbol="%(?.%F{green}.%F{red})${prompt_symbol}%f%b"
 	#local alternate_symbol="%B%F{magenta}${prompt_alternate_symbol}%f%b"
 	PROMPT="${primary_symbol} "
 }
 
-prompt_foo_setup "$@"
+prompt_foo_setup

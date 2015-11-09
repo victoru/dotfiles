@@ -1,2 +1,9 @@
 voipo-admin http://voipo1.voip949.com/
 buddycloud-apidoc http://buddycloud.com/api#followers
+systemd-user https://pbrisbin.com/posts/systemd-user/
+using confd and etcd https://www.digitalocean.com/community/tutorials/how-to-use-confd-and-etcd-to-dynamically-reconfigure-services-in-coreos
+Deploying a registry server https://docs.docker.com/registry/deploying/
+sip provider info https://www.sipwise.org/doc/mr3.8.2/spce/ar01s02.html
+sip deployment topologies https://docs.oracle.com/cd/E12529_01/doc.1013/e10292/high_availability.htm
+unicode http://unicodeemoticons.com/
+kubernetes-intro https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes

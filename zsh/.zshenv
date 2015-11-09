@@ -4,11 +4,10 @@
 #export ZDOTDIR="${XDG_CONFIG_HOME}"
 #export -TU PERL5LIB perl5lib
 
-export DEVEL_HOME="$HOME/dev"
 export BIN_HOME="$HOME/bin"
 export GOPATH=/home/victor/go
 
-# Editors
+export BROWSER='qutebrowser'
 export EDITOR='vim'
 export PAGER='vimpager'
 export MANPAGER=$PAGER

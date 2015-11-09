@@ -45,7 +45,7 @@ color=#909090
 interval=30
 
 [disk-tmp]
-command=df -h | awk -v pattern=/tmp '$0 ~ pattern { print $4 }'
+command=df -h | awk -v pattern=/tmp '$0 ~ pattern { print $4 }' | head -n1
 color=#909090
 interval=30
 #

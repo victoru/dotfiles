@@ -1,22 +1,21 @@
 [options]
 allow_bold              = true
-font                    = Fantasque Sans Mono 10
+font                    = Fantasque Sans Mono 11
 scrollback_lines        = 10000
 browser                 = qutebrowser
 clickable_url           = true
+cursor_shape = block
+highlight = #ff0000
 
 [colors]
 background = rgba(0, 0, 0, 0.9)
 
 # if unset, will reverse foreground and background
-highlight = #2f2f2f
+#highlight = #2f2f2f
 
 #Base16 Bright
-foreground = #e0e0e0
-cursor = #e0e0e0
-
 foreground  = #e0e0e0
-cursor      = #e0e0e0
+cursor      = #ffa500
 color0      = #000000
 color1      = #fb0120
 color2      = #a1c659

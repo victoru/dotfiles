@@ -12,7 +12,10 @@
     who = shortlog -s --
 	alias = !sh -c "[ $# = 2 ] && git config --global alias.\"$1\" \"$2\" && exit 0 || echo \"usage: git alias <new alias> <original command>\" >&2 && exit 1" -
     aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+    # http://fredkschott.com/post/2014/02/git-log-is-so-2005/
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 [cola]
 	fontdiff = Fantasque Sans Mono,8,-1,5,50,0,0,0,0,0
+	tabwidth = 4
 [color]
 	ui = auto
