@@ -2,7 +2,7 @@
 Description=Desktop Interface
 AllowIsolate=no
 
-PartOf=window-manager.service
+PartOf=window-manager.service xorg.socket xorg.service
 BindsTo=window-manager.service
 
 Requires=basic.target dbus.socket window-manager.service
