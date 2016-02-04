@@ -2,15 +2,13 @@
 Description=Desktop Interface
 AllowIsolate=no
 
+PartOf=window-manager.service
 BindsTo=window-manager.service
-Requires=basic.target dbus.socket 
 
+Requires=basic.target dbus.socket window-manager.service
+Before=window-manager.service
+
+Wants=xinit.service
 Wants=compositor.service
 Wants=notification.service
 Wants=wallpaper.service
-
-After=compositor.service
-After=dbus.socket
-After=notification.service
-After=wallpaper.service
-After=window-manager.service

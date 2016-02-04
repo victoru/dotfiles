@@ -1,6 +1,6 @@
 [Unit]
 Description=Lightweight Notification Daemon
-Requires=desktop.target
+Requisite=desktop.target
 After=dbus.socket
 
 [Service]
