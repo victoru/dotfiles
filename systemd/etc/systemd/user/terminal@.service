@@ -1,7 +1,6 @@
 [Unit]
 Description=persistent terminal for muxed %i session
-Requires=tmux.service
-Requisite=desktop.target
+Requires=tmux.service desktop.target
 After=tmux.service desktop.target
 
 [Service]

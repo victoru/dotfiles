@@ -1,7 +1,7 @@
 [Unit]
 Description=Xorg server initializtion
-Requisite=desktop.target
 
+Requires=desktop.target
 After=desktop.target
 
 [Service]

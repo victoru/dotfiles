@@ -1,6 +1,7 @@
 [Unit]
 Description=Gajim
-Requisite=desktop.target
+
+Requires=desktop.target
 After=desktop.target
 
 [Service]

@@ -1,11 +1,8 @@
 [Unit]
 Description=i3 tiling window manager
 
-Requires=xorg.service
-After=xorg.service
-
-BindsTo=xorg.service xorg.socket
-PartOf=xorg.service xorg.socket
+Requires=desktop.target
+After=desktop.target
 
 [Service]
 Environment=DISPLAY=:0

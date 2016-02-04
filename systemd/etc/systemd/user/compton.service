@@ -1,7 +1,9 @@
 [Unit]
 Description=X compositor
-Requisite=desktop.target
+
+Requires=desktop.target
 After=desktop.target
+
 
 [Service]
 Environment=DISPLAY=:0

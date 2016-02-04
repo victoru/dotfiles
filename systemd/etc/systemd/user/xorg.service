@@ -4,8 +4,11 @@ Description=Xorg server at display 0
 Requires=xorg.socket
 After=xorg.socket
 
+Requires=desktop.target
+Before=desktop.target
+
 [Service]
-#Type=simple
+;Type=simple
 ;SuccessExitStatus=0 1
 
 ExecStart=/usr/bin/Xorg :0 -nolisten tcp -noreset -verbose 2 "vt${XDG_VTNR}"

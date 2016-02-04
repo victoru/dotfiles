@@ -1,6 +1,7 @@
 [Unit]
 Description=Redshift: color temperature adjustment
-Requisite=desktop.target
+
+Requires=desktop.target
 After=desktop.target
 
 [Service]

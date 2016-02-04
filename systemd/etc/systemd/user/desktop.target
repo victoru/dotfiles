@@ -2,10 +2,12 @@
 Description=Desktop Interface
 AllowIsolate=no
 
-PartOf=window-manager.service xorg.socket xorg.service
-BindsTo=window-manager.service
 
-Requires=basic.target dbus.socket window-manager.service
+Requires=basic.target dbus.socket xorg.service
+After=basic.target dbus.socket xorg.service
+PartOf=xorg.socket xorg.service
+
+Requires=window-manager.service
 Before=window-manager.service
 
 Wants=xinit.service
