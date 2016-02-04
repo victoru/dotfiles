@@ -3,9 +3,10 @@ Description=Desktop Interface
 AllowIsolate=no
 
 
-Requires=basic.target dbus.socket xorg.service
-After=basic.target dbus.socket xorg.service
-PartOf=xorg.socket xorg.service
+# NOTE: socket activation is broken in xorg 1.18, so I need to require
+# xorg.service as well.
+Requires=basic.target dbus.socket xorg.service xorg.socket
+After=basic.target dbus.socket xorg.service xorg.socket
 
 Requires=window-manager.service
 Before=window-manager.service
