@@ -7,6 +7,9 @@ After=xorg.socket
 Requires=desktop.target
 Before=desktop.target
 
+Requires=window-manager.service
+Before=window-manager.service
+
 [Service]
 ;Type=simple
 ;SuccessExitStatus=0 1

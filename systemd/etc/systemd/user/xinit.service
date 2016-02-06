@@ -1,15 +1,14 @@
 [Unit]
 Description=Xorg server initializtion
-
-Requires=desktop.target
-After=desktop.target
+Requisite=desktop.target
 
 [Service]
 Type=oneshot
 Environment=DISPLAY=:0
+RemainAfterExit=yes
 ExecStart=/usr/bin/setxkbmap -option ctrl:nocaps
 ExecStart=/usr/bin/xset +dpms
 ExecStart=/usr/bin/xset dpms 0 0 300
 ExecStart=/usr/bin/autocutsel -selection PRIMARY -fork
-ExecStart=/usr/bin/autocutsel -selection PRIMARY -fork
+ExecStart=/usr/bin/autocutsel -selection CLIPBOARD -fork
 ExecStart=/etc/X11/xinit/xinitrc.d/xft-settings.sh

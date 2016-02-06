@@ -1,7 +1,5 @@
 [Unit]
 Description=Desktop Interface
-AllowIsolate=no
-
 
 # NOTE: socket activation is broken in xorg 1.18, so I need to require
 # xorg.service as well.
@@ -12,6 +10,3 @@ Requires=window-manager.service
 Before=window-manager.service
 
 Wants=xinit.service
-Wants=compositor.service
-Wants=notification.service
-Wants=wallpaper.service

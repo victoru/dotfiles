@@ -2,7 +2,7 @@
 Description=Gajim
 
 Requires=desktop.target
-After=desktop.target
+;After=desktop.target
 
 [Service]
 Type=simple

@@ -2,7 +2,7 @@
 Description=Redshift: color temperature adjustment
 
 Requires=desktop.target
-After=desktop.target
+;After=desktop.target
 
 [Service]
 Type=simple

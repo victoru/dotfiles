@@ -1,12 +1,10 @@
 [Unit]
 Description=i3 tiling window manager
 
-Requires=desktop.target
-After=desktop.target
-
 [Service]
 Environment=DISPLAY=:0
 Environment=DE=i3
+TimeoutStartSec=1s
 ExecStart=/usr/bin/i3
 ExecReload=/usr/bin/i3-msg reload
 

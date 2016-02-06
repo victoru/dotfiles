@@ -1,9 +1,8 @@
 [Unit]
 Description=automounter for removable media
 Requires=dbus.socket
-
 Requires=desktop.target
-After=desktop.target
+;After=desktop.target
 
 [Service]
 Environment=DISPLAY=:0

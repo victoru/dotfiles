@@ -1,6 +1,8 @@
 [Unit]
 Description=Devmon Service
 
+Requires=desktop.target
+
 [Service]
 Type=simple
 # Set DISPLAY for popup dialogs
