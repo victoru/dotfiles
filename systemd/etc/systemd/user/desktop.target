@@ -1,12 +1,16 @@
 [Unit]
 Description=Desktop Interface
 
-# NOTE: socket activation is broken in xorg 1.18, so I need to require
-# xorg.service as well.
-Requires=basic.target dbus.socket xorg.service xorg.socket
-After=basic.target dbus.socket xorg.service xorg.socket
+Requires=basic.target dbus.socket
+After=basic.target dbus.socket
+
+Requires=xorg.target
+After=xorg.target
 
 Requires=window-manager.service
-Before=window-manager.service
-
+Wants=compositor.service
+Wants=notification.service
+Wants=wallpaper.service
 Wants=xinit.service
+
+Before=xinit.service compositor.service wallpaper.service window-manager.service

@@ -1,6 +1,8 @@
 [Unit]
 Description=Random wallpaper with feh
+
 Requisite=desktop.target
+;After=desktop.target
 
 [Service]
 Type=oneshot

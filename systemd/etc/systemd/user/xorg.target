@@ -1,0 +1,6 @@
+[Unit]
+Description=Xorg Interface
+Requires=xorg.socket xorg.service
+After=xorg.socket xorg.service
+PartOf=xorg.socket xorg.service
+PartOf=desktop.target
