@@ -1,11 +1,10 @@
 [Unit]
 Description=i3 screen locker
-Before=suspend.target
+Requisite=desktop.target
+After=desktop.target
 
 [Service]
-Type=forking
-ExecStart=/usr/bin/i3lock -c 111111 -d
+ExecStart=/usr/bin/xss-lock -- i3lock -c 000000 -d
 
 [Install]
 Alias=screen-locker.service
-WantedBy=suspend.target

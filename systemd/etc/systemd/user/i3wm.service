@@ -4,7 +4,6 @@ Description=i3 tiling window manager
 [Service]
 Environment=DISPLAY=:0
 Environment=DE=i3
-TimeoutStartSec=1s
 ExecStart=/usr/bin/i3
 ExecReload=/usr/bin/i3-msg reload
 

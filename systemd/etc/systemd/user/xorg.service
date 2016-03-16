@@ -4,14 +4,12 @@ Description=Xorg server at display 0
 Requires=xorg.socket
 After=xorg.socket
 
-Requires=desktop.target
-Before=desktop.target
-
-Requires=window-manager.service
-Before=window-manager.service
+Requisite=desktop.target
+;Before=desktop.target
 
 [Service]
+Environment=XDG_VTNR=1
 ;Type=simple
 ;SuccessExitStatus=0 1
 
-ExecStart=/usr/bin/Xorg :0 -nolisten tcp -noreset -verbose 2 "vt${XDG_VTNR}"
+ExecStart=/usr/bin/Xorg :0 -nolisten tcp -noreset -keeptty -verbose 2 "vt${XDG_VTNR}"

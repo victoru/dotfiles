@@ -10,7 +10,9 @@ After=xorg.target
 Requires=window-manager.service
 Wants=compositor.service
 Wants=notification.service
-Wants=wallpaper.service
+Wants=wallpaper.service wallpaper.timer
 Wants=xinit.service
+Wants=screen-locker.service
 
 Before=xinit.service compositor.service wallpaper.service window-manager.service
+Before=screen-locker.service
