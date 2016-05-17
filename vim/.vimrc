@@ -1,5 +1,9 @@
 " Note: Skip initialization for vim-tiny or vim-small.
 " if 0 | endif
+"
+let g:python_host_prog='/usr/bin/python'
+let g:python3_host_skip_check = 1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 if &compatible
     set nocompatible               " Be iMproved
@@ -12,17 +16,23 @@ call dein#begin(expand('$XDG_CACHE_HOME/dein'))
 call dein#add(expand('~/.vim/bundle/dein.vim'))
 
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
+call dein#add('Shougo/vimfiler')
+call dein#add('fatih/vim-go', {'on_ft': 'go'})
 
-if !has('nvim')
-    call dein#add('Shougo/neocomplete.vim')
+if has('nvim')
+	call dein#add('Shougo/deoplete.nvim')
+	call dein#add('zchee/deoplete-go', { 'build': 'make'})
+	call dein#add('neomake/neomake')
+else
+	call dein#add('Shougo/neocomplete.vim')
+    call dein#add('godlygeek/csapprox.git', { 'terminal' : 1, 'lazy': 1 })
+    call dein#add('thinca/vim-guicolorscheme', { 'terminal' : 1 })
 endif
+
 
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/unite-outline', {'depends': ['Shougo/unite.vim']})
 
-call dein#add('godlygeek/csapprox.git', { 'terminal' : 1, 'lazy': 1 })
-
-call dein#add('thinca/vim-guicolorscheme', { 'terminal' : 1 })
 call dein#add('blueyed/vim-diminactive')
 
 call dein#add('nanotech/jellybeans.vim')
@@ -46,14 +56,10 @@ call dein#add('kwbdi.vim')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('tpope/vim-fugitive')
 
-
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('sjl/gundo.vim')
 
 call dein#add('scrooloose/syntastic')
-
-call dein#add('fatih/vim-go', {'on_ft': 'go'})
-
 call dein#add('vim-php/tagbar-phpctags.vim', {'on_ft': 'php', 'depends': ['majutsushi/tagbar']})
 
 call dein#end()
@@ -70,31 +76,15 @@ endif
 " Options {{{
 syntax enable
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-set foldmethod=indent
 set hidden
 set colorcolumn=80
-
-"set encoding=utf-8
-" Vim can not recognize the character code of your vimrc when :scriptencoding
-" is defined before :set encoding. When writing :set encoding, it should be
-" described before :scriptencoding.
-"
-scriptencoding utf-8
-"set cursorline cursorcolumn
-"" For multi-byte character support (CJK support, for example):
-""set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
-"" according to 'shiftwidth'. 'tabstop' is used in other
-"" places. A <BS> will delete a 'shiftwidth' worth of space
-"" at the start of the line.
-
+set noshowmode
 
 set undodir=~/tmp/vim/undo//
 set backupdir=~/tmp/vim/backup//
 set directory=~/tmp/vim/swap//
-
 set undofile
+
 set scrolloff=5         " keep at least 5 lines above/below
 set sidescrolloff=5     " keep at least 5 lines left/right
 set pastetoggle=<F12>
@@ -135,36 +125,31 @@ set backspace=2         " Influences the working of <BS>, <Del>, CTRL-W
                         " separated by commas. Each item allows a way to backspace
                         " over something.
 
-set autoindent          " Copy indent from current line when starting a new line
-                        " (typing <CR> in Insert mode or when using the "o" or "O"
-                        " command).
+"set autoindent          " Copy indent from current line when starting a new line
+                        "" (typing <CR> in Insert mode or when using the "o" or "O"
+                        "" command).
 
-"set smartindent
+set smartindent
 
 set ruler               " Show the line and column number of the cursor position,
                         " separated by a comma.
 
-"set textwidth=79   " Maximum width of text that is being inserted. A longer
-" line will be broken after white space to get this width.
-
-set formatoptions=c,q,r,t   " This is a sequence of letters which describes how
-                            " automatic formatting is to be done.
-" letter    meaning when present in 'formatoptions'
-" ------    ---------------------------------------
-" c         Auto-wrap comments using textwidth, inserting
-"           the current comment leader automatically.  q
-"           Allow formatting of comments with "gq".
-" r         Automatically insert the current comment leader
-"           after hitting <Enter> in Insert mode.
-" t         Auto-wrap text using textwidth (does not apply
-"           to comments)
-
-
-""set textwidth=79   " Maximum width of text that is being inserted. A longer
-"" line will be broken after white space to get this width.
-
 " Mappings
 " ========
+
+" [Space]: Other useful commands "{{{
+" Smart space mapping.
+" Notice: when starting other <Space> mappings in noremap, disappeared [Space].
+nmap  <Space>   [Space]
+xmap  <Space>   [Space]
+nnoremap  [Space]   <Nop>
+xnoremap  [Space]   <Nop>
+
+let mapleader = '[Space]'
+
+" jetpack: fly through buffers
+"nnoremap <leader>l :ls<cr>:b<space>
+
 " Visual mode keymappings
 " <TAB>: indent.
 xnoremap <TAB>  >
@@ -212,14 +197,6 @@ cnoremap <C-y>          <C-r>*
 "nnoremap  [Space]   <Nop>
 "xnoremap  [Space]   <Nop>
 
-" [Space]: Other useful commands "{{{
-" Smart space mapping.
-" Notice: when starting other <Space> mappings in noremap, disappeared [Space].
-nmap  <Space>   [Space]
-xmap  <Space>   [Space]
-nnoremap  [Space]   <Nop>
-xnoremap  [Space]   <Nop>
-
 " Toggle options. "{{{
 function! ToggleOption(option_name)
     execute 'setlocal' a:option_name.'!'
@@ -232,20 +209,16 @@ nnoremap <silent> [Space].
 "nnoremap <silent> [Space]m
 "\ :<C-u>call ToggleOption('paste')<CR>:set mouse=<CR>
 " Toggle highlight.
-nnoremap <silent> [Space]/
-            \ :<C-u>call ToggleOption('hlsearch')<CR>
+nnoremap <silent> [Space]/ :<C-u>call ToggleOption('hlsearch')<CR>
 " Toggle cursorline.
-nnoremap <silent> [Space]cl
-            \ :<C-u>call ToggleOption('cursorline')<CR>
+nnoremap <silent> [Space]cl :<C-u>call ToggleOption('cursorline')<CR>
 " Set autoread.
 "nnoremap [Space]ar
 "\ :<C-u>setlocal autoread<CR>
 " Set spell check.
 "nmap <leader>s :setlocal spell spelllang=en_us<cr>
-nnoremap [Space]sp
-            \ :<C-u>call ToggleOption('spell')<CR>
-nnoremap [Space]w
-            \ :<C-u>call ToggleOption('wrap')<CR>
+nnoremap [Space]sp :<C-u>call ToggleOption('spell')<CR>
+nnoremap [Space]w :<C-u>call ToggleOption('wrap')<CR>
 
 " }}}
 
@@ -260,7 +233,6 @@ nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
 nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
 nnoremap <leader>v V`]
 
-let mapleader = '[Space]'
 "let mapleader = ','
 "let localleader = ''
 
@@ -283,34 +255,16 @@ noremap L :bn<CR>
 
 " remove trailing whitespaces
 nnoremap <leader>W ms:%s/\s\+$//e \| let @/=''<CR>`s
+    
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 ""stop annoying jumping hash
 ""inoremap # X<BS>#
 "inoremap # X<BS>#
 "set cinkeys-=0#
 "set indentkeys-=0#
-
-" Use ranger as vim file manager
-fun! RangerChooser()
-    let sfilename = printf("/tmp/vimranger_chosenfile_%s", system('echo -n $RANDOM'))
-
-    "let cmd = printf("sil !ranger --choosefile=%s %s", sfilename, expand("%:p:h"))
-    let cmd = printf("ranger --choosefile=%s %s", sfilename, expand("%:p:h"))
-    if has("gui_running") && (has("gui_gtk") || has("gui_motif"))
-        let cmd = printf("!termite -t vimranger -e \"%s\"", cmd)
-        "let cmd = substitute(cmd, '!', '! termite -name vimranger -e ', '')
-    else
-        let cmd = printf("sil !%s", cmd)
-    endif
-    exec cmd
-    redraw!
-    if filereadable(sfilename)
-        exec 'edit ' . system('cat ' . sfilename)
-        call system('rm ' . sfilename)
-    endif
-    redraw!
-endfun
-map <leader>r :call RangerChooser()<CR>
 
 "save as root
 command! W w !sudo tee % > /dev/null
@@ -351,26 +305,74 @@ augroup ColorCmds
     autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|???\)')
 augroup END
 
-if has('gui_running')
-    colorscheme jellybeans
-    set guifont=Fantasque\ Sans\ Mono\ 10
-    set guioptions=c
-else
-    call dein#source('csapprox')
-    "colorscheme jellybeans
-     colorscheme gruvbox
-     set background=dark
-    "colorscheme base16-twilight
-endif
-
 "}}}
+" Enter automatically into the files directory
+autocmd BufEnter * silent! lcd %:p:h
 
 augroup StuffCmd
     autocmd!
 augroup END
 
+if has('gui_running')
+    colorscheme jellybeans
+    set guifont=Fantasque\ Sans\ Mono\ 10
+    set guioptions=c
+else
+    if !has('nvim')
+        call dein#source('csapprox')
+    endif
+
+    "let g:rehash256 = 1
+    set background=dark
+    colorscheme gruvbox
+endif
+
+if has('nvim') && dein#tap('deoplete.nvim')
+
+	let g:deoplete#enable_at_startup = 1
+    " neocomplete like
+    set completeopt+=noinsert
+    " deoplete.nvim recommend
+    set completeopt+=noselect
+
+    let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+
+elseif !has('nvim') && dein#tap('neocomplete.vim')
+
+    let g:neocomplete#enable_auto_select = 1
+	let g:neocomplete#enable_at_startup = 1                      " use neocomplete
+	let g:neocomplete#enable_smart_case = 1                      " use smartcase
+	let g:neocomplete#enable_auto_delimiter = 1                  " enable auto delimiter
+	let g:neocomplete#max_list = 15                              " max complete reminder list
+	let g:neocomplete#sources#syntax#min_keyword_length = 3      " set minimum syntax keyword length
+
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+        return neocomplete#close_popup() . "\<CR>"
+        " For no inserting <CR> key.
+        "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+    endfunction
+
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+    inoremap <expr><C-y>  neocomplete#close_popup()."\<C-y>"
+    inoremap <expr><C-e>  neocomplete#cancel_popup()."\<C-e>"
+endif
+
 
 " Plugins {{{
+if dein#tap('vimfiler')
+    map <leader>r :VimFiler <CR>
+endif
+
 if dein#tap('phpcomplete-extended')
     let g:phpcomplete_index_composer_command = 'php ' .
                 \ dein#get('phpcomplete-extended').rtp . 'bin/composer.phar'
@@ -388,8 +390,6 @@ endif
 if dein#tap('LaTeX-Suite-aka-Vim-LaTeX')
     let g:Tex_DefaultTargetFormat = 'pdf'
 endif
-
-let g:session_autoload = 'no'
 
 if dein#tap('kwbdi.vim')
     nmap <C-W>! <Plug>Kwbd
@@ -429,6 +429,16 @@ endif
 
 if dein#tap('tagbar')
     nmap <F8> :TagbarToggle<CR>
+
+    let g:tagbar_status_func = 'TagbarStatusFunc'
+
+    if dein#tap('itchyny/tagbar')
+        function! TagbarStatusFunc(current, sort, fname, ...) abort
+            let g:lightline.fname = a:fname
+          return lightline#statusline(0)
+        endfunction
+    endif
+
     "let g:tagbar_autoclose = 1
     "let g:tagbar_width=
     "
@@ -463,12 +473,7 @@ if dein#tap('tagbar')
                 \ 'ctagsargs' : '-sort -silent'
                 \ }
 endif
-"ctrlp-funky
-if dein#tap('ctrlp-funky')
-    nnoremap <Leader>fu :CtrlPFunky<Cr>
-    " narrow the list down with a word under cursor
-    nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-endif
+
 if dein#tap('vim-gitgutter')
     let g:gitgutter_max_signs = 1000
 endif
@@ -479,31 +484,29 @@ if dein#tap('vim-bufferline')
 endif
 
 if dein#tap('lightline.vim')
-    set noshowmode
     set laststatus=2
     let g:nomodefiletypes = ['gundo', 'tagbar']
-    "let g:bufferline_active_buffer_left = ''
-    "let g:bufferline_active_buffer_right = ''
-    let g:bufferline_fname_mod = ':~:.'
-    let g:bufferline_pathshorten = 1
     let g:lightline = {
-                \ 'colorscheme': 'Tomorrow_Night_Bright',
+                \ 'colorscheme': 'wombat',
                 \ 'active': {
                 \   'left': [ [ 'mode', 'paste' ],
-                \             [ 'readonly', 'fugitive' ],
-                \             [ 'bufferline' ] ],
+                \             [ 'fugitive', 'filename' ],
+                \             [ 'go' ] ],
                 \   'right': [ [ 'syntastic', 'lineinfo' ],
                 \              ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
                 \ },
                 \ 'component_function': {
-                \   'bufferline': 'MyBufferline',
                 \   'fileencoding': 'MyFileencoding',
                 \   'fileformat': 'MyFileformat',
+                \   'filename': 'MyFilename',
+                \   'percent': 'LightLinePercent',
                 \   'filetype': 'MyFiletype',
                 \   'fugitive': 'MyFugitive',
                 \   'mode': 'MyMode',
-                \   'readonly': 'MyReadonly',
+                \   'go': 'LightLineGo',
+                \   'lineinfo': 'LightLineInfo',
                 \ },
+                \ 'subseparator': { 'left': '|', 'right': '|' },
                 \ 'component_expand': {
                 \   'syntastic': 'SyntasticStatuslineFlag',
                 \ },
@@ -512,11 +515,9 @@ if dein#tap('lightline.vim')
                 \ },
                 \ 'component_visible_condition': {
                 \   'readonly': '(&filetype!="help"&& &readonly)',
-                \ },
-                \ 'separator': { 'left': '┇', 'right': '┆' },
-                \ 'subseparator': { 'left': '╏', 'right': '╎'}
                 \ }
-                "\ 'foo': { 'left': ' ▒  ┆ ▓  | ⥓  ▝ ╎ ╷╵╷  ╫ ┃╏┃ ▎▊ ▋ ▊', 'right': '▓' },
+                \ }
+
     augroup reload_vimrc
     autocmd!
         autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
@@ -532,12 +533,23 @@ if dein#tap('lightline.vim')
     endfunction
 
     function! MyFugitive()
-        if !exists('*fugitive#head') || (exists('*fugitive#head') && strlen(fugitive#head()))
-            if floor(((strlen(fugitive#head()) * 1.0) / winwidth(0)) * 100) < 25
-                return '⭠ ' . fugitive#head()
+        try
+            if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
+              let mark = '⭠ '  " edit here for cool mark
+              let _ = fugitive#head()
+              return _ !=# '' ? mark._ : ''
             endif
-        endif
+        catch
+        endtry
         return ''
+
+
+        "if !exists('*fugitive#head') || (exists('*fugitive#head') && strlen(fugitive#head()))
+            "if floor(((strlen(fugitive#head()) * 1.0) / winwidth(0)) * 100) < 25
+                "return '⭠ ' . fugitive#head()
+            "endif
+        "endif
+        "return ''
     endfunction
 
     function! MyReadonly()
@@ -549,25 +561,41 @@ if dein#tap('lightline.vim')
         return ''
     endfunction
 
-    function! IsModeOnlyFileType()
-        return index(g:nomodefiletypes, tolower(&filetype)) != -1
+    function! LightLinePercent()
+      return &ft =~? 'vimfiler' ? '' : (100 * line('.') / line('$')) . '%'
     endfunction
+
+    function! LightLineGo()
+      return exists('*go#jobcontrol#Statusline') ? go#jobcontrol#Statusline() : ''
+    endfunction
+
+	function! LightLineInfo()
+	  return winwidth(0) > 60 ? printf("%3d:%-2d", line('.'), col('.')) : ''
+	endfunction
+
 
     function! MyFilename()
         let fname = expand('%:t')
-        return ('' == fname ? '[No Name]' :
-                    \ IsModeOnlyFileType() ? '': fname . MyModified())
+        return  ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+                \ fname == '__Tagbar__' ? g:lightline.fname :
+                \ fname =~ '__Gundo\|NERD_tree' ? '' :
+                \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+                \  &ft == 'unite' ? unite#get_status_string() :
+                \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+				\ ('' != MyModified() ? ' ' . MyModified() : '')
     endfunction
 
     function! MyMode()
-        let fname = expand('%:t')
-        if IsModeOnlyFileType()
-            return &filetype == 'tagbar' ? '[Tagbar]' :
-                    \ &filetype =~ 'unite' ? fname :
-                    \ fname == '__Gundo__' ? '[Gundo]' :
-                    \ fname == '__Gundo_Preview__' ? '[Gundo Preview]' : "[".&filetype."]"
-        endif
-        return  lightline#mode()
+      let fname = expand('%:t')
+      return fname == '__Tagbar__' ? 'Tagbar' :
+            \ fname == 'ControlP' ? 'CtrlP' :
+            \ fname == '__Gundo__' ? 'Gundo' :
+            \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
+            \ fname =~ 'NERD_tree' ? 'NERDTree' :
+            \ &ft == 'unite' ? 'Unite' :
+            \ &ft == 'vimfiler' ? 'VimFiler' :
+            \ &ft == 'vimshell' ? 'VimShell' :
+            \ winwidth(0) > 60 ? lightline#mode() : ''
     endfunction
 
     function! MyModified()
@@ -586,29 +614,11 @@ if dein#tap('lightline.vim')
         return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
     endfunction
 
-    function! MyBufferline()
-        if IsModeOnlyFileType()
-            return ''
-        endif
-        call bufferline#refresh_status()
-        let b = g:bufferline_status_info.before
-        let c = g:bufferline_status_info.current
-        let a = g:bufferline_status_info.after
-        let alen = strlen(a)
-        let blen = strlen(b)
-        let clen = strlen(c)
-        let w = winwidth(0) * 4/11
-        if w < alen+blen+clen
-            "let whalf = (w - strlen(c)) / 2
-            "let aa = alen > whalf && blen > whalf ? a[:whalf] : alen + blen < w - clen || alen < whalf ? a : a[:(w - clen - blen)]
-            "let bb = alen > whalf && blen > whalf ? b[-(whalf):] : alen + blen < w - clen || blen < whalf ? b : b[-(w - clen - alen):]
-            "return (strlen(bb) < strlen(b) ? '...' : '') . bb . c . aa . (strlen(aa) < strlen(a) ? '...' : '')
-            return c
-        else
-            return b . c . a
-        endif
-    endfunction
+endif
 
+if has('nvim') && dein#tap('neomake')
+    let g:neomake_open_list = 2
+    autocmd! BufWritePost * :Neomake
 endif
 
 if dein#tap('vim-go')
@@ -620,26 +630,17 @@ if dein#tap('vim-go')
     let g:go_highlight_operators = 1
     let g:go_highlight_build_constraints = 1
 
-    "augroup goerrcheck
-        "autocmd!
-        "autocmd FileType go autocmd BufWritePost <buffer> GoErrCheck
-    "augroup END
-
-	""Sometimes when using both vim-go and syntastic Vim will start lagging
-	""while saving and opening files. The following fixes this:
-    let g:syntastic_go_checkers = ['gofmt', 'golint', 'govet']
-    let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-    let g:go_list_type = "quickfix"
+    "let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+    "let g:go_list_type = "quickfix"
 
     "autocmd BufRead *  call Hidecolumnsingo()
 
-    function! Hidecolumnsingo()
-        if &ft == 'go'
-            set colorcolumn=80
-        endif
-    endfunction
-
     augroup StuffCmd
+        if has('nvim')
+            au FileType go nmap <leader>rt <Plug>(go-run-tab)
+            au FileType go nmap <Leader>rs <Plug>(go-run-split)
+            au FileType go nmap <Leader>rv <Plug>(go-run-vertical)
+        endif
         " Run commands, such as go run with <leader>r for the current file or go build
         " and go test for the current package with <leader>b and <leader>t. Display a
         " beautiful annotated source code to see which functions are covered with
@@ -660,44 +661,12 @@ if dein#tap('vim-go')
         " Replace gd (Goto Declaration) for the word under your cursor (replaces current buffer)
         au FileType go nmap gd <Plug>(go-def)
 
-
-
         " Or open the definition/declaration in a new vertical, horizontal or tab for the word under your cursor
 
         au FileType go nmap <Leader>gds <Plug>(go-def-split)
         au FileType go nmap <Leader>gdv <Plug>(go-def-vertical)
         au FileType go nmap <Leader>gdt <Plug>(go-def-tab)
     augroup END
-
-endif
-
-if dein#tap('neocomplete.vim')
-    let g:neocomplete#enable_at_startup = 1
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-        return neocomplete#close_popup() . "\<CR>"
-        " For no inserting <CR> key.
-        "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-    endfunction
-
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
-    inoremap <expr><C-y>  neocomplete#close_popup()."\<C-y>"
-    inoremap <expr><C-e>  neocomplete#cancel_popup()."\<C-e>"
 
 endif
 
