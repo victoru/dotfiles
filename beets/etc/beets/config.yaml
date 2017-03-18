@@ -1,7 +1,6 @@
 directory: ~/Music
 library: ~/etc/beets/library.db
-plugins: duplicates
-
+plugins: duplicates discogs
 
 #Either yes or no, indicating whether the autotagger should use multiple threads.
 #This makes things faster but may behave strangely.  Defaults to yes.

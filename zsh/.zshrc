@@ -27,5 +27,7 @@ for config in $configs; do
 done
 
 eval $(dircolors ~/.dircolors)
+eval $(keychain --eval --quiet  ~/.ssh/godship_id_rsa )
+eval "$(direnv hook zsh)"
 
 fortune

@@ -3,6 +3,4 @@ XDG_CACHE_HOME      DEFAULT=/home/victor/etc/cache
 XDG_DATA_HOME       DEFAULT=/home/victor/var
 EDITOR              DEFAULT=vim
 VISUAL              DEFAULT=vim
-MANPAGER            DEFAULT=vimpager
-PAGER               DEFAULT=vimpager
 GOPATH              DEFAULT=/home/victor/go

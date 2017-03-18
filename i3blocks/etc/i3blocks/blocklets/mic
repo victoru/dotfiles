@@ -18,15 +18,15 @@
 # Check mouse event
 case $BLOCK_BUTTON in
     3)
-    #/usr/bin/amixer set Capture toggle &>/dev/null  # AlsaMixer
-    /usr/bin/pactl set-source-mute 1 toggle  # PulseAudio
+    /usr/bin/amixer set Capture toggle &>/dev/null  # AlsaMixer
+    #/usr/bin/pactl set-source-mute 1 toggle  # PulseAudio
     ;;
 esac
 
 
 # Determine mic's state
-#amixer get Capture | grep -q "off" && [[ $? -eq 0 ]] && state="off"  # If you use AlsaMixer
-pactl list sources | grep -q "Mute: yes" && [[ $? -eq 0 ]] && state="off"  # If you rather go with PulseAudio
+amixer get Capture | grep -q "off" && [[ $? -eq 0 ]] && state="off"  # If you use AlsaMixer
+#pactl list sources | grep -q "Mute: yes" && [[ $? -eq 0 ]] && state="off"  # If you rather go with PulseAudio
 
 
 # Toggle mic's state

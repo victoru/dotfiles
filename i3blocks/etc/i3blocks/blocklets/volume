@@ -24,20 +24,18 @@ CEILING="${CEILING:-100}"
 STEP="${BLOCK_INSTANCE#*/}"
 STEP="${STEP:-5}"
 
-CURRENT_SINK=$(pactl list sinks short | grep RUNNING | awk '{print $1}')
-
 case $BLOCK_BUTTON in	# Ponymix auto-prints volume so >/dev/null
-  3) pamixer -t --sink $CURRENT_SINK;;				# Right Click
-  4) pamixer --sink $CURRENT_SINK --allow-boost --increase $STEP >/dev/null;;	# Scroll Up
-  5) pamixer --sink $CURRENT_SINK --allow-boost  --decrease $STEP >/dev/null;;	# Scroll Down
+  3) ponymix toggle >/dev/null;;				# Right Click
+  4) ponymix --max-volume $CEILING increase $STEP >/dev/null;;	# Scroll Up
+  5) ponymix --max-volume $CEILING decrease $STEP >/dev/null;;	# Scroll Down
 esac
 
-if [ $(pamixer --sink $CURRENT_SINK --get-mute) == "true" ]; then
+if ponymix is-muted; then
 	STATE="MUTE"
 else
-    STATE="$(pamixer --get-volume --sink $CURRENT_SINK)%"
+	STATE="$(ponymix get-volume)%"
 fi
 
-echo "$STATE "	# full_text
-echo "$STATE "	# short_text
+echo "$STATE"	# full_text
+echo "$STATE"	# short_text
 echo "#00FFFF"	# color

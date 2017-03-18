@@ -139,14 +139,19 @@ mode "cheatsheet" {
 
 }
 
-set $mode_run Run: (c) command, (a) application
+set $mode_run Run: (c) command, (o) omni (w) windows
 
 mode "$mode_run" {
-    bindsym d exec dmenu_run, mode "default"
-    bindsym c exec dmenu_run, mode "default"
-    bindsym a exec i3-dmenu-desktop, mode "default"
+    bindsym c exec rofi -show run; mode "default"
+    bindsym d exec rofi -show drun; mode "default"
+    bindsym o exec "rofi -combi-modi window,drun,run -show combi"; mode "default"
+    bindsym w exec rofi -show window; mode "default"
 
-    bindsym Return exec dmenu_run, mode "default"
+    #bindsym d exec dmenu_run, mode "default"
+    #bindsym c exec dmenu_run, mode "default"
+    #bindsym a exec i3-dmenu-desktop, mode "default"
+
+    bindsym Return exec dmenu_run; mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+d mode "$mode_run"
@@ -180,6 +185,7 @@ new_window pixel 2
 
 for_window [class="^Termite$" instance="scratchpad|development"] border 1pixel
 for_window [instance="scratchpad"] move scratchpad; [instance='scratchpad'] scratchpad show, resize grow width 1080, move position absolute center, move scratchpad
+#for_window [instance="scratchpad"] move scratchpad; [instance='scratchpad'] scratchpad show, resize grow width 1080, move position absolute center, move scratchpad
 
 for_window [class="^Firefox$" instance="(Download|Places)"] floating enable
 for_window [class="^Firefox$" window_role="(Permissions|Preferences)"] floating enable
@@ -197,21 +203,28 @@ for_window [window_role="task_dialog"] floating enable
 
 #audio stuff
 
+# xev
 #bindsym XF86AudioPrev exec echo -n ""
 bindsym XF86AudioNext exec echo -n "n" > /home/victor/etc/pianobar/ctl
 bindsym XF86AudioPlay exec echo -n "p" > /home/victor/etc/pianobar/ctl
 #bindsym XF86AudioStop exec spc stop
+#bindsym XF86AudioRaiseVolume exec pamixer --allow-boost -i 5 --sink $(pactl list sinks short | grep RUNNING | awk '{print $1}')
+#bindsym XF86AudioLowerVolume exec pamixer -d 5 --sink $(pactl list sinks short | grep RUNNING | awk '{print $1}')
+#bindsym XF86AudioMute exec pamixer -t --sink $(pactl list sinks short | grep RUNNING | awk '{print $1}')
 bindsym XF86AudioRaiseVolume exec ponymix --max-volume 150 increase 5 >/dev/null
 bindsym XF86AudioLowerVolume exec ponymix --max-volume 150 decrease 5 >/dev/null
-bindsym XF86AudioMute exec ponymix --sink toggle
-bindsym XF86AudioMicMute exec amixer -c0 set Capture toggle
+#bindsym XF86AudioRaiseVolume exec sh -c "pactl set-sink-mute 0 false && pactl set-sink-volume 0 +5%"
+#bindsym XF86AudioLowerVolume exec sh -c "pactl set-sink-mute 0 false && pactl set-sink-volume 0 -5%"
+#bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute 1 toggle
+
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 -time 150
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 -time 150
 
 #toggle touchpad
 bindsym XF86TouchpadToggle exec /home/victor/scripts/toggle_touchpad
 
-set $lock_screen i3lock -c 111111 -d
+set $lock_screen xset s activate
 
 bindsym Control+$mod+l exec $lock_screen
 bindsym XF86ScreenSaver exec $lock_screen

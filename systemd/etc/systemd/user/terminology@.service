@@ -1,0 +1,18 @@
+[Unit]
+Description=persistent terminal for muxed %i session
+Requires=tmux.service
+Requisite=desktop.target
+After=tmux.service desktop.target
+
+[Service]
+Type=simple
+ExecStartPre=/usr/bin/tmux -S %t/tmux has -t %i
+ExecStart=/usr/bin/terminology \
+    --hold \
+    --name=%i \
+    --role=%i \
+    -e "/usr/bin/tmux -S %t/tmux attach -d -t %i"
+Restart=always
+
+[Install]
+WantedBy=desktop.target

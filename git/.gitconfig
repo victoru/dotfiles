@@ -14,8 +14,14 @@
     aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
     # http://fredkschott.com/post/2014/02/git-log-is-so-2005/
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+
+    assume-unchanged = update-index --assume-unchanged
+    assume-changed = update-index --no-assume-unchanged
 [cola]
-	fontdiff = Fantasque Sans Mono,8,-1,5,50,0,0,0,0,0
+	fontdiff = M+ 1m,8,-1,5,50,0,0,0,0,0
 	tabwidth = 4
 [color]
 	ui = auto
+[gui]
+	editor = nvim-qt
+	historybrowser = gitk

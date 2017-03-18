@@ -1,0 +1,15 @@
+[Unit]
+Description=ScudCloud
+Requisite=desktop.target
+After=desktop.target
+
+[Service]
+LimitNOFILE=10000
+Type=simple
+Environment=DISPLAY=:0
+Environment=LANG=en_US.UTF-8
+ExecStart=/usr/bin/scudcloud
+#cc--no_plugins=True
+
+[Install]
+WantedBy=desktop.target

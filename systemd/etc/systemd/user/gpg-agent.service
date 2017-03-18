@@ -4,6 +4,7 @@ Description=GPG Agent service
 [Service]
 Type=forking
 ExecStart=/usr/bin/gpg-agent --verbose --daemon
+Restart=on-abort
 
 [Install]
 WantedBy=basic.target

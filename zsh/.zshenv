@@ -8,9 +8,10 @@ export BIN_HOME="$HOME/bin"
 export GOPATH=/home/victor/go
 
 export BROWSER='qutebrowser'
-export EDITOR='vim'
-export PAGER='vimpager'
-export MANPAGER=$PAGER
+export EDITOR='nvim'
+#export VISUAL='nvim-qt'
+#export PAGER='vimpager'
+#export MANPAGER=$PAGER
 
 export SAVEHIST=10000
 export HISTSIZE=10000 #determines the number of lines the shell will keep within one session

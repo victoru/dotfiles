@@ -1,22 +1,9 @@
-[options]
-allow_bold              = true
-font                    = Fantasque Sans Mono 10
-;font                    = M+ 1mn 10
-scrollback_lines        = 10000
-browser                 = qutebrowser
-clickable_url           = true
-cursor_shape = block
-highlight = #ff0000
-
-[colors]
-background = rgba(0, 0, 0, 0.9)
-
-# if unset, will reverse foreground and background
-#highlight = #2f2f2f
-
 #Base16 Bright
+foreground = #e0e0e0
+cursor = #e0e0e0
+
 foreground  = #e0e0e0
-cursor      = #fc007c
+cursor      = #e0e0e0
 color0      = #000000
 color1      = #fb0120
 color2      = #a1c659
@@ -39,5 +26,3 @@ color18     = #303030
 color19     = #505050
 color20     = #d0d0d0
 color21     = #f5f5f5
-
-# vim: ft=dosini

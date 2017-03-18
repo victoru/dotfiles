@@ -20,7 +20,9 @@ say() {
         local lang=${LANG%_*};
         local text="$*";
     fi;
-    mplayer "http://translate.google.com/translate_tts?ie=UTF-8&client=&tl=${lang}&q=${text}" &> /dev/null ;
+    mplayer "https://translate.google.com/translate_tts?ie=UTF-8&client=openhab&tl=${lang}&q=${text}" #&> /dev/null ;
+    #http://translate.google.com/translate_tts
+    #https://translate.google.com/translate_tts?ie=UTF-8&q=Spectrographyd&tl=en&total=1&idx=0&textlen=14&tk=181270.320436&client=t&prev=input&ttsspeed=0.24
 }
 
 gocd () { cd `go list -f '{{.Dir}}' $1` }
@@ -29,3 +31,9 @@ gocd () { cd `go list -f '{{.Dir}}' $1` }
 owner () { pacman -Qo `which $1` }
 
 function join { local IFS="$1"; shift; echo "$*"; }
+
+showerthought() {
+    curl -s --connect-timeout 5 -A '/u/your_user_name' \
+        'https://www.reddit.com/r/showerthoughts/top.json?sort=top&t=week&limit=100' | \
+        python2.7 -c 'import sys, random, json; randnum = random.randint(0,99); response = json.load(sys.stdin)["data"]["children"][randnum]["data"]; print "\n\"" + response["title"] + "\""; print "    -" + response["author"] + "\n";'
+}

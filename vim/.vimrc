@@ -1,42 +1,62 @@
 " Note: Skip initialization for vim-tiny or vim-small.
 " if 0 | endif
 "
-let g:python_host_prog='/usr/bin/python'
-let g:python3_host_skip_check = 1
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let g:python_host_prog='/usr/bin/python2'
+let g:python3_host_prog='/usr/bin/python'
 
 if &compatible
     set nocompatible               " Be iMproved
 endif
 
-set runtimepath^=~/.vim/bundle/dein.vim
+if has('nvim')
+    let s:editor_root=expand("~/.nvim")
+else
+    let s:editor_root=expand("~/.vim")
+endif
+
+"set runtimepath^=s:editor_root . '/bundle/dein.vim'
+let &rtp = s:editor_root . '/bundle/dein.vim' .  ',' . &rtp
 
 call dein#begin(expand('$XDG_CACHE_HOME/dein'))
-
-call dein#add(expand('~/.vim/bundle/dein.vim'))
+call dein#add(expand(s:editor_root . '/bundle/dein.vim'))
 
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-call dein#add('Shougo/vimfiler')
+"call dein#add('Shougo/vimfiler')
 call dein#add('fatih/vim-go', {'on_ft': 'go'})
 
+"call dein#add('tpope/vim-vinegar')
+
+call dein#add('godlygeek/tabular')
+call dein#add('jwalton512/vim-blade')
+call dein#add('mustache/vim-mustache-handlebars')
 if has('nvim')
 	call dein#add('Shougo/deoplete.nvim')
 	call dein#add('zchee/deoplete-go', { 'build': 'make'})
+	call dein#add('nsf/gocode', { 'rtp': 'nvim/'})
 	call dein#add('neomake/neomake')
 else
 	call dein#add('Shougo/neocomplete.vim')
     call dein#add('godlygeek/csapprox.git', { 'terminal' : 1, 'lazy': 1 })
     call dein#add('thinca/vim-guicolorscheme', { 'terminal' : 1 })
+    call dein#add('scrooloose/syntastic')
 endif
 
+call dein#add('othree/yajs.vim')
+call dein#add('othree/es.next.syntax.vim')
 
 call dein#add('Shougo/unite.vim')
+"call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/unite-outline', {'depends': ['Shougo/unite.vim']})
+call dein#add('Shougo/neomru.vim', {'depends': ['Shougo/unite.vim']})
+
+call dein#add('osyo-manga/vim-anzu')
 
 call dein#add('blueyed/vim-diminactive')
 
 call dein#add('nanotech/jellybeans.vim')
 call dein#add('morhetz/gruvbox')
+call dein#add('jacoborus/tender')
+call dein#add('alessandroyorba/alduin')
 
 call dein#add('itchyny/lightline.vim')
 call dein#add('bling/vim-bufferline')
@@ -45,7 +65,7 @@ call dein#add('majutsushi/tagbar')
 call dein#add(expand('~/src/kamailio/utils/misc/vim'))
 
 call dein#add('elzr/vim-json')
-call dein#add('chase/vim-ansible-yaml')
+call dein#add('pearofducks/ansible-vim')
 call dein#add('Glench/Vim-Jinja2-Syntax', {'on_ft': 'jinja'})
 call dein#add('Rykka/riv.vim', {'on_ft' : 'rst'})
 call dein#add('PotatoesMaster/i3-vim-syntax', {'on_ft' : 'i3'})
@@ -59,22 +79,25 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('sjl/gundo.vim')
 
-call dein#add('scrooloose/syntastic')
-call dein#add('vim-php/tagbar-phpctags.vim', {'on_ft': 'php', 'depends': ['majutsushi/tagbar']})
+call dein#add('vim-php/tagbar-phpctags.vim', {
+    \ 'hook_post_update': "
+    \ !sh -c 'curl -SsL http://vim-php.com/phpctags/install/phpctags.phar 
+    \ > ~/bin/phpctags && chmod +x ~/bin/phpctags'",
+    \ 'on_ft': 'php', 'depends': ['tagbar']})
+
+call dein#add('hashivim/vim-terraform')
 
 call dein#end()
-
-filetype plugin indent on
 
 if dein#check_install()
   call dein#install()
 endif
-
+filetype plugin indent on
+syntax enable
 
 "}}}
 
 " Options {{{
-syntax enable
 
 set hidden
 set colorcolumn=80
@@ -124,12 +147,6 @@ set backspace=2         " Influences the working of <BS>, <Del>, CTRL-W
                         " and CTRL-U in Insert mode. This is a list of items,
                         " separated by commas. Each item allows a way to backspace
                         " over something.
-
-"set autoindent          " Copy indent from current line when starting a new line
-                        "" (typing <CR> in Insert mode or when using the "o" or "O"
-                        "" command).
-
-set smartindent
 
 set ruler               " Show the line and column number of the cursor position,
                         " separated by a comma.
@@ -260,12 +277,6 @@ nnoremap <leader>W ms:%s/\s\+$//e \| let @/=''<CR>`s
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
-""stop annoying jumping hash
-""inoremap # X<BS>#
-"inoremap # X<BS>#
-"set cinkeys-=0#
-"set indentkeys-=0#
-
 "save as root
 command! W w !sudo tee % > /dev/null
 
@@ -292,10 +303,10 @@ augroup ColorCmds
     "au ColorScheme,VimEnter myspecialcolors hi normal ctermbg=red guibg=red
     au ColorScheme * hi normal ctermbg=none
     au ColorScheme * hi nontext ctermbg=none
-    if has('nvim')
-        au ColorScheme * hi normal guibg=none
-        au ColorScheme * hi nontext guibg=none
-    endif
+    "if has('nvim')
+        au ColorScheme * hi normal guibg=NONE
+        au ColorScheme * hi nontext guibg=NONE
+    "endif
 
     autocmd BufWinEnter,WinEnter * setlocal colorcolumn=80
     autocmd BufWinLeave,WinLeave * setlocal colorcolumn=0
@@ -307,12 +318,29 @@ augroup END
 
 "}}}
 " Enter automatically into the files directory
-autocmd BufEnter * silent! lcd %:p:h
+"autocmd BufEnter * silent! lcd %:p:h
 
 augroup StuffCmd
     autocmd!
 augroup END
 
+if dein#tap('alduin')
+"Decription 	Add variables to .vimrc 	Screenshot
+"dark gray background 	colorscheme alduin 	Screenshot
+"black background 	let g:alduin_Shout_Become_Ethereal = 1 	Screenshot
+"gray to black @ 5pm 	let g:alduin_Contract_Vampirism = 1 	Screenshot
+"underline matching parens 	let g:alduin_Shout_Aura_Whisper = 1 	Screenshot
+"adds dark red color 	let g:alduin_Shout_Fire_Breath = 1 	Screenshot
+"removes background from Strings 	let g:alduin_Shout_Animal_Allegiance = 1 	Screenshot
+"removes cursorline 	let g:alduin_Shout_Clear_Skies = 1 	Screenshot
+
+endif
+
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+set termguicolors
 if has('gui_running')
     colorscheme jellybeans
     set guifont=Fantasque\ Sans\ Mono\ 10
@@ -320,24 +348,38 @@ if has('gui_running')
 else
     if !has('nvim')
         call dein#source('csapprox')
+"        set termguicolors
+
     endif
 
+    hi! Normal ctermbg=NONE guibg=NONE
+    hi! NonText ctermbg=NONE guibg=NONE
     "let g:rehash256 = 1
     set background=dark
-    colorscheme gruvbox
+    "colorscheme gruvbox
+    colorscheme alduin
 endif
 
-if has('nvim') && dein#tap('deoplete.nvim')
+if has('nvim')
 
-	let g:deoplete#enable_at_startup = 1
-    " neocomplete like
-    set completeopt+=noinsert
-    " deoplete.nvim recommend
-    set completeopt+=noselect
+    if dein#tap('neomake')
+        let g:neomake_open_list = 2
+        autocmd! BufWritePost * :Neomake
+    endif
 
-    let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+    if dein#tap('deoplete.nvim')
 
-elseif !has('nvim') && dein#tap('neocomplete.vim')
+        let g:deoplete#enable_at_startup = 1
+        " neocomplete like
+        set completeopt+=noinsert
+        " deoplete.nvim recommend
+        set completeopt+=noselect
+
+        let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+    endif
+endif
+
+if dein#tap('neocomplete.vim')
 
     let g:neocomplete#enable_auto_select = 1
 	let g:neocomplete#enable_at_startup = 1                      " use neocomplete
@@ -430,14 +472,12 @@ endif
 if dein#tap('tagbar')
     nmap <F8> :TagbarToggle<CR>
 
-    let g:tagbar_status_func = 'TagbarStatusFunc'
+    function! TagbarStatusFunc(current, sort, fname, ...) abort
+        let g:lightline.fname = a:fname
+      return lightline#statusline(0)
+    endfunction
 
-    if dein#tap('itchyny/tagbar')
-        function! TagbarStatusFunc(current, sort, fname, ...) abort
-            let g:lightline.fname = a:fname
-          return lightline#statusline(0)
-        endfunction
-    endif
+    let g:tagbar_status_func = 'TagbarStatusFunc'
 
     "let g:tagbar_autoclose = 1
     "let g:tagbar_width=
@@ -487,7 +527,7 @@ if dein#tap('lightline.vim')
     set laststatus=2
     let g:nomodefiletypes = ['gundo', 'tagbar']
     let g:lightline = {
-                \ 'colorscheme': 'wombat',
+                \ 'colorscheme': 'tender',
                 \ 'active': {
                 \   'left': [ [ 'mode', 'paste' ],
                 \             [ 'fugitive', 'filename' ],
@@ -579,8 +619,7 @@ if dein#tap('lightline.vim')
         return  ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
                 \ fname == '__Tagbar__' ? g:lightline.fname :
                 \ fname =~ '__Gundo\|NERD_tree' ? '' :
-                \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-                \  &ft == 'unite' ? unite#get_status_string() :
+                \ (&ft == 'unite' ? unite#get_status_string() :
                 \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
 				\ ('' != MyModified() ? ' ' . MyModified() : '')
     endfunction
@@ -616,11 +655,6 @@ if dein#tap('lightline.vim')
 
 endif
 
-if has('nvim') && dein#tap('neomake')
-    let g:neomake_open_list = 2
-    autocmd! BufWritePost * :Neomake
-endif
-
 if dein#tap('vim-go')
     let g:go_fmt_command = "goimports"
 
@@ -630,8 +664,12 @@ if dein#tap('vim-go')
     let g:go_highlight_operators = 1
     let g:go_highlight_build_constraints = 1
 
+    nm <F5> :GoErrCheck<CR>
+    nmap <leader>E :GoErrCheck<CR>
+
+
     "let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-    "let g:go_list_type = "quickfix"
+    let g:go_list_type = "locationlist"
 
     "autocmd BufRead *  call Hidecolumnsingo()
 
@@ -670,29 +708,29 @@ if dein#tap('vim-go')
 
 endif
 
-set wildignore=*/tmp/*,*.so,*.swp,*.zip,*.un~,*.pyc,*.orig
-set wildignore+=.swp,.swo,~$,.git,.svn/,.hg/
-set wildignore+=^tags$,.taghl$,.ropeproject/,node_modules/
-set wildignore+=log/,tmp/,obj/,/vendor/gems/,/vendor/cache/
-set wildignore+=.bundle/,.sass-cache/,/tmp/cache/assets/.*/sprockets/
-set wildignore+=/tmp/cache/assets/.*/sass/,thirdparty/,Debug/
-set wildignore+=Release/,.pyc$,pb2.py$,.class$,.jar$
-set wildignore+=.min.js$,.jpg$,.jpeg$,.bmp$,.png$
-set wildignore+=.gif$,.o$,.out$,.obj$,.rbc$,.rbo$
-set wildignore+=.gem$,.zip$,.tar.gz$,.tar.bz2$,.rar$,.tar.xz$
+"set wildignore=*/tmp/*,*.so,*.swp,*.zip,*.un~,*.pyc,*.orig
+"set wildignore+=.swp,.swo,~$,.git,.svn/,.hg/
+"set wildignore+=^tags$,.taghl$,.ropeproject/,node_modules/
+"set wildignore+=log/,tmp/,obj/,/vendor/gems/,/vendor/cache/
+"set wildignore+=.bundle/,.sass-cache/,/tmp/cache/assets/.*/sprockets/
+"set wildignore+=/tmp/cache/assets/.*/sass/,thirdparty/,Debug/
+"set wildignore+=Release/,.pyc$,pb2.py$,.class$,.jar$
+"set wildignore+=.min.js$,.jpg$,.jpeg$,.bmp$,.png$
+"set wildignore+=.gif$,.o$,.out$,.obj$,.rbc$,.rbo$
+"set wildignore+=.gem$,.zip$,.tar.gz$,.tar.bz2$,.rar$,.tar.xz$
 
 if dein#tap('unite.vim')
     let g:unite_force_overwrite_statusline = 0
     let g:unite_source_history_yank_enable = 1
 
-    "call unite#filters#sorter_default#use(['sorter_rank'])
+    " call unite#filters#sorter_default#use(['sorter_rank'])
 
     let g:unite_source_rec_max_cache_files = 0
     let g:unite_winheight = 10
 
     if executable('ag')
         " Using ag as recursive command.
-        let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
+        let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
         " Use ag in unite grep source.
         let g:unite_source_grep_command = 'ag'
         let g:unite_source_grep_default_opts =
@@ -704,7 +742,8 @@ if dein#tap('unite.vim')
         let g:unite_source_rec_async_command = 'ack -f --nofilter'
 
         " Use ack in unite grep source.
-        let g:unite_source_grep_command = 'ack'
+        "let g:unite_source_grep_command = 'ack'
+        let g:unite_source_grep_command = ['ack', '-f', '--nofilter']
         let g:unite_source_grep_default_opts = '-i --no-heading --no-color -k -H'
         let g:unite_source_grep_recursive_opt = ''
     endif
@@ -743,7 +782,7 @@ if dein#tap('unite.vim')
 	"nnoremap <silent> <Leader>g :Unite -direction=botright -silent -buffer-name=git menu:git<CR>
 
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
-    call unite#custom#source('file_rec/async', 'max_candidates', 25)
+    call unite#custom#source('file_rec/async', 'max_candidates', 75)
 
     " Fuzzy matching for plugins not using matcher_default as filter
     call unite#custom#source('outline,line,grep,session', 'matchers', ['matcher_fuzzy'])
@@ -753,10 +792,16 @@ if dein#tap('unite.vim')
     "\ 'max_candidates', 0)
 
     " Prettier prompt
-    nnoremap <leader>p :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
+    "nnoremap <leader>p :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
+    if has('nvim')
+        nnoremap <leader>p :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/neovim:!<cr>
+    else
+        nnoremap <leader>p :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async<cr>
+    endif
     nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank -start-insert history/yank<cr>
     nnoremap <leader>b :<C-u>Unite -no-split -buffer-name=buffer -start-insert buffer<cr>
     nnoremap <leader>mru :<C-u>Unite -no-split -buffer-name=mru -start-insert file_mru<cr>
+    nno <leader>cd :<C-u>Unite directory_mru directory -start-insert -buffer-name=cd -default-action=cd<CR>
     "nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr> "
     " Unite grep:$buffers<cr> " grep contents of buffers
 
@@ -775,10 +820,44 @@ if dein#tap('unite.vim')
         imap <buffer> <nowait> <C-c> <Plug>(unite_exit)
     endfunction
 
+    " tagbarlike functionality
+    " :Unite -vertical -winwidth=35 outline
+
 endif
 " }}}
+
+if dein#tap('vim-anzu')
+    " mapping
+    nmap n <Plug>(anzu-n-with-echo)
+    nmap N <Plug>(anzu-N-with-echo)
+    nmap * <Plug>(anzu-star-with-echo)
+    nmap # <Plug>(anzu-sharp-with-echo)
+
+    " clear status
+    nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+
+
+    " statusline
+    set statusline=%{anzu#search_status()}
+
+
+" if start anzu-mode key mapping
+" anzu-mode is anzu(12/51) in screen
+" nmap n <Plug>(anzu-mode-n)
+" nmap N <Plug>(anzu-mode-N)
+endif
+
+
 if dein#tap('vim-indent-guides')
     let g:indent_guides_auto_colors = &tabstop
     "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
     "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 endif
+
+function! Multiple_cursors_before()
+    let b:deoplete_disable_auto_complete = 1
+endfunction
+
+function! Multiple_cursors_after()
+    let b:deoplete_disable_auto_complete = 0
+endfunction

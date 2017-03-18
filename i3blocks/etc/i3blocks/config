@@ -30,22 +30,22 @@ interval=10
 
 [loadavg]
 command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
-interval=5
+interval=1
 
 [separator]
 
 [disk-root]
-command=df -h | awk -v pattern=rootfs '$0 ~ pattern { print $4 }'
+command=df -h | awk -v pattern=/\$ '$0 ~ pattern { print $4 }'
 color=#909090
 interval=30
 
 [disk-home]
-command=df -h | awk -v pattern=/home '$0 ~ pattern { print $4 }'
+command=df -h | awk -v pattern=/home\$ '$0 ~ pattern { print $4 }'
 color=#909090
 interval=30
 
 [disk-tmp]
-command=df -h | awk -v pattern=/tmp '$0 ~ pattern { print $4 }' | head -n1
+command=df -h | awk -v pattern=/tmp\$ '$0 ~ pattern { print $4 }' | head -n1
 color=#909090
 interval=30
 #
@@ -70,20 +70,22 @@ interval=10
 [nga]
 label=NGA
 command=TZ=WAT-1 date '+%H:%M'
-interval=60
+interval=30
 
 [separator]
 
 [weather]
-instance=KAUS
+instance=KDFW
 command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
 interval=300
 
 [separator]
 
 [time]
+label=⌚
 command=date
-interval=2
+interval=1
+color=#ffffff
 
 [separator]
 
@@ -91,11 +93,11 @@ interval=2
 label=VOL
 instance=130/5
 command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
-interval=once
+interval=1
 
 [mic]
 command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
 color=#FFFFFF
-interval=20
+interval=3
 
 # vim: set ft=config :

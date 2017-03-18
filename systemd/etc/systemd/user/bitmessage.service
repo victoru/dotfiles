@@ -1,0 +1,12 @@
+[Unit]
+Description=Bitmessage
+Requisite=desktop.target
+After=desktop.target
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/pybitmessage
+
+[Install]
+WantedBy=desktop.target
