@@ -3,12 +3,14 @@ Description=Xorg server at display 0
 
 Requires=xorg.socket
 After=xorg.socket
+Restart=on-abnormal
 
 Requisite=desktop.target
 ;Before=desktop.target
 
 [Service]
 Environment=XDG_VTNR=1
+Environment=DISPLAY=:0
 ;Type=simple
 ;SuccessExitStatus=0 1
 

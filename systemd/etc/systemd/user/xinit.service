@@ -1,15 +1,15 @@
 [Unit]
 Description=Xorg server initializtion
 Requisite=desktop.target
-After=desktop.target
 
 [Service]
-Type=oneshot
+Type=forking
+Restart=always
 Environment=DISPLAY=:0
-TimeoutStartSec=1
-RemainAfterExit=yes
 ExecStart=/usr/bin/setxkbmap -option ctrl:nocaps
 ExecStart=/usr/bin/xset +dpms
 ExecStart=/usr/bin/xset dpms 0 0 300
 ExecStart=/usr/bin/autocutsel -selection PRIMARY -fork
 ExecStart=/usr/bin/autocutsel -selection CLIPBOARD -fork
+ExecStartPost=/usr/bin/xrdb /home/victor/.Xresources
+ExecStart=/etc/X11/xinit/xinitrc.d/xft-settings.sh
