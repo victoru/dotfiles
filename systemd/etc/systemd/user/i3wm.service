@@ -1,7 +1,9 @@
 [Unit]
 Description=i3 tiling window manager
+PartOf=desktop.target xorg.service xorg.socket xorg.target
 
 [Service]
+Slice=wm.slice
 Environment=DISPLAY=:0
 Environment=DE=i3
 ExecStart=/usr/bin/i3

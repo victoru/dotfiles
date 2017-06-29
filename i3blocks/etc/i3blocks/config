@@ -81,6 +81,13 @@ interval=300
 
 [separator]
 
+[btc]
+label=BTC
+command=echo "$(curl 'https://api.coinmarketcap.com/v1/ticker/bitcoin/' -s | jq '.[0]["price_usd"]' | sed 's/"//g') USD"
+interval=60
+
+[separator]
+
 [time]
 label=⌚
 command=date
