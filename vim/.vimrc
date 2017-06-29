@@ -1,9 +1,12 @@
 " Note: Skip initialization for vim-tiny or vim-small.
 " if 0 | endif
 "
+"
+set t_Co=256
 let g:python_host_prog='/usr/bin/python2'
 let g:python3_host_prog='/usr/bin/python'
 
+set textwidth=0 wrapmargin=0
 if &compatible
     set nocompatible               " Be iMproved
 endif
@@ -14,80 +17,98 @@ else
     let s:editor_root=expand("~/.vim")
 endif
 
-"set runtimepath^=s:editor_root . '/bundle/dein.vim'
-let &rtp = s:editor_root . '/bundle/dein.vim' .  ',' . &rtp
+let s:dein=s:editor_root . expand("/bundle/repos/github.com/Shougo/dein.vim")
+let &rtp = s:dein . ',' . &rtp
 
-call dein#begin(expand('$XDG_CACHE_HOME/dein'))
-call dein#add(expand(s:editor_root . '/bundle/dein.vim'))
+"" Set terminal colors
+"let s:num = 0
+"for s:color in [
+      "\ '#6c6c6c', '#ff6666', '#66ff66', '#ffd30a',
+      "\ '#1e95fd', '#ff13ff', '#1bc8c8', '#c0c0c0',
+      "\ '#383838', '#ff4444', '#44ff44', '#ffb30a',
+      "\ '#6699ff', '#f820ff', '#4ae2e2', '#ffffff',
+      "\ ]
+  "let g:terminal_color_{s:num} = s:color
+  "let s:num += 1
+"endfor
+"unlet! s:num
+"unlet! s:color
 
-call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-"call dein#add('Shougo/vimfiler')
-call dein#add('fatih/vim-go', {'on_ft': 'go'})
+if dein#load_state(expand('$XDG_CACHE_HOME/dein'))
+    call dein#begin(expand('$XDG_CACHE_HOME/dein'))
+    call dein#add(expand(s:dein))
 
-"call dein#add('tpope/vim-vinegar')
+    call dein#add('Shougo/vimproc.vim', {'build': 'make'})
+    "call dein#add('Shougo/vimfiler')
+    call dein#add('fatih/vim-go', {'on_ft': 'go'})
 
-call dein#add('godlygeek/tabular')
-call dein#add('jwalton512/vim-blade')
-call dein#add('mustache/vim-mustache-handlebars')
-if has('nvim')
-	call dein#add('Shougo/deoplete.nvim')
-	call dein#add('zchee/deoplete-go', { 'build': 'make'})
-	call dein#add('nsf/gocode', { 'rtp': 'nvim/'})
-	call dein#add('neomake/neomake')
-else
-	call dein#add('Shougo/neocomplete.vim')
-    call dein#add('godlygeek/csapprox.git', { 'terminal' : 1, 'lazy': 1 })
-    call dein#add('thinca/vim-guicolorscheme', { 'terminal' : 1 })
-    call dein#add('scrooloose/syntastic')
+    call dein#add('tpope/vim-vinegar')
+
+    call dein#add('godlygeek/tabular')
+    call dein#add('jwalton512/vim-blade')
+    call dein#add('mustache/vim-mustache-handlebars')
+    call dein#add('w0rp/ale')
+    if has('nvim')
+        call dein#add('Shougo/deoplete.nvim')
+        call dein#add('zchee/deoplete-go', { 'build': 'make'})
+        call dein#add('nsf/gocode', { 'rtp': 'nvim/'})
+    else
+        call dein#add('Shougo/neocomplete.vim')
+        call dein#add('godlygeek/csapprox.git', { 'terminal' : 1, 'lazy': 1 })
+        call dein#add('thinca/vim-guicolorscheme', { 'terminal' : 1 })
+    endif
+
+    call dein#add('othree/yajs.vim')
+    call dein#add('othree/es.next.syntax.vim')
+
+    call dein#add('Shougo/denite.nvim')
+    "call dein#add('Shougo/unite-outline', {'depends': ['Shougo/denite.vim']})
+    "call dein#add('Shougo/neomru.vim', {'depends': ['Shougo/denite.vim']})
+
+    call dein#add('osyo-manga/vim-anzu')
+
+    call dein#add('blueyed/vim-diminactive')
+
+    " colorschemes
+    call dein#add('nanotech/jellybeans.vim')
+    call dein#add('morhetz/gruvbox')
+    "call dein#add('ninja/sky')
+    "call dein#add('flazz/vim-colorschemes')
+    call dein#add('jacoborus/tender')
+    call dein#add('alessandroyorba/alduin')
+
+    call dein#add('itchyny/lightline.vim')
+    call dein#add('bling/vim-bufferline')
+    call dein#add('majutsushi/tagbar')
+
+    call dein#add(expand('~/src/kamailio/utils/misc/vim'))
+
+    call dein#add('elzr/vim-json')
+    call dein#add('pearofducks/ansible-vim')
+    call dein#add('Glench/Vim-Jinja2-Syntax', {'on_ft': 'jinja'})
+    call dein#add('Rykka/riv.vim', {'on_ft' : 'rst'})
+    call dein#add('PotatoesMaster/i3-vim-syntax', {'on_ft' : 'i3'})
+
+    call dein#add('vim-scripts/ack.vim')
+    call dein#add('vim-scripts/kwbdi.vim')
+
+    call dein#add('airblade/vim-gitgutter')
+    call dein#add('tpope/vim-fugitive')
+
+    call dein#add('scrooloose/nerdcommenter')
+    call dein#add('sjl/gundo.vim')
+
+    call dein#add('vim-php/tagbar-phpctags.vim', {
+        \ 'hook_post_update': "
+        \ !sh -c 'curl -SsL http://vim-php.com/phpctags/install/phpctags.phar
+        \ > ~/bin/phpctags && chmod +x ~/bin/phpctags'",
+        \ 'on_ft': 'php', 'depends': ['tagbar']})
+
+    call dein#add('hashivim/vim-terraform')
+
+    call dein#end()
+    call dein#save_state()
 endif
-
-call dein#add('othree/yajs.vim')
-call dein#add('othree/es.next.syntax.vim')
-
-call dein#add('Shougo/unite.vim')
-"call dein#add('Shougo/denite.nvim')
-call dein#add('Shougo/unite-outline', {'depends': ['Shougo/unite.vim']})
-call dein#add('Shougo/neomru.vim', {'depends': ['Shougo/unite.vim']})
-
-call dein#add('osyo-manga/vim-anzu')
-
-call dein#add('blueyed/vim-diminactive')
-
-call dein#add('nanotech/jellybeans.vim')
-call dein#add('morhetz/gruvbox')
-call dein#add('jacoborus/tender')
-call dein#add('alessandroyorba/alduin')
-
-call dein#add('itchyny/lightline.vim')
-call dein#add('bling/vim-bufferline')
-call dein#add('majutsushi/tagbar')
-
-call dein#add(expand('~/src/kamailio/utils/misc/vim'))
-
-call dein#add('elzr/vim-json')
-call dein#add('pearofducks/ansible-vim')
-call dein#add('Glench/Vim-Jinja2-Syntax', {'on_ft': 'jinja'})
-call dein#add('Rykka/riv.vim', {'on_ft' : 'rst'})
-call dein#add('PotatoesMaster/i3-vim-syntax', {'on_ft' : 'i3'})
-
-call dein#add('ack.vim')
-call dein#add('kwbdi.vim')
-
-call dein#add('airblade/vim-gitgutter')
-call dein#add('tpope/vim-fugitive')
-
-call dein#add('scrooloose/nerdcommenter')
-call dein#add('sjl/gundo.vim')
-
-call dein#add('vim-php/tagbar-phpctags.vim', {
-    \ 'hook_post_update': "
-    \ !sh -c 'curl -SsL http://vim-php.com/phpctags/install/phpctags.phar 
-    \ > ~/bin/phpctags && chmod +x ~/bin/phpctags'",
-    \ 'on_ft': 'php', 'depends': ['tagbar']})
-
-call dein#add('hashivim/vim-terraform')
-
-call dein#end()
 
 if dein#check_install()
   call dein#install()
@@ -229,6 +250,7 @@ nnoremap <silent> [Space].
 nnoremap <silent> [Space]/ :<C-u>call ToggleOption('hlsearch')<CR>
 " Toggle cursorline.
 nnoremap <silent> [Space]cl :<C-u>call ToggleOption('cursorline')<CR>
+" nnoremap <silent> [Space]cc :<C-u>call ToggleOption('cursorcolumn')<CR>
 " Set autoread.
 "nnoremap [Space]ar
 "\ :<C-u>setlocal autoread<CR>
@@ -260,6 +282,11 @@ nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 inoremap jk <Esc>
 
+inoremap <C-c> <ESC>
+nnoremap <C-c> <ESC>
+inoremap <C-c> <ESC>
+
+
 " Up Down Left Right resize splits
 nnoremap <up> <c-w>+
 nnoremap <down> <c-w>-
@@ -272,7 +299,7 @@ noremap L :bn<CR>
 
 " remove trailing whitespaces
 nnoremap <leader>W ms:%s/\s\+$//e \| let @/=''<CR>`s
-    
+
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
@@ -337,9 +364,6 @@ if dein#tap('alduin')
 endif
 
 
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
 set termguicolors
 if has('gui_running')
     colorscheme jellybeans
@@ -348,67 +372,52 @@ if has('gui_running')
 else
     if !has('nvim')
         call dein#source('csapprox')
-"        set termguicolors
-
     endif
 
     hi! Normal ctermbg=NONE guibg=NONE
     hi! NonText ctermbg=NONE guibg=NONE
     "let g:rehash256 = 1
     set background=dark
-    "colorscheme gruvbox
-    colorscheme alduin
+    colorscheme gruvbox
+    "colorscheme alduin
 endif
 
-if has('nvim')
+if dein#tap('deoplete.nvim')
 
-    if dein#tap('neomake')
-        let g:neomake_open_list = 2
-        autocmd! BufWritePost * :Neomake
-    endif
+    let g:deoplete#enable_at_startup = 1
+    " neocomplete like
+    set completeopt+=noinsert
+    " deoplete.nvim recommend
+    set completeopt+=noselect
 
-    if dein#tap('deoplete.nvim')
-
-        let g:deoplete#enable_at_startup = 1
-        " neocomplete like
-        set completeopt+=noinsert
-        " deoplete.nvim recommend
-        set completeopt+=noselect
-
-        let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
-    endif
-endif
-
-if dein#tap('neocomplete.vim')
-
-    let g:neocomplete#enable_auto_select = 1
-	let g:neocomplete#enable_at_startup = 1                      " use neocomplete
-	let g:neocomplete#enable_smart_case = 1                      " use smartcase
-	let g:neocomplete#enable_auto_delimiter = 1                  " enable auto delimiter
-	let g:neocomplete#max_list = 15                              " max complete reminder list
-	let g:neocomplete#sources#syntax#min_keyword_length = 3      " set minimum syntax keyword length
-
+    let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+    "
     " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
+    inoremap <expr><C-g>     deoplete#undo_completion()
+    inoremap <expr><C-l>     deoplete#complete_common_string()
 
     " Recommended key-mappings.
     " <CR>: close popup and save indent.
     inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
     function! s:my_cr_function()
-        return neocomplete#close_popup() . "\<CR>"
+        return deoplete#close_popup() . "\<CR>"
         " For no inserting <CR> key.
-        "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+        "return pumvisible() ? deoplete#close_popup() : "\<CR>"
     endfunction
 
     " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+    "inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
 
-    inoremap <expr><C-y>  neocomplete#close_popup()."\<C-y>"
-    inoremap <expr><C-e>  neocomplete#cancel_popup()."\<C-e>"
+    inoremap <expr><C-y>  deoplete#close_popup()."\<C-y>"
+    inoremap <expr><C-e>  deoplete#cancel_popup()."\<C-e>"
+    "let g:neocomplete#enable_auto_select = 1
+	"let g:neocomplete#enable_at_startup = 1                      " use neocomplete
+	"let g:neocomplete#enable_smart_case = 1                      " use smartcase
+	"let g:neocomplete#enable_auto_delimiter = 1                  " enable auto delimiter
+	"let g:neocomplete#max_list = 15                              " max complete reminder list
+	"let g:neocomplete#sources#syntax#min_keyword_length = 3      " set minimum syntax keyword length
 endif
-
 
 " Plugins {{{
 if dein#tap('vimfiler')
@@ -450,23 +459,6 @@ endif
 if dein#tap('vim-markdown')
     "let g:vim_markdown_folding_disabled=1
     "let g:vim_markdown_no_default_key_mappings=1
-endif
-
-if dein#tap('syntastic')
-    "let g:syntastic_error_symbol='✖'
-    let g:syntastic_error_symbol='⇒'
-
-    let g:syntastic_warning_symbol='⚠'
-    let g:syntastic_check_on_open=1
-
-    "let g:syntastic_always_populate_loc_list = 1
-    "let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-
-    nm <F5> :Errors<CR>
-    nmap <leader>E :Errors<CR>
-
 endif
 
 if dein#tap('tagbar')
@@ -532,7 +524,7 @@ if dein#tap('lightline.vim')
                 \   'left': [ [ 'mode', 'paste' ],
                 \             [ 'fugitive', 'filename' ],
                 \             [ 'go' ] ],
-                \   'right': [ [ 'syntastic', 'lineinfo' ],
+                \   'right': [ [ 'ale', 'lineinfo' ],
                 \              ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ] ]
                 \ },
                 \ 'component_function': {
@@ -548,10 +540,10 @@ if dein#tap('lightline.vim')
                 \ },
                 \ 'subseparator': { 'left': '|', 'right': '|' },
                 \ 'component_expand': {
-                \   'syntastic': 'SyntasticStatuslineFlag',
+                \   'ale': 'ALEGetStatusLine',
                 \ },
                 \ 'component_type': {
-                \   'syntastic': 'error',
+                \   'ale': 'error',
                 \ },
                 \ 'component_visible_condition': {
                 \   'readonly': '(&filetype!="help"&& &readonly)',
@@ -562,15 +554,6 @@ if dein#tap('lightline.vim')
     autocmd!
         autocmd bufwritepost $MYVIMRC nested source $MYVIMRC
     augroup END
-    augroup AutoSyntasticForLightline
-        autocmd!
-        autocmd BufWritePost *.c,*.cpp call s:syntastic()
-    augroup END
-
-    function! s:syntastic()
-        SyntasticCheck
-        call lightline#update()
-    endfunction
 
     function! MyFugitive()
         try
@@ -619,8 +602,7 @@ if dein#tap('lightline.vim')
         return  ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
                 \ fname == '__Tagbar__' ? g:lightline.fname :
                 \ fname =~ '__Gundo\|NERD_tree' ? '' :
-                \ (&ft == 'unite' ? unite#get_status_string() :
-                \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+                \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
 				\ ('' != MyModified() ? ' ' . MyModified() : '')
     endfunction
 
@@ -631,7 +613,7 @@ if dein#tap('lightline.vim')
             \ fname == '__Gundo__' ? 'Gundo' :
             \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
             \ fname =~ 'NERD_tree' ? 'NERDTree' :
-            \ &ft == 'unite' ? 'Unite' :
+            \ &ft == 'denite' ? denite#get_status_mode() :
             \ &ft == 'vimfiler' ? 'VimFiler' :
             \ &ft == 'vimshell' ? 'VimShell' :
             \ winwidth(0) > 60 ? lightline#mode() : ''
@@ -652,6 +634,11 @@ if dein#tap('lightline.vim')
     function! MyFileencoding()
         return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
     endfunction
+
+    "function! MyFileencoding()
+        "return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+        "%{ALEGetStatusLine()}
+    "endfunction
 
 endif
 
@@ -718,6 +705,84 @@ endif
 "set wildignore+=.min.js$,.jpg$,.jpeg$,.bmp$,.png$
 "set wildignore+=.gif$,.o$,.out$,.obj$,.rbc$,.rbo$
 "set wildignore+=.gem$,.zip$,.tar.gz$,.tar.bz2$,.rar$,.tar.xz$
+
+if dein#tap('denite.nvim')
+    if executable('ag')
+        call denite#custom#var('file_rec', 'command',
+        \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+        " Ag command on grep source
+        call denite#custom#var('grep', 'command', ['ag'])
+        call denite#custom#var('grep', 'default_opts',
+                \ ['-i', '--vimgrep'])
+        call denite#custom#var('grep', 'recursive_opts', [])
+        call denite#custom#var('grep', 'pattern_opt', [])
+        call denite#custom#var('grep', 'separator', ['--'])
+        call denite#custom#var('grep', 'final_opts', [])
+
+    elseif executable('ack')
+        call denite#custom#var('file_rec', 'command',
+        \ ['ack', '-f', '--follow', '--nocolor', '--nogroup', '-g', ''])
+        call denite#custom#var('grep', 'command', ['ack'])
+        call denite#custom#var('grep', 'default_opts',
+                \ ['--ackrc', $HOME.'/.ackrc', '-H',
+                \  '--nopager', '--nocolor', '--nogroup', '--column'])
+        call denite#custom#var('grep', 'recursive_opts', [])
+        call denite#custom#var('grep', 'pattern_opt', ['--match'])
+        call denite#custom#var('grep', 'separator', ['--'])
+        call denite#custom#var('grep', 'final_opts', [])
+    endif
+	"call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+        "\ [ '.git/', '.ropeproject/', '__pycache__/',
+        "\ 'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])⇧
+
+    nnoremap <leader>p :<C-u>Denite -buffer-name=files file_rec<cr>
+    nnoremap <leader>b :<C-u>Denite -buffer-name=search%`bufnr('%')` line<cr>
+    augroup StuffCmd
+        autocmd FileType denite call s:denite_settings()
+    augroup END
+
+    function! s:denite_settings()
+        let neocomplete#disable_auto_complete = 1
+        let deoplete#disable_auto_complete = 1
+        " Enable navigation with control-j and control-k in insert mode
+        " Change mappings.
+        call denite#custom#map(
+              \ 'insert',
+              \ '<C-j>',
+              \ '<denite:move_to_next_line>',
+              \ 'noremap'
+              \)
+        call denite#custom#map(
+              \ 'insert',
+              \ '<C-k>',
+              \ '<denite:move_to_previous_line>',
+              \ 'noremap'
+              \)
+        call denite#custom#map(
+              \ 'insert',
+              \ '<C-c>',
+              \ '<denite:quit>',
+              \ 'noremap nowait'
+              \)
+
+        " Change matchers.
+        call denite#custom#source(
+        \ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
+        call denite#custom#source(
+        \ 'file_rec', 'matchers', ['matcher_cpsm'])
+
+        " Change sorters.
+        call denite#custom#source(
+        \ 'file_rec', 'sorters', ['sorter_sublime'])
+
+        " Define alias
+        call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+        call denite#custom#var('file_rec/git', 'command',
+        \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+    endfunction
+
+endif
 
 if dein#tap('unite.vim')
     let g:unite_force_overwrite_statusline = 0
@@ -836,15 +901,8 @@ if dein#tap('vim-anzu')
     " clear status
     nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
-
     " statusline
     set statusline=%{anzu#search_status()}
-
-
-" if start anzu-mode key mapping
-" anzu-mode is anzu(12/51) in screen
-" nmap n <Plug>(anzu-mode-n)
-" nmap N <Plug>(anzu-mode-N)
 endif
 
 
