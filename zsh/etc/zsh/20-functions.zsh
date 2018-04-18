@@ -20,7 +20,17 @@ say() {
         local lang=${LANG%_*};
         local text="$*";
     fi;
-    mplayer "https://translate.google.com/translate_tts?ie=UTF-8&client=openhab&tl=${lang}&q=${text}" #&> /dev/null ;
+
+    tmpdir=$(mktemp -d)
+
+    curl 'https://translate.google.com/translate_tts?ie=UTF-8&q='"${text}"'&tl=en&client=tw-ob' \
+        -H 'Referer: http://translate.google.com/' \
+        -H 'User-Agent: stagefright/1.2 (Linux;Android 5.0)' \
+        > ${tmpdir}/google_tts.mp3
+
+    mplayer "${tmpdir}/google_tts.mp3"
+    # with token (tk)
+    #curl 'https://translate.google.com/translate_tts?ie=UTF-8&q=hello&tl=en&tk=995126.592330&client=t' -H 'user-agent: stagefright/1.2 (Linux;Android 5.0)' -H 'referer: https://translate.google.com/' > google_tts.mp3
     #http://translate.google.com/translate_tts
     #https://translate.google.com/translate_tts?ie=UTF-8&q=Spectrographyd&tl=en&total=1&idx=0&textlen=14&tk=181270.320436&client=t&prev=input&ttsspeed=0.24
 }
