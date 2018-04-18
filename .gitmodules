@@ -13,3 +13,6 @@
 [submodule "vim/.vim/bundle/vimproc.vim"]
 	path = vim/.vim/bundle/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
+[submodule "vim/.vim/bundle/dein.vim"]
+	path = vim/.vim/bundle/dein.vim
+	url = https://github.com/Shougo/dein.vim
