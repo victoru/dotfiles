@@ -3,7 +3,7 @@ Description=Xorg server at display 0
 
 Requires=xorg.socket
 After=xorg.socket
-Restart=on-abnormal
+#Restart=on-abnormal
 
 Requisite=desktop.target
 ;Before=desktop.target
