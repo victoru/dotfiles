@@ -1,0 +1,20 @@
+[Unit]
+Description=Desktop Interface
+
+Requires=basic.target dbus.socket
+After=basic.target dbus.socket
+
+Requires=xorg.target
+After=xorg.target
+
+;Requires=window-manager.service
+Requires=sway.service
+;Wants=compositor.service
+;Wants=notification.service
+;Wants=wallpaper.service wallpaper.timer
+Wants=xinit.service
+Wants=screen-locker.service
+
+Before=xinit.service sway.service
+;wallpaper.service window-manager.service
+;Before=screen-locker.service

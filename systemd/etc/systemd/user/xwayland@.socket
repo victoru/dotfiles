@@ -1,0 +1,8 @@
+[Unit]
+Description=socket for xwayland server at display :%i
+
+[Socket]
+ListenStream=/tmp/.X11-unix/X%i
+
+[Install]
+WantedBy=sockets.target

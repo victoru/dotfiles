@@ -1,0 +1,9 @@
+[Unit]
+Description=android debug bridge daemon
+
+Requires=adb.socket
+
+[Service]
+Type=forking
+Slice=daemons.slice
+ExecStart= /usr/bin/adb -P 5038 start-server

@@ -1,0 +1,20 @@
+[Unit]
+Description=sway window manager
+
+Conflicts=i3wm.service
+
+[Service]
+Type=simple
+Slice=wm.slice
+Environment=DE=sway
+
+ExecStart=/usr/bin/sway
+KillSignal=SIGINT
+TimeoutSec=15
+
+[Install]
+WantedBy=sway.target
+WantedBy=xsway.target
+;WantedBy=laptop.target
+;WantedBy=tablet.target
+;WantedBy=vncserver.target
