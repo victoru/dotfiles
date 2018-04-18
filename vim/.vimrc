@@ -42,6 +42,10 @@ if dein#load_state(expand('$XDG_CACHE_HOME/dein'))
     "call dein#add('Shougo/vimfiler')
     call dein#add('fatih/vim-go', {'on_ft': 'go'})
 
+    call dein#add('honza/vim-snippets')
+    call dein#add('SirVer/ultisnips')
+
+
     call dein#add('tpope/vim-vinegar')
 
     call dein#add('godlygeek/tabular')
@@ -118,6 +122,14 @@ syntax enable
 
 "}}}
 
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<a-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 " Options {{{
 
 set hidden
