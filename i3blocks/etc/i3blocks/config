@@ -81,9 +81,18 @@ interval=300
 
 [separator]
 
+[iota]
+label=IOTA
+instance=iota
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto-ticker
+interval=60
+
+[separator]
+
 [btc]
 label=BTC
-command=echo "$(curl 'https://api.coinmarketcap.com/v1/ticker/bitcoin/' -s | jq '.[0]["price_usd"]' | sed 's/"//g') USD"
+instance=bitcoin
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto-ticker
 interval=60
 
 [separator]

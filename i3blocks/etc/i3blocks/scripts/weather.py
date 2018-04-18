@@ -18,7 +18,8 @@ owm = pyowm.OWM('2a24ad0e14e015b0d91f26c7de993bb3')  # You MUST provide a valid 
 
 # Search for current weather in London (UK)
 try:
-    observation = owm.weather_at_place('Arlington, TX')
+    # observation = owm.weather_at_place('London,uk')
+    observation = owm.weather_at_place('Dallas,US')
     w = observation.get_weather()
     # print(w)                      # <Weather - reference time=2013-12-18 09:20,
     # print(w.get_detailed_status())                      # <Weather - reference time=2013-12-18 09:20,
