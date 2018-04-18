@@ -1,25 +1,25 @@
 ! Base16 Embers
 ! Scheme: Jannik Siebert (https://github.com/janniks)
 
-#define base00 #16130F
-#define base01 #2C2620
-#define base02 #433B32
-#define base03 #5A5047
-#define base04 #8A8075
-#define base05 #A39A90
-#define base06 #BEB6AE
-#define base07 #DBD6D1
-#define base08 #826D57
-#define base09 #828257
-#define base0A #6D8257
-#define base0B #57826D
-#define base0C #576D82
-#define base0D #6D5782
-#define base0E #82576D
-#define base0F #825757
+#define base00 #2E2A31
+#define base01 #4A464D
+#define base02 #666369
+#define base03 #838985
+#define base04 #9F9DA2
+#define base05 #BCBABE
+#define base06 #D8D7DA
+#define base07 #F5F4F7
+#define base08 #D8137F
+#define base09 #D65407
+#define base0A #DC8A0E
+#define base0B #17AD98
+#define base0C #149BDA
+#define base0D #796AF5
+#define base0E #BB60EA
+#define base0F #C720CA
 
 *.foreground:   base05
-*.background:   rgba:1600/1300/0f00/d800
+*.background:   rgba:2E00/2A00/3100/d800
 *.cursorColor:  base05
 
 *.color0:       base00

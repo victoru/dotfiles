@@ -1,10 +1,10 @@
-Xft.autohint: 0
+!Xft.autohint: 0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintslight
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.dpi: 96
-Xft.rgba: rgb
+!Xft.rgba: rgb
 
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
@@ -16,7 +16,12 @@ rofi.color-active: #463350, #ffffff, #7b5391, #16003b, #ffe000
 rofi.color-urgent: #fa6900, #ffffff, #ff4700, #ffffff, #ff0000
 
 
-URxvt.termName: rxvt-256color
+URxvt.termName: rxvt-unicode-256color
+
+
+!! FAKE
+!urxvt*transparent: true
+!urxvt*shading: 30
 
 URxvt*colorBDMode:  true
 URxvt*colorULMode:  true
@@ -40,12 +45,14 @@ URxvt.keysym.C-Down:   perl:font-size:decrease
 URxvt.keysym.C-S-Up:   perl:font-size:incglobal
 URxvt.keysym.C-S-Down: perl:font-size:decglobal
 
-URxvt.background: [90]#000000
+!URxvt.color12: rgb:5c/5c/ff
 
 !xterm config
 xterm*termName: xterm-color
 xterm*background: #000000
 xterm*foreground: #A8A8A8
 
-#include ".xresources/colors/base16-bright.dark.256.xresources"
+Urxvt*depth: 32
+urxvt*background: rgba:0000/0000/0200/c800
+#include ".xresources/colors/base16-unikitty.dark.256.xresources"
 #include ".xresources/fonts/fantasque"

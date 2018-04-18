@@ -19,7 +19,7 @@
 #define base0F #be643c
 
 *.foreground:   base05
-*.background:   base00
+*.background:   rgba:0000/0000/0000/d800
 *.cursorColor:  base05
 
 *.color0:       base00
