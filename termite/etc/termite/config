@@ -1,43 +1,178 @@
 [options]
 allow_bold              = true
 font                    = Fantasque Sans Mono 10
-;font                    = M+ 1mn 10
+#font                    = M+ 1mn 10
 scrollback_lines        = 10000
 browser                 = qutebrowser
 clickable_url           = true
 cursor_shape = block
-highlight = #ff0000
+#highlight = #ff0000
+# Emit escape sequences for extra modified keys
+modify_other_keys = false
+
+#[colors]
+
+## special
+#foreground      = #a39e9b
+#foreground_bold = #a39e9b
+#cursor          = #a39e9b
+##background      = #2f1e2e
+#background      = rgba(47, 30, 46, 0.7)
+
+## black
+#color0  = #2f1e2e
+#color8  = #776e71
+
+## red
+#color1  = #ef6155
+#color9  = #ef6155
+
+## green
+#color2  = #48b685
+#color10 = #48b685
+
+## yellow
+#color3  = #fec418
+#color11 = #fec418
+
+## blue
+#color4  = #06b6ef
+#color12 = #06b6ef
+
+## magenta
+#color5  = #815ba4
+#color13 = #815ba4
+
+## cyan
+#color6  = #5bc4bf
+#color14 = #5bc4bf
+
+## white
+#color7  = #a39e9b
+#color15 = #e7e9db
+#[colors]
+##background = rgba(0, 0, 0, 0.9)
+##background = rgba(63, 63, 63, 0.7)
+#background = rgba(46, 42, 49, 0.7)
+
+## if unset, will reverse foreground and background
+##highlight = #2f2f2f
+
+##Base16 Bright
+#foreground  = #e0e0e0
+#cursor      = #fc007c
+#color0      = #000000
+#color1      = #fb0120
+#color2      = #a1c659
+#color3      = #fda331
+#color4      = #6fb3d2
+#color5      = #d381c3
+#color6      = #76c7b7
+#color7      = #e0e0e0
+#color8      = #b0b0b0
+#color9      = #fb0120
+#color10     = #a1c659
+#color11     = #fda331
+#color12     = #6fb3d2
+#color13     = #d381c3
+#color14     = #76c7b7
+#color15     = #ffffff
+#color16     = #fc6d24
+#color17     = #be643c
+#color18     = #303030
+#color19     = #505050
+#color20     = #d0d0d0
+#color21     = #f5f5f5
+
+#[colors]
+## hard contrast: background = #1d2021
+#background = rgba(29,32,33,0.7)
+##background = #282828
+##background = rgba(40,40,40,0.7)
+## soft contrast: background = #32302f
+#foreground = #ebdbb2
+#foreground_bold = #ebdbb2
+
+## dark0 + gray
+#color0 = #282828
+#color8 = #928374
+
+## neutral_red + bright_red
+#color1 = #cc241d
+#color9 = #fb4934
+
+## neutral_green + bright_green
+#color2 = #98971a
+#color10 = #b8bb26
+
+## neutral_yellow + bright_yellow
+#color3 = #d79921
+#color11 = #fabd2f
+
+## neutral_blue + bright_blue
+#color4 = #458588
+#color12 = #83a598
+
+## neutral_purple + bright_purple
+#color5 = #b16286
+#color13 = #d3869b
+
+## neutral_aqua + faded_aqua
+#color6 = #689d6a
+#color14 = #8ec07c
+
+## light4 + light1
+#color7 = #a89984
+#color15 = #ebdbb2
 
 [colors]
-background = rgba(0, 0, 0, 0.9)
+# Base16 Unikitty Dark
+# Author: Josh W Lewis (@joshwlewis)
 
-# if unset, will reverse foreground and background
-#highlight = #2f2f2f
+foreground      = #bcbabe
+foreground_bold = #d8d7da
+cursor          = #d8d7da
+;background      = #2e2a31
+background      = rgba(26,22,29,0.85 )
 
-#Base16 Bright
-foreground  = #e0e0e0
-cursor      = #fc007c
-color0      = #000000
-color1      = #fb0120
-color2      = #a1c659
-color3      = #fda331
-color4      = #6fb3d2
-color5      = #d381c3
-color6      = #76c7b7
-color7      = #e0e0e0
-color8      = #b0b0b0
-color9      = #fb0120
-color10     = #a1c659
-color11     = #fda331
-color12     = #6fb3d2
-color13     = #d381c3
-color14     = #76c7b7
-color15     = #ffffff
-color16     = #fc6d24
-color17     = #be643c
-color18     = #303030
-color19     = #505050
-color20     = #d0d0d0
-color21     = #f5f5f5
+# 16 color space
 
-# vim: ft=dosini
+# Black, Gray, Silver, White
+color0  = #2e2a31
+color8  = #838085
+color7  = #bcbabe
+color15 = #f5f4f7
+
+# Red
+color1  = #d8137f
+color9  = #d8137f
+
+# Green
+color2  = #17ad98
+color10 = #17ad98
+
+# Yellow
+color3  = #dc8a0e
+color11 = #dc8a0e
+
+# Blue
+color4  = #796af5
+color12 = #796af5
+
+# Purple
+color5  = #bb60ea
+color13 = #bb60ea
+
+# Teal
+color6  = #149bda
+color14 = #149bda
+
+# Extra colors
+color16 = #d65407
+color17 = #c720ca
+color18 = #4a464d
+color19 = #666369
+color20 = #9f9da2
+color21 = #d8d7da
+
+# vim: ft=dosini cms=#%s
