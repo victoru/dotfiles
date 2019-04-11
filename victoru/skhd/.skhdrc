@@ -1,0 +1,96 @@
+:: resize @
+
+cmd - r ; resize
+resize < h : skhd -k "shift + alt - a";
+resize < l : skhd -k "shift + alt - d";
+resize < j : skhd -k "shift + alt - s";
+resize < k : skhd -k "shift + alt - w";
+# resize < escape ; default
+resize < cmd - r ; default
+
+# enter fullscreen mode for the focused container
+cmd - f : chunkc tiling::window --toggle fullscreen
+
+# change focus between tiling / floating windows
+shift + alt - space : chunkc tiling::window --toggle float
+
+# change layout of desktop
+alt - e : chunkc tiling::desktop --layout bsp
+alt - s : chunkc tiling::desktop --layout monocle
+
+# kill focused window
+shift + alt - q : chunkc tiling::window --close
+
+# change focus
+cmd - h : chunkc tiling::window --focus west
+cmd - j : chunkc tiling::window --focus south
+cmd - k : chunkc tiling::window --focus north
+cmd - l : chunkc tiling::window --focus east
+
+alt - p : chunkc tiling::window --focus prev
+alt - n : chunkc tiling::window --focus next
+
+# move focused window
+shift + cmd - h : chunkc tiling::window --warp west
+shift + cmd - j : chunkc tiling::window --warp south
+shift + cmd - k : chunkc tiling::window --warp north
+shift + cmd - l : chunkc tiling::window --warp east
+
+alt - r : chunkc tiling::desktop --rotate 90
+
+# move focused container to workspace
+# shift + alt - m : chunkc tiling::window --send-to-desktop $(chunkc get _last_active_desktop)
+# shift + alt - p : chunkc tiling::window --send-to-desktop prev
+# shift + alt - n : chunkc tiling::window --send-to-desktop next
+shift + cmd - 1 : chunkc tiling::window --send-to-desktop 1
+shift + cmd - 2 : chunkc tiling::window --send-to-desktop 2
+shift + cmd - 3 : chunkc tiling::window --send-to-desktop 3
+shift + cmd - 4 : chunkc tiling::window --send-to-desktop 4
+shift + cmd - 5 : chunkc tiling::window --send-to-desktop 5
+shift + cmd - 6 : chunkc tiling::window --send-to-desktop 6
+shift + cmd - 7 : chunkc tiling::window --send-to-desktop 7
+shift + cmd - 8 : chunkc tiling::window --send-to-desktop 8
+shift + cmd - 9 : chunkc tiling::window --send-to-desktop 9
+shift + cmd - 0 : chunkc tiling::window --send-to-desktop 10
+
+
+# fast focus desktop
+#cmd - b : chunkc tiling::desktop --focus $(chunkc get _last_active_desktop)
+#cmd - b : chunkc tiling::desktop --focus $(chunkc get _last_active_desktop)
+cmd - b : skhd -k "cmd - $(chunkc get _last_active_desktop)"
+cmd + alt - z : chunkc tiling::desktop --focus prev
+cmd + alt - c : chunkc tiling::desktop --focus next
+cmd + alt - 1 : chunkc tiling::desktop --focus 1
+cmd + alt - 2 : chunkc tiling::desktop --focus 2
+cmd + alt - 3 : chunkc tiling::desktop --focus 3
+cmd + alt - 4 : chunkc tiling::desktop --focus 4
+cmd + alt - 5 : chunkc tiling::desktop --focus 5
+cmd + alt - 6 : chunkc tiling::desktop --focus 6
+# cmd + alt - 7 : chunkc tiling::desktop --focus 7
+
+
+# i3esque resize functionality
+default, resize < shift + alt - a : chunkc tiling::window \
+                                      --use-temporary-ratio 0.05 \
+                                      --adjust-window-edge west;\
+                                    chunkc tiling::window \
+                                      --use-temporary-ratio -0.05 \
+                                      --adjust-window-edge east
+default, resize < shift + alt - s : chunkc tiling::window \
+                                      --use-temporary-ratio 0.05 \
+                                      --adjust-window-edge south;\
+                                    chunkc tiling::window \
+                                      --use-temporary-ratio -0.05 \
+                                      --adjust-window-edge north
+default, resize < shift + alt - w : chunkc tiling::window \
+                                      --use-temporary-ratio 0.05 \
+                                      --adjust-window-edge north; \
+                                    chunkc tiling::window \
+                                      --use-temporary-ratio -0.05 \
+                                      --adjust-window-edge south
+default, resize < shift + alt - d : chunkc tiling::window \
+                                      --use-temporary-ratio 0.05 \
+                                      --adjust-window-edge east; \
+                                    chunkc tiling::window \
+                                      --use-temporary-ratio -0.05 \
+                                      --adjust-window-edge west
