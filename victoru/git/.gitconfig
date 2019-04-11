@@ -1,0 +1,32 @@
+[user]
+    name = Victor Unegbu
+    useConfigOnly = true
+[cola]
+    spellcheck = false
+[core]
+    excludesfile = /Users/victorunegbu/.gitignore_global
+[difftool "sourcetree"]
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+    path = 
+[mergetool "sourcetree"]
+    cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+    trustExitCode = true
+[alias]
+    set-email = config user.email
+    dad = !curl https://icanhazdadjoke.com/ && git add
+    assume = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+    unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+    assumeall = "!git st -s | awk {'print $2'} | xargs git assume"
+    co = checkout
+    cob = checkout -b
+
+    l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+    a = add
+    ap = add -p
+    c = commit --verbose
+    ca = commit -a --verbose
+    st = status
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
