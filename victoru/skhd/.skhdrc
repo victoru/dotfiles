@@ -94,3 +94,5 @@ default, resize < shift + alt - d : chunkc tiling::window \
                                     chunkc tiling::window \
                                       --use-temporary-ratio -0.05 \
                                       --adjust-window-edge west
+
+cmd - d : open /Applications/Launchpad.app
