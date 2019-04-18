@@ -56,6 +56,7 @@ plugins=(zsh-completions zsh-iterm-touchbar)
 autoload -U compinit && compinit
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
+alias s=spotify
 
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 
