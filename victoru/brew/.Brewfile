@@ -95,7 +95,7 @@ brew "vegeta"
 brew "vim"
 brew "yarn"
 brew "youtube-dl"
-brew "chunkwm", args: ["HEAD"], restart_service: :changed
+brew "yabai", args: ["HEAD"], restart_service: :changed
 brew "skhd", args: ["HEAD"], restart_service: :changed
 # brew "koekeishiya/formulae/chunkwm", args: ["HEAD"], restart_service: :changed
 # brew "koekeishiya/formulae/skhd", args: ["HEAD"], restart_service: :changed

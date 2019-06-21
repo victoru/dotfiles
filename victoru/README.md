@@ -2,14 +2,14 @@
 
 managed via [stow](https://www.gnu.org/software/stow/stow.html)
 
-### chunkwm & skhd
+### yabai (formerly chunkwm) & skhd
 requires:
-- victoru/chunkwm
+- victoru/yabai
 - victoru/skhd
 
 ```shell
 cd dotfiles
-stow --dir=victoru --target=$HOME chunkwm
+stow --dir=victoru --target=$HOME yabai
 stow --dir=victoru --target=$HOME skhd
 ```
 
