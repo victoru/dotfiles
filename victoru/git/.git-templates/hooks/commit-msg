@@ -14,8 +14,7 @@ yellow='\033[0;33m'
 blue='\033[0;34m'
 green='\033[0;32m'
 NC='\033[0m' # No colors
-
-if ! [[ $(cat $1) =~ ^((:[^:]+:)?(chore|docs|feat|fix|perf|refact|refactor|style|test|build|ci)(\([a-zA-Z0-9]+\))?:|Merge\ pull) ]]; then
+if ! [[ $(cat $1) =~ ^(((:[^:]+:|[^\x00-\x7F]\s?))?(chore|docs|feat|fix|perf|refact|refactor|style|test|build|ci)(\([a-zA-Z0-9]+\))?:|Merge\ pull) ]]; then
   printf "${red}Please use semantic commit messages:\n"
   printf "${yellow}feat${NC}[${green}(scope)${NC}]: ${blue}add hat wobble\n"
   printf "${yellow}^--^${green} ^--*--^ ${blue}  ^------------^ -> Summary in present tense.\n"
@@ -30,17 +29,17 @@ cp -a "${1}" "${edited_file}"
 
 sed -i.bak -E \
 \
-'1 s/^chore:/:wrench:chore:/ ; '\
-'1 s/^docs:/:pencil:docs:/ ; '\
-'1 s/^feat:/:sparkles:feat:/ ; '\
-'1 s/^fix:/:bug:fix:/ ; '\
-'1 s/^perf:/:zap:perf:/ ; '\
-'1 s/^refact:/:recycle:refact:/ ; '\
-'1 s/^refactor:/:recycle:refactor:/ ; '\
-'1 s/^style:/:art:style:/ ; '\
-'1 s/^test:/:microscope:test:/ ; '\
-'1 s/^build:/:construction_worker:build:/ ; '\
-'1 s/^ci:/:construction_worker:ci:/ ; '\
+'1 s/^chore:/🔧chore:/ ; '\
+'1 s/^docs:/📝docs:/ ; '\
+'1 s/^feat:/✨feat:/ ; '\
+'1 s/^fix:/🐛fix:/ ; '\
+'1 s/^perf:/⚡️perf:/ ; '\
+'1 s/^refact:/♻️refact:/ ; '\
+'1 s/^refactor:/♻️refactor:/ ; '\
+'1 s/^style:/🎨style:/ ; '\
+'1 s/^test:/🔬test:/ ; '\
+'1 s/^build:/🏗build:/ ; '\
+'1 s/^ci:/🏗ci:/ ; '\
 \
  "${edited_file}"
 
