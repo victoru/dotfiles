@@ -3,6 +3,9 @@
     useConfigOnly = true
 [cola]
     spellcheck = false
+	fontdiff = Monaco,10,-1,5,50,0,0,0,0,0
+	tabwidth = 6
+	textwidth = 70
 [core]
     excludesfile = /Users/victorunegbu/.gitignore_global
 [difftool "sourcetree"]
@@ -28,6 +31,7 @@
     c = commit --verbose
     ca = commit -a --verbose
     st = status
+    diverges = !sh -c 'git rev-list --boundary $1...$2 | grep "^-" | cut -c2-'
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
 [init]
