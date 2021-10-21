@@ -137,7 +137,7 @@ cmd_get_otp() {
     if [[ "$1" == "" ]]; then
         echo "No account set use help"
     else
-        otpkey=$(gpg --quiet -d $KEYFILE | yq r - "$1".otpSecret)
+        otpkey=$(gpg --quiet -d $KEYFILE | yq e ".$1".otpSecret -)
 
         if [ "$otpkey" == "null" ]
         then
@@ -145,7 +145,7 @@ cmd_get_otp() {
             exit
         fi
 
-        period=$(gpg --quiet -d $KEYFILE | yq r - "$1".period)
+        period=$(gpg --quiet -d $KEYFILE | yq e ".$1".period -)
         if [ "$period" == "null" ]
         then
             iecho "No period defined for $1, defauling back to 30 sec"
@@ -180,19 +180,19 @@ print_qr() {
         eecho "No account set use help"
     else
         iecho "Printing QR code for $ACCOUNT"
-        account=$(gpg --quiet -d $KEYFILE | yq r - "$1")
+        account=$(gpg --quiet -d $KEYFILE | yq e ".$1" -)
         if [ -z "$account" ] || [ "$account" == "null" ]; then
             eecho "Could not retrieve account data"
         fi
-        otptype=$(yq r - type <<< "$account")
+        otptype=$(yq e .type - <<< "$account")
         if ! [ "$otptype" == "totp" ]
         then
             wecho "cli option for this account will not work (not supported type)"
         fi
-        otpSecret=$(yq r - otpSecret <<< "$account")
-        otplabel=$(yq r - label <<< "$account")
-        otpissuer=$(yq r - issuer <<< "$account")
-        period=$(yq r - "$1".period <<< "$account")
+        otpSecret=$(yq e .otpSecret <<< "$account")
+        otplabel=$(yq e .label <<< "$account")
+        otpissuer=$(yq e .issuer <<< "$account")
+        period=$(yq e ".$1".period <<< "$account")
         if [ "$period" == "null" ]
         then
             iecho "No period defined for $ACCOUNT, defauling back to 30 sec"
