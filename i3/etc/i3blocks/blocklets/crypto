@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+# coding=utf-8
+
+import json
+from requests import Session
+import os
+import sys
+
+PRICE_CHANGE_PERIOD = '1h' # Available: '1h', '24h', '7d'
+PRICE_CHANGE_URGENT_PERCENT = 10
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
+
+API_URL = 'https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail/chart'
+coin = os.environ.get('BLOCK_INSTANCE', 'bitcoin')
+
+def get_coin(slug):
+    return ({
+        "bitcoin": dict(id="1", symbol="BTC"),
+        "ethereum": dict(id="1027", symbol="ETH"),
+        "monero": dict(id="328", symbol="XMR"),
+        "stellar": dict(id="512", symbol="XLM"),
+        "iota": dict(id="1720", symbol="MIOTA"),
+    })[slug]
+
+class CoinInfo:
+    USDPRICE_INDEX = 0
+    BTCPRICE_INDEX = 3
+    def __init__(self, coin, base='USD', period='1h'):
+        parameters = {
+            'id': get_coin(coin).get("id"),
+            'range': period,
+        }
+        headers = {
+            'Accepts': 'application/json',
+            'Referer': 'https://coinmarketcap.com/',
+            'Origin': 'https://coinmarketcap.com',
+            'User-Agent': USER_AGENT,
+        }
+
+        session = Session()
+        session.headers.update(headers)
+
+        r = session.get(API_URL, params=parameters)
+        points = json.loads(r.text)['data'].get('points')
+
+        newest = max(points.keys())
+        oldest = min(points.keys())
+
+        i = self.USDPRICE_INDEX if base == 'USD' else self.BTCPRICE_INDEX
+
+        last2 = [
+            points[oldest]['v'][i],
+            points[newest]['v'][i],
+        ]
+
+        delta = round(((last2[0] - last2[1]) / last2[1])*100, 2)
+        self.price = last2[1]
+        self.percentChange = delta
+        self.symbol = get_coin(coin).get("symbol")
+
+    @property
+    def precision(self):
+        if self.price > 100: return 0
+        elif self.price > 0.1: return 2
+        else: return 6
+
+    @property
+    def percentChangeInfo(self):
+        percentChangeFormat = '<span color="{}">{}{:.2f}%</span>'
+        percentChangeInfo = percentChangeFormat.format('#CCCCCC', '', self.percentChange)
+        if self.percentChange > 0:
+            percentChangeInfo = percentChangeFormat.format('#3BB92D', '🠕 ', self.percentChange)
+        elif self.percentChange < 0:
+            percentChangeInfo = percentChangeFormat.format('#F7555E', '🠗 ', self.percentChange)
+        return percentChangeInfo
+
+    @property
+    def fulltext(self):
+        return ('{} {:.' + str(c.precision) + 'f} {}').format(c.symbol, c.price, c.percentChangeInfo)
+
+    @property
+    def shorttext(self):
+        return ('{} {:.' + str(c.precision) + 'f}').format(c.symbol, c.price)
+
+
+base = 'USD'
+if len(sys.argv) > 1:
+    base = str(sys.argv[1]).upper()
+
+c = CoinInfo(coin, base, PRICE_CHANGE_PERIOD)
+print(c.fulltext)
+print(c.shorttext)
+
+if c.percentChange > PRICE_CHANGE_URGENT_PERCENT:
+    exit(33)

@@ -77,7 +77,7 @@ interval=300
 [iota]
 instance=iota
 markup=pango
-command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto2
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto
 interval=60
 
 [separator]
@@ -86,7 +86,7 @@ interval=60
 label=
 markup=pango
 instance=bitcoin
-command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto2
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto
 interval=67
 
 [separator]
