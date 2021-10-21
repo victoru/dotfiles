@@ -23,13 +23,7 @@ path=(
   $path
 )
 
-# Load profiles from /etc/profile.d
-if test -d /etc/profile.d/; then
-    for profile in /etc/profile.d/*.sh; do
-        test -r "$profile" && . "$profile"
-    done
-    unset profile
-fi
+. /etc/zsh/zprofile
 
 # Set the the list of directories that cd searches.
 # cdpath=(

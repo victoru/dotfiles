@@ -30,4 +30,6 @@ eval $(dircolors ~/.dircolors)
 eval $(keychain --eval --quiet  ~/.ssh/godship_id_rsa )
 eval "$(direnv hook zsh)"
 
+export PATH="/home/victor/.yarn/bin:$PATH"
+
 fortune

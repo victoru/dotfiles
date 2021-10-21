@@ -15,15 +15,28 @@ function f {
 say() {
     if [[ "${1}" =~ -[a-z]{2} ]]; then
         local lang=${1#-};
-        local text="${*#$1}";
+        shift
+        # local text=${*};
+        local text="${@}";
+
     else
         local lang=${LANG%_*};
         local text="$*";
     fi;
+    urlencodedText() {
+        local length="${#text}"
+        for (( i = 0; i < length; i++ )); do
+            local c="${text:$i:1}"
+            case $c in
+                [a-zA-Z0-9.~_-]) printf "$c" ;;
+                *) printf '%%%02X' "'$c" ;;
+            esac
+        done
+    }
 
     tmpdir=$(mktemp -d)
 
-    curl 'https://translate.google.com/translate_tts?ie=UTF-8&q='"${text}"'&tl=en&client=tw-ob' \
+    curl 'https://translate.google.com/translate_tts?ie=UTF-8&q='"$(urlencodedText)"'&tl='"${lang}"'&client=tw-ob' \
         -H 'Referer: http://translate.google.com/' \
         -H 'User-Agent: stagefright/1.2 (Linux;Android 5.0)' \
         > ${tmpdir}/google_tts.mp3
