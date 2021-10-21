@@ -176,17 +176,22 @@ mode "window" {
 }
 bindsym $mod+Shift+W mode "window"
 
-bindsym $mod+a [instance="scratchpad"] scratchpad show
+##xprop:
+##WM_CLASS(STRING) = "irssi", "URxvt"
+##The first part of the WM_CLASS is the instance ("irssi" in this example), the second part is the class ("URxvt" in this example).
+
+bindsym $mod+a [instance="Alacritty" title="scratchpad"] scratchpad show
 
 assign [class="^Gajim$" instance="gajim"] $WS2
 assign [class="^Pidgin$" instance="Pidgin"] $WS2
-assign [class="^(URxvt|Termi(te|nology))$" instance="development"] $WS4
+assign [class="^(Alacritty|URxvt|Termi(te|nology))$" instance="development"] $WS4
 assign [class="^Thg$" instance="thg"] 10
 
 default_border pixel 2
 
-for_window [class="^Termite$" instance="scratchpad|development"] border 1pixel
-for_window [instance="scratchpad"] move scratchpad; [instance='scratchpad'] scratchpad show, resize grow width 1080, move position absolute center, move scratchpad
+for_window [class="^(Alacritty|Termite)$" instance="Alacritty" title="scratchpad|development"] border 5pixel
+#for_window [instance="scratchpad"] move scratchpad; [instance='scratchpad'] scratchpad show, resize grow width 1080, move position absolute center, move scratchpad
+for_window [instance="Alacritty" title="scratchpad"] move scratchpad; [instance='Alacritty' title='scratchpad'] scratchpad show, resize grow width 1080, move position center, move scratchpad
 #for_window [instance="scratchpad"] move scratchpad; [instance='scratchpad'] scratchpad show, resize grow width 1080, move position absolute center, move scratchpad
 
 for_window [class="^Firefox$" instance="(Download|Places)"] floating enable

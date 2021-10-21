@@ -6,10 +6,10 @@ After=tmux.service desktop.target
 [Service]
 Type=simple
 ExecStartPre=/usr/bin/tmux -S %t/tmux has -t %i
-ExecStart=/usr/bin/termite \
+ExecStart=/usr/bin/alacritty \
     --hold \
-    --name=%i \
-    -e "/usr/bin/tmux -S %t/tmux attach -d -t %i"
+    --title=%i \
+    -e /usr/bin/tmux -u -S %t/tmux attach -d -t %i
 Restart=always
 
 [Install]

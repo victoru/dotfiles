@@ -6,7 +6,7 @@ IgnoreOnIsolate=yes
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/tmux -S %t/tmux -2 start-server
+ExecStart=/usr/bin/tmux -2 -S %t/tmux start-server
 ExecStop=-/usr/bin/tmux -S %t/tmux kill-server
 
 [Install]
