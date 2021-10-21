@@ -26,9 +26,10 @@ try:
     # print(w.get_sunset_time('iso'))
     # print(w.get_humidity())
     temp = w.get_temperature('fahrenheit')
+    temp2 = w.get_temperature('celsius')
     status = w.get_detailed_status()
     humidity = w.get_humidity()
-    output = ('%.0fF %s - H%s' % (temp['temp'], status, humidity))
+    output = ('%.0fF/%.0fC %s - H%s' % (temp['temp'], temp2['temp'], status, humidity))
 except:
     raise
     pass

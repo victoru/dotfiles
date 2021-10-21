@@ -22,7 +22,7 @@ touch $FILE
 
 PREV=$(cat $FILE)
 CUR=0
-for IFACE in wlp3s0 enp0s25 bnep0; do
+for IFACE in wlan0 enp2s0f0 enp6s0; do
     if ip link show $IFACE | grep -q 'state UP'; then
         F=/sys/class/net/$IFACE/statistics/${TYPE}_bytes
         N=$(cat $F)

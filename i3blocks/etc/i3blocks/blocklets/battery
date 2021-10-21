@@ -1,5 +1,10 @@
 #!/bin/bash
 
+FULLBAT=""
+HALFBAT=""
+QUARTBAT=""
+THREEQUARTBAT=""
+EMPBAT=""
 discharging_status="Δ"
 charging_status=""
 
@@ -21,9 +26,31 @@ R=$(expr \( 255 \* \( 100 - $VAL \) \) / 100 )
 G=$(expr \( 255 \* $VAL \) / 100 )
 B=20
 
+if [ "$VAL" -gt 75 ]; then
+    ICON=$FULLBAT
+elif [ "$VAL" -gt 50 ]; then
+    ICON=$THREEQUARTBAT
+elif [ "$VAL" -gt 25 ]; then
+    ICON=$HALFBAT
+else
+    ICON=$EMPBAT
+fi
+
+COLOR=$($XDG_CONFIG_HOME/i3blocks/scripts/battery.py $VAL)
+case $BLOCK_BUTTON in
+  1)
+    echo $(printf '%s %d%%' $STATUS $VAL)
+	echo
+    echo $COLOR
+	exit;
+	#exit 33;
+	;;
+esac
+
+
+echo $(printf '%s %s' $STATUS $ICON)
 echo $(printf '%s %d%%' $STATUS $VAL)
-echo $(printf '%s %d%%' $STATUS $VAL)
-printf '#%02X%02X%02X' $R $G $B
+echo $COLOR
 
 if [ $VAL -le 15 ] && [ $STATUS == $discharging_status ]; then
 	summary='Low Battery'

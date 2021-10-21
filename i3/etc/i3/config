@@ -3,7 +3,7 @@ set $mod Mod4
 floating_modifier $mod
 focus_follows_mouse no
 
-set $system_font pango:M+ 1mn 10
+set $system_font pango:M+ 1mn 8
 font $system_font
 
 # start a terminal
@@ -119,10 +119,10 @@ mode "resize" {
         bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
-        bindsym 113 resize shrink width 10 px or 10 ppt
-        bindsym 116 resize grow height 10 px or 10 ppt
-        bindsym 111 resize shrink height 10 px or 10 ppt
-        bindsym 114 resize grow width 10 px or 10 ppt
+        #bindsym 113 resize shrink width 10 px or 10 ppt
+        #bindsym 116 resize grow height 10 px or 10 ppt
+        #bindsym 111 resize shrink height 10 px or 10 ppt
+        #bindsym 114 resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -183,7 +183,7 @@ assign [class="^Pidgin$" instance="Pidgin"] $WS2
 assign [class="^(URxvt|Termi(te|nology))$" instance="development"] $WS4
 assign [class="^Thg$" instance="thg"] 10
 
-new_window pixel 2
+default_border pixel 2
 
 for_window [class="^Termite$" instance="scratchpad|development"] border 1pixel
 for_window [instance="scratchpad"] move scratchpad; [instance='scratchpad'] scratchpad show, resize grow width 1080, move position absolute center, move scratchpad
@@ -207,8 +207,8 @@ for_window [window_role="task_dialog"] floating enable
 
 # xev
 #bindsym XF86AudioPrev exec echo -n ""
-bindsym XF86AudioNext exec echo -n "n" > /home/victor/etc/pianobar/ctl
-bindsym XF86AudioPlay exec echo -n "p" > /home/victor/etc/pianobar/ctl
+#bindsym XF86AudioNext exec echo -n "n" > /home/victor/etc/pianobar/ctl
+#bindsym XF86AudioPlay exec echo -n "p" > /home/victor/etc/pianobar/ctl
 #bindsym XF86AudioStop exec spc stop
 #bindsym XF86AudioRaiseVolume exec pamixer --allow-boost -i 5 --sink $(pactl list sinks short | grep RUNNING | awk '{print $1}')
 #bindsym XF86AudioLowerVolume exec pamixer -d 5 --sink $(pactl list sinks short | grep RUNNING | awk '{print $1}')
@@ -217,7 +217,7 @@ bindsym XF86AudioRaiseVolume exec ponymix --max-volume 150 increase 5 >/dev/null
 bindsym XF86AudioLowerVolume exec ponymix --max-volume 150 decrease 5 >/dev/null
 #bindsym XF86AudioRaiseVolume exec sh -c "pactl set-sink-mute 0 false && pactl set-sink-volume 0 +5%"
 #bindsym XF86AudioLowerVolume exec sh -c "pactl set-sink-mute 0 false && pactl set-sink-volume 0 -5%"
-#bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute 1 toggle
 
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 -time 150
@@ -231,7 +231,11 @@ set $lock_screen xset s activate
 bindsym Control+$mod+l exec $lock_screen
 bindsym XF86ScreenSaver exec $lock_screen
 
-bindsym Print exec scrot -e 'mv $f ~/Screenshots/ 2>/dev/null'
+#bindsym Print exec scrot -e 'mv $f ~/Screenshots/ 2>/dev/null'
+#bindsym Shift+Print exec "scrot -s /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym Print --release exec "scrot -s /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym Shift+Print exec "scrot /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+
 #bindsym Shift+Print exec scrot -e 'mv $f /tmp; gimp /$f > /dev/null'
 
 #set $black      #100E11

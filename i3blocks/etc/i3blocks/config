@@ -21,7 +21,7 @@ interval=1 # IMPORTANT
 [separator]
 
 [wireless]
-instance=wlp3s0
+instance=wlan0
 command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
 interval=10
 
@@ -53,17 +53,10 @@ interval=30
 
 # USED G/TOTAL G
 [memory]
-command=awk -v pattern='(MemTotal|MemAvailable:)' '$0 ~ pattern { printf  "%.1f/", $2/(1024*1024) }' /proc/meminfo | awk -F '/' '{printf "%s/%sG", $1-$2,$1}' 
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
 separator=false
 interval=15
 color=#f3d194
-
-[separator]
-
-[battery]
-label=BAT:
-command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
-interval=10
 
 [separator]
 
@@ -82,18 +75,19 @@ interval=300
 [separator]
 
 [iota]
-label=IOTA
 instance=iota
-command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto-ticker
+markup=pango
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto2
 interval=60
 
 [separator]
 
 [btc]
-label=BTC
+label=
+markup=pango
 instance=bitcoin
-command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto-ticker
-interval=60
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/crypto2
+interval=67
 
 [separator]
 
@@ -105,6 +99,12 @@ color=#ffffff
 
 [separator]
 
+[brightness]
+label=
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
+interval=1
+#instance=130/5
+
 [volume]
 label=VOL
 instance=130/5
@@ -113,7 +113,12 @@ interval=1
 
 [mic]
 command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
-color=#FFFFFF
+color="#FFFFFF"
 interval=3
+
+[battery]
+#label=BAT:
+command=$XDG_CONFIG_HOME/i3blocks/blocklets/$BLOCK_NAME
+interval=10
 
 # vim: set ft=config :

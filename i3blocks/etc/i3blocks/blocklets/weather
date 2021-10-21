@@ -1,6 +1,7 @@
 #!/bin/bash
 
-weather=$($XDG_CONFIG_HOME/i3blocks/scripts/weather.py $BLOCK_INSTANCE)
+#weather=$(cd ~/scripts/weatherpy && $XDG_CONFIG_HOME/i3blocks/scripts/weather.py $BLOCK_INSTANCE)
+weather=$(cd ~/scripts/weatherpy && pipenv run python weather.py $BLOCK_INSTANCE)
 
 echo $weather
 echo $weather
