@@ -61,7 +61,9 @@ for opt_name, opt_value in pairs({
   vim.o[opt_name] = opt_value
 end
 
+require('impatient').enable_profile()
 require('plugins')
+require('packer_compiled')
 
 vim.g.tokyonight_style = "night"
 vim.g.colors_name = "tokyonight"
