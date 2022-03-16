@@ -57,9 +57,11 @@ shift + cmd - 0 : yabai -m window --space 10; yabai -m space --focus 10
 #cmd - b : chunkc tiling::desktop --focus $(chunkc get _last_active_desktop)
 #cmd - b : chunkc tiling::desktop --focus $(chunkc get _last_active_desktop)
 # cmd - b : skhd -k "cmd - $(chunkc get _last_active_desktop)"
-cmd + alt - b : yabai -m window --space last; yabai -m space --focus last
-cmd + alt - z : yabai -m window --space prev; yabai -m space --focus prev
-cmd + alt - c : yabai -m window --space next; yabai -m space --focus next
+#cmd + alt - b : yabai -m window --space last; yabai -m space --focus last
+#cmd + alt - z : yabai -m window --space prev; yabai -m space --focus prev
+#cmd + alt - c : yabai -m window --space next; yabai -m space --focus next
+
+cmd -b : yabai -m space --focus recent
 
 # cmd + alt - 1 : chunkc tiling::desktop --focus 1
 # cmd + alt - 2 : chunkc tiling::desktop --focus 2
@@ -68,6 +70,12 @@ cmd + alt - c : yabai -m window --space next; yabai -m space --focus next
 # cmd + alt - 5 : chunkc tiling::desktop --focus 5
 # cmd + alt - 6 : chunkc tiling::desktop --focus 6
 # # cmd + alt - 7 : chunkc tiling::desktop --focus 7
+
+# move window
+shift + ctrl - h : yabai -m window --move rel:-20:0
+shift + ctrl - j : yabai -m window --move rel:0:20
+shift + ctrl - k : yabai -m window --move rel:0:-20
+shift + ctrl - l : yabai -m window --move rel:20:0
 
 
 # i3esque resize functionality
@@ -88,4 +96,4 @@ default, resize < shift + alt - d : yabai -m window \
                                     yabai -m window \
                                       --resize right:-20:0
 
-cmd - d : open /Applications/Launchpad.app
+cmd - d : open /System/Applications/Launchpad.app

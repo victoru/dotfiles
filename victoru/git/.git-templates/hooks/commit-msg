@@ -14,12 +14,12 @@ yellow='\033[0;33m'
 blue='\033[0;34m'
 green='\033[0;32m'
 NC='\033[0m' # No colors
-if ! [[ $(cat $1) =~ ^(((:[^:]+:|[^\x00-\x7F]\s?))?(chore|docs|feat|fix|perf|refact|refactor|style|test|build|ci)(\([a-zA-Z0-9]+\))?:|Merge\ pull) ]]; then
+if ! [[ $(cat $1) =~ ^(((:[^:]+:|[^\x00-\x7F]\s?))?(chore|docs|feat|fix|perf|refact|refactor|style|test|build|ci|revert)(\([a-zA-Z0-9]+\))?:|Merge\ pull|fixup!) ]]; then
   printf "${red}Please use semantic commit messages:\n"
   printf "${yellow}feat${NC}[${green}(scope)${NC}]: ${blue}add hat wobble\n"
   printf "${yellow}^--^${green} ^--*--^ ${blue}  ^------------^ -> Summary in present tense.\n"
   printf "${yellow} *      ${green}*-> [optional]: Scope of the commit.\n"
-  printf "${yellow} *-> Type: chore, docs, feat, fix, perf, refact(or), style, test, build, or ci.\n${NC}"
+  printf "${yellow} *-> Type: chore, docs, feat, fix, perf, refact(or), style, test, build, revert, or ci.\n${NC}"
   exit 1
 fi
 
@@ -40,6 +40,7 @@ sed -i.bak -E \
 '1 s/^test:/🔬test:/ ; '\
 '1 s/^build:/🏗build:/ ; '\
 '1 s/^ci:/🏗ci:/ ; '\
+'1 s/^revert:/⏪revert:/ ; '\
 \
  "${edited_file}"
 

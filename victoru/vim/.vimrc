@@ -5,9 +5,10 @@
 " set t_Co=256
 " let g:python_host_prog='/opt/local/bin/python'
 " let g:python3_host_prog='/opt/local/bin/python3'
-let g:python3_host_prog='/usr/local/bin/python3'
-let g:python_host_prog='/usr/local/bin/python3'
-
+" let g:python3_host_prog='/usr/local/bin/python3'
+" let g:python_host_prog='/usr/local/bin/python3'
+let g:python_host_prog='/usr/local/bin/python2'
+let g:python3_host_prog='/Users/victorunegbu/.local/share/virtualenvs/.nvim-6Xe7ujW9/bin/python'
 
 set textwidth=0 wrapmargin=0
 if &compatible
@@ -16,6 +17,7 @@ endif
 
 if has('nvim')
     let s:editor_root=expand("~/.nvim")
+    let $PATH = '/Users/victorunegbu/.local/share/virtualenvs/.nvim-6Xe7ujW9/bin:/Users/victorunegbu/.nvim/node_modules/.bin:' . $PATH
 else
     let s:editor_root=expand("~/.vim")
 endif
@@ -27,6 +29,8 @@ if dein#load_state(expand('$XDG_CACHE_HOME/dein'))
     call dein#begin(expand('$XDG_CACHE_HOME/dein'))
     call dein#add(expand(s:dein))
 
+    call dein#add('dhruvasagar/vim-table-mode')
+    call dein#add('prettier/vim-prettier', {'build': 'npm install'})
     call dein#add('jceb/vim-orgmode')
     call dein#add('tpope/vim-speeddating')
 
@@ -49,15 +53,50 @@ if dein#load_state(expand('$XDG_CACHE_HOME/dein'))
     call dein#add('Shougo/deoplete.nvim')
     call dein#add('ambv/black')
     call dein#add('nvie/vim-flake8')
-    call dein#add('zchee/deoplete-go', { 'build': 'make'})
-    call dein#add('nsf/gocode', { 'rtp': 'nvim/'})
-    if !has('nvim')
+    call dein#add('posva/vim-vue')
+    " call dein#add('zchee/deoplete-go', { 'build': 'make'})
+    "call dein#add('deoplete-plugins/deoplete-go', {'build': 'make'})
+    call dein#add('stamblerre/gocode', { 'rtp': 'nvim/'})
+    call dein#add('sheerun/vim-polyglot')
+    call dein#add('nvim-treesitter/nvim-treesitter', { 'hook_post_update': ':TSUpdate' })
+    call dein#add('folke/tokyonight.nvim')
+    set termguicolors
+    call dein#add('glacambre/firenvim', { 'hook_post_update': { _ -> firenvim#install(0) } })
+    "if exists('g:started_by_firenvim')
+    "endif
+
+    function! OnUIEnter(event) abort
+      if 'Firenvim' ==# get(get(nvim_get_chan_info(a:event.chan), 'client', {}), 'name', '')
+
+        nnoremap <Esc><Esc> :call firenvim#focus_page()<CR>
+        au TextChanged * ++nested write
+        au TextChangedI * ++nested write
+        nnoremap <space> :set lines=28 columns=110 <CR>
+
+        let s:fontsize = 14
+        function! AdjustFontSizeF(amount)
+          let s:fontsize = s:fontsize+a:amount
+          execute "set guifont=Fantasque\\ Sans\\ Mono:h" . s:fontsize
+          call rpcnotify(0, 'Gui', 'WindowMaximized', 1)
+        endfunction
+
+        noremap  <C-=> :call AdjustFontSizeF(1)<CR>
+        noremap  <C--> :call AdjustFontSizeF(-1)<CR>
+        inoremap <C-=> :call AdjustFontSizeF(1)<CR>
+        inoremap <C--> :call AdjustFontSizeF(-1)<CR>
+
+
+        au TextChanged * ++nested write
+        au TextChangedI * ++nested write
+      endif
+    endfunction
+    autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
         " call dein#add('Shougo/neocomplete.vim')
+        " call dein#add('nvim-treesitter/nvim-treesitter')
         call dein#add('roxma/nvim-yarp')
         call dein#add('roxma/vim-hug-neovim-rpc')
-        call dein#add('godlygeek/csapprox.git', { 'terminal' : 1, 'lazy': 1 })
-        call dein#add('thinca/vim-guicolorscheme', { 'terminal' : 1 })
-    endif
+        " call dein#add('godlygeek/csapprox.git', { 'terminal' : 1, 'lazy': 1 })
+        " call dein#add('thinca/vim-guicolorscheme', { 'terminal' : 1 })
 
     "call dein#add('othree/yajs.vim')
     "call dein#add('othree/es.next.syntax.vim')
@@ -104,6 +143,11 @@ if dein#load_state(expand('$XDG_CACHE_HOME/dein'))
     call dein#add('scrooloose/nerdcommenter')
     call dein#add('sjl/gundo.vim')
 
+    call dein#add('ntpeters/vim-better-whitespace')
+    call dein#add('nathanaelkane/vim-indent-guides')
+
+    call dein#add('plasticboy/vim-markdown')
+
     call dein#add('vim-php/tagbar-phpctags.vim', {
         \ 'hook_post_update': "
         \ !sh -c 'curl -SsL http://vim-php.com/phpctags/install/phpctags.phar
@@ -112,6 +156,8 @@ if dein#load_state(expand('$XDG_CACHE_HOME/dein'))
 
     call dein#add('hashivim/vim-terraform')
     call dein#add('editorconfig/editorconfig-vim')
+    call dein#add('getgauge-contrib/neovim-gauge')
+    call dein#add('google/vim-jsonnet')
 
     call dein#end()
     call dein#save_state()
@@ -360,6 +406,7 @@ augroup ColorCmds
     " Highlight TODO, FIXME, NOTE, etc.
     autocmd Syntax * call matchadd('Todo',  '\W\zs\(TODO\|FIXME\|CHANGED\|XXX\|BUG\|HACK\)')
     autocmd Syntax * call matchadd('Debug', '\W\zs\(NOTE\|INFO\|IDEA\|???\)')
+    set colorcolumn=80
 augroup END
 
 "}}}
@@ -371,6 +418,18 @@ augroup StuffCmd
 augroup END
 if dein#tap('majutsushi/tagbar')
     let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+    let g:tagbar_type_make = {
+        \ 'kinds':[
+            \ 'm:macros',
+            \ 't:targets'
+        \ ]
+    \}
+    let g:tagbar_type_yaml = {
+                \ 'kinds':[
+                    \ 'a:anchors',
+                    \ 'k:regex'
+                \ ]
+    \}
 endif
 
 if dein#tap('alduin')
@@ -402,8 +461,22 @@ else
     hi! NonText ctermbg=NONE guibg=NONE
     "let g:rehash256 = 1
     set background=dark
-    colorscheme gruvbox
+    "colorscheme adventurous
+    " colorscheme afterglow
+    "colorscheme advantage
+    " colorscheme ChocolateLiquor
+    "colorscheme Atelier_ForestLight
+    " colorscheme Atelier_DuneDark
+    "colorscheme Atelier_EstuaryDark
+    " colorscheme Dark
+    "colorscheme DimSlate
+    " colorscheme BlackSea
+    "colorscheme afterglow
+    " colorscheme Benokai
+    " colorscheme Atelier_SeasideDark
     "colorscheme alduin
+    let g:tokyonight_style = "night"
+    colorscheme tokyonight
 endif
 
 if dein#tap('deoplete.nvim')
@@ -846,7 +919,7 @@ if dein#tap('denite.nvim')
             \ [' git mv', 'exe "Gmove " input("destination: ")'],
             \ [' git grep',  'exe "Ggrep " input("string: ")'],
             \ [' git prompt', 'exe "Git! " input("command: ")'],
-            \ ] 
+            \ ]
         " Append ' --' after log to get commit info commit buffers
         call denite#custom#var('menu', 'menus', s:menus)
 
@@ -998,6 +1071,10 @@ if dein#tap('vim-indent-guides')
     let g:indent_guides_auto_colors = &tabstop
     "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
     "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+endif
+
+if dein#tap('ntpeters/vim-better-whitespace')
+    let g:show_spaces_that_precede_tabs=1
 endif
 
 function! Multiple_cursors_before()
