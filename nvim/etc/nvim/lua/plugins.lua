@@ -25,12 +25,17 @@ require('packer').startup({
     use 'folke/tokyonight.nvim'
     use 'dracula/vim'
     use 'bluz71/vim-moonfly-colors'
-    use 'Pocco81/Catppuccino.nvim'
+    use 'catppuccin/nvim'
     use { 'metalelf0/jellybeans-nvim', requires = 'rktjmp/lush.nvim' }
 
     use 'tpope/vim-vinegar'
     use 'tpope/vim-fugitive'
-    use 'ggandor/lightspeed.nvim'
+    use {
+      'ggandor/lightspeed.nvim',
+      requires = {
+        'tpope/vim-repeat'
+      }
+    }
     use 'sjl/gundo.vim'
     use 'b0o/mapx.nvim'
 
@@ -332,7 +337,8 @@ require('packer').startup({
         local cmp = require 'cmp'
         cmp.setup {
           completion = {
-            completeopt = 'menu,menuone,noinsert',
+            -- completeopt = 'menu,menuone,noinsert',
+            completeopt = 'menu,menuone,noselect',
           },
           snippet = {
             expand = function(args)
