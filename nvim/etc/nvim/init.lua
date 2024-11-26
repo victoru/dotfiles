@@ -2,7 +2,7 @@ if (vim.env.XDG_DATA_HOME == nil) then
   vim.env.XDG_DATA_HOME = vim.env.HOME .. '/.local/share'
 end
 vim.g.python_host_prog = vim.env.HOME .. '/.pyenv/versions/2.7.18/bin/python'
---vim.g.python3_host_prog = vim.env.XDG_DATA_HOME .. '/virtualenvs/.nvim-6Xe7ujW9/bin/python'
+vim.g.python3_host_prog = '~/.pyenv/versions/3.12.2/bin/python'
 
 for opt_name, opt_value in pairs({
   hidden = true,
@@ -18,7 +18,7 @@ for opt_name, opt_value in pairs({
 
   scrolloff = 5,             -- keep at least 5 lines above/below
   sidescrolloff = 5,         -- keep at least 5 lines left/right
-  pastetoggle = "<F12>",
+  -- pastetoggle = "<F12>",
   equalalways = true,        -- Equal size splits
   tabstop = 2,               -- Number of spaces that a <Tab> in the file counts for.
   shiftwidth = 2,            -- Number of spaces to use for each step of (auto)indent.
@@ -61,18 +61,16 @@ for opt_name, opt_value in pairs({
   vim.o[opt_name] = opt_value
 end
 
-require('impatient').enable_profile()
-require('plugins')
-require('packer_compiled')
-
-vim.g.tokyonight_style = "night"
-vim.g.colors_name = "tokyonight"
-
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '[Space]', {})
 vim.api.nvim_set_keymap('', '[Space]', '<Nop>', { noremap = true })
 vim.g.mapleader = '[Space]'
 vim.g.maplocalleader = '[Space]'
+
+require("config.lazy")
+
+vim.g.tokyonight_style = "night"
+vim.g.colors_name = "tokyonight"
 
 -- Visual mode keymappings
 -- <TAB>: indent.
