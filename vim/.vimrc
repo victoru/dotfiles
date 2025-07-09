@@ -3,8 +3,9 @@
 "
 "
 set t_Co=256
-let g:python_host_prog='/usr/bin/python2'
-let g:python3_host_prog='/usr/bin/python'
+"let g:python_host_prog='/usr/bin/python2'
+"let g:python_host_prog='/usr/bin/python'
+"let g:python3_host_prog='/usr/bin/python'
 
 set textwidth=0 wrapmargin=0
 if &compatible
@@ -17,7 +18,7 @@ else
     let s:editor_root=expand("~/.vim")
 endif
 
-let s:dein=s:editor_root . expand("/bundle/repos/github.com/Shougo/dein.vim")
+let s:dein=expand("$XDG_CACHE_HOME/dein/repos/github.com/Shougo/dein.vim")
 let &rtp = s:dein . ',' . &rtp
 
 "" Set terminal colors
@@ -38,6 +39,7 @@ if dein#load_state(expand('$XDG_CACHE_HOME/dein'))
     call dein#begin(expand('$XDG_CACHE_HOME/dein'))
     call dein#add(expand(s:dein))
 
+    call dein#add('prettier/vim-prettier', {'build': 'npm install'})
     call dein#add('Shougo/vimproc.vim', {'build': 'make'})
     "call dein#add('Shougo/vimfiler')
     call dein#add('fatih/vim-go', {'on_ft': 'go'})
@@ -69,7 +71,7 @@ if dein#load_state(expand('$XDG_CACHE_HOME/dein'))
     "call dein#add('Shougo/unite-outline', {'depends': ['Shougo/denite.vim']})
     "call dein#add('Shougo/neomru.vim', {'depends': ['Shougo/denite.vim']})
 
-    call dein#add('osyo-manga/vim-anzu')
+    " call dein#add('osyo-manga/vim-anzu')
 
     call dein#add('blueyed/vim-diminactive')
 
@@ -78,6 +80,8 @@ if dein#load_state(expand('$XDG_CACHE_HOME/dein'))
     call dein#add('morhetz/gruvbox')
     "call dein#add('ninja/sky')
     "call dein#add('flazz/vim-colorschemes')
+    call dein#add('rafi/awesome-vim-colorschemes')
+    call dein#add('folke/tokyonight.nvim')
     call dein#add('jacoborus/tender')
     call dein#add('alessandroyorba/alduin')
 
@@ -136,9 +140,9 @@ set hidden
 set colorcolumn=80
 set noshowmode
 
-set undodir=~/tmp/vim/undo//
-set backupdir=~/tmp/vim/backup//
-set directory=~/tmp/vim/swap//
+"set undodir=~/tmp/vim/undo//
+"set backupdir=~/tmp/vim/backup//
+"set directory=~/tmp/vim/swap//
 set undofile
 
 set scrolloff=5         " keep at least 5 lines above/below
@@ -390,7 +394,9 @@ else
     hi! NonText ctermbg=NONE guibg=NONE
     "let g:rehash256 = 1
     set background=dark
-    colorscheme gruvbox
+    " colorscheme gruvbox
+    let g:tokyonight_style = "night"
+    colorscheme tokyonight
     "colorscheme alduin
 endif
 
@@ -924,6 +930,9 @@ if dein#tap('vim-indent-guides')
     "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
 endif
 
+"if dein#tap('tokyonight.nvim')
+    "let g:tokyonight_style = "night"
+"endif
 function! Multiple_cursors_before()
     let b:deoplete_disable_auto_complete = 1
 endfunction

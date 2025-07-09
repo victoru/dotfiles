@@ -68,6 +68,7 @@ vim.g.mapleader = '[Space]'
 vim.g.maplocalleader = '[Space]'
 
 require("config.lazy")
+vim.loader.enable()
 
 vim.g.tokyonight_style = "night"
 vim.g.colors_name = "tokyonight"

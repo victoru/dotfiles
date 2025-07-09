@@ -9,6 +9,7 @@ Environment=DISPLAY=:0
 RemainAfterExit=yes
 ExecStart=/usr/bin/setxkbmap -option ctrl:nocaps
 ExecStart=/usr/bin/xset +dpms
+ExecStart=/usr/bin/xset b 20 9001 25
 ExecStart=/usr/bin/xset dpms 0 0 300
 ExecStart=/usr/bin/autocutsel -selection PRIMARY -fork
 ExecStart=/usr/bin/autocutsel -selection CLIPBOARD -fork

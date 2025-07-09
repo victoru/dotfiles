@@ -7,6 +7,7 @@
     ci = commit
     br = branch
     co = checkout
+    cob = checkout -b
     df = diff
     lg = log -p
     who = shortlog -s --
@@ -17,6 +18,7 @@
 
     assume-unchanged = update-index --assume-unchanged
     assume-changed = update-index --no-assume-unchanged
+	quickserve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
 [cola]
 	fontdiff = M+ 1m,8,-1,5,50,0,0,0,0,0
 	tabwidth = 4
@@ -25,3 +27,10 @@
 [gui]
 	editor = nvim-qt
 	historybrowser = gitk
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	editor = nvim

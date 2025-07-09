@@ -7,8 +7,9 @@
 export BIN_HOME="$HOME/bin"
 export GOPATH=/home/victor/go
 
-export BROWSER='qutebrowser'
+export BROWSER='firefox'
 export EDITOR='nvim'
+export GIT_EDITOR=nvim
 #export VISUAL='nvim-qt'
 #export PAGER='vimpager'
 #export MANPAGER=$PAGER
@@ -24,6 +25,10 @@ export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.su
 
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus
 
+export XDG_CONFIG_HOME=/home/victor/etc
+export XDG_CACHE_HOME=/home/victor/etc/cache
+export XDG_DATA_HOME=/home/victor/var
+export XDG_RUNTIME_DIR=/run/user/1000
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"

@@ -185,6 +185,7 @@ bindsym $mod+a [instance="Alacritty" title="scratchpad"] scratchpad show
 assign [class="^Gajim$" instance="gajim"] $WS2
 assign [class="^Pidgin$" instance="Pidgin"] $WS2
 assign [class="^(Alacritty|URxvt|Termi(te|nology))$" instance="development"] $WS4
+assign [class="Alacritty" title="development"] $WS4
 assign [class="^Thg$" instance="thg"] 10
 
 default_border pixel 2
