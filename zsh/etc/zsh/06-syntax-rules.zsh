@@ -1,4 +1,8 @@
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_PLUGIN_DIR=/usr/share/zsh/plugins/zsh-syntax-highlighting
+if [ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  ZSH_PLUGIN_DIR=/opt/homebrew/share/zsh-syntax-highlighting
+fi
+source ${ZSH_PLUGIN_DIR}/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 # STYLES
