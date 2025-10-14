@@ -30,6 +30,11 @@ eval $(dircolors ~/.dircolors)
 eval $(keychain --eval --quiet  ~/.ssh/godship_id_rsa )
 eval "$(direnv hook zsh)"
 
-export PATH="/home/victor/.yarn/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$PATH"
 
 fortune
+if [ -d "/opt/homebrew/bin" ]; then
+  export PATH="/opt/homebrew/bin:$PATH"
+fi
+# zsh completions have been installed to:
+# /opt/homebrew/share/zsh/site-functions

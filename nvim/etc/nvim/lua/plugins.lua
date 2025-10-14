@@ -1,7 +1,6 @@
 return {
   -- Colorschemes
   -- the colorscheme should be available when starting Neovim
-  { 'williamboman/mason.nvim' },
   { 'nvim-lua/plenary.nvim', lazy = true },
   { 'kyazdani42/nvim-web-devicons', lazy = true },
   {
@@ -54,11 +53,7 @@ return {
   },
 
   {
-    'levouh/tint.nvim',
-    opts = {
-      tint = -45,  -- Darken colors, use a positive value to brighten
-      saturation = 0.6,  -- Sat
-    },
+    'tadaa/vimade',
   },
 
   -- {
@@ -163,42 +158,49 @@ return {
     end,
     dependencies = {'JoosepAlviste/nvim-ts-context-commentstring'}
   },
-
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
+  },
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      'williamboman/mason-lspconfig.nvim',
+      'mason-org/mason-lspconfig.nvim',
     },
     config = function()
-      require("mason").setup()
-      require("mason-lspconfig").setup()
+      -- require("mason").setup()
+      -- require("mason-lspconfig").setup()
 
-      require("mason-lspconfig").setup_handlers {
-        -- The first entry (without a key) will be the default handler
-        -- and will be called for each installed server that doesn't have
-        -- a dedicated handler.
-        function (server_name) -- default handler (optional)
-            require("lspconfig")[server_name].setup {}
-        end,
-        -- -- Next, you can provide a dedicated handler for specific servers.
-        -- -- For example, a handler override for the `rust_analyzer`:
-        -- ["rust_analyzer"] = function ()
-        --     require("rust-tools").setup {}
-        -- end
-        ["lua_ls"] = function ()
-          require("lspconfig").lua_ls.setup {
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = {
-                    "vim",
-                  }
-                }
-              }
-            }
-          }
-        end
-      }
+      -- require("mason-lspconfig").setup_handlers {
+      --   -- The first entry (without a key) will be the default handler
+      --   -- and will be called for each installed server that doesn't have
+      --   -- a dedicated handler.
+      --   function (server_name) -- default handler (optional)
+      --       require("lspconfig")[server_name].setup {}
+      --   end,
+      --   -- -- Next, you can provide a dedicated handler for specific servers.
+      --   -- -- For example, a handler override for the `rust_analyzer`:
+      --   -- ["rust_analyzer"] = function ()
+      --   --     require("rust-tools").setup {}
+      --   -- end
+      --   ["lua_ls"] = function ()
+      --     require("lspconfig").lua_ls.setup {
+      --       settings = {
+      --         Lua = {
+      --           diagnostics = {
+      --             globals = {
+      --               "vim",
+      --             }
+      --           }
+      --         }
+      --       }
+      --     }
+      --   end
+      -- }
     end,
   },
 
