@@ -160,8 +160,17 @@ vim.cmd [[
   highlight LspDiagnosticsLineNrInformation guibg=#1E535D guifg=#00FFFF gui=bold
   highlight LspDiagnosticsLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
 
-  sign define DiagnosticSignError text= texthl=LspDiagnosticsSignError linehl= numhl=LspDiagnosticsLineNrError
-  sign define DiagnosticSignWarn text= texthl=LspDiagnosticsSignWarning linehl= numhl=LspDiagnosticsLineNrWarning
-  sign define DiagnosticSignInfo text= texthl=LspDiagnosticsSignInformation linehl= numhl=LspDiagnosticsLineNrInformation
-  sign define DiagnosticSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsLineNrHint
+  " sign define DiagnosticSignError text= texthl=LspDiagnosticsSignError linehl= numhl=LspDiagnosticsLineNrError
+  " sign define DiagnosticSignWarn text= texthl=LspDiagnosticsSignWarning linehl= numhl=LspDiagnosticsLineNrWarning
+  " sign define DiagnosticSignInfo text= texthl=LspDiagnosticsSignInformation linehl= numhl=LspDiagnosticsLineNrInformation
+  " sign define DiagnosticSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=LspDiagnosticsLineNrHint
+
 ]]
+
+vim.diagnostic.config({
+  virtual_text = true,  -- Show inline messages
+  signs = true,         -- Show signs in the gutter
+  underline = true,     -- Underline problematic text
+  update_in_insert = false, -- Don't update diagnostics while typing
+  severity_sort = true, -- Sort diagnostics by severity
+})

@@ -83,6 +83,7 @@ return {
 
   {
     "folke/trouble.nvim",
+    opts = {},
     cmd = 'Trouble',
     keys = {
       {
@@ -115,29 +116,7 @@ return {
         "<cmd>Trouble qflist toggle<cr>",
         desc = "Quickfix List (Trouble)",
       },
-
     },
-    -- config = function()
-    --   require("trouble").setup {}
-    --   vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
-    --     {silent = true, noremap = true}
-    --   )
-    --   vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>",
-    --     {silent = true, noremap = true}
-    --   )
-    --   vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>",
-    --     {silent = true, noremap = true}
-    --   )
-    --   vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
-    --     {silent = true, noremap = true}
-    --   )
-    --   vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
-    --     {silent = true, noremap = true}
-    --   )
-    --   vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
-    --     {silent = true, noremap = true}
-    --   )
-    -- end
   },
 
   {
@@ -171,37 +150,31 @@ return {
     dependencies = {
       'mason-org/mason-lspconfig.nvim',
     },
-    config = function()
-      -- require("mason").setup()
-      -- require("mason-lspconfig").setup()
+    -- config = function()
+    --   vim.lsp.config('lua_ls', {
+    --     settings = {
+    --       Lua = {
+    --         diagnostics = {
+    --           globals = {
+    --             "vim",
+    --           }
+    --         }
+    --       }
+    --     }
+    --   })
+    -- end,
+  },
 
-      -- require("mason-lspconfig").setup_handlers {
-      --   -- The first entry (without a key) will be the default handler
-      --   -- and will be called for each installed server that doesn't have
-      --   -- a dedicated handler.
-      --   function (server_name) -- default handler (optional)
-      --       require("lspconfig")[server_name].setup {}
-      --   end,
-      --   -- -- Next, you can provide a dedicated handler for specific servers.
-      --   -- -- For example, a handler override for the `rust_analyzer`:
-      --   -- ["rust_analyzer"] = function ()
-      --   --     require("rust-tools").setup {}
-      --   -- end
-      --   ["lua_ls"] = function ()
-      --     require("lspconfig").lua_ls.setup {
-      --       settings = {
-      --         Lua = {
-      --           diagnostics = {
-      --             globals = {
-      --               "vim",
-      --             }
-      --           }
-      --         }
-      --       }
-      --     }
-      --   end
-      -- }
-    end,
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        -- Load luvit types when the `vim.uv` word is found
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+    },
   },
 
   {
