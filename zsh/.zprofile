@@ -23,7 +23,9 @@ path=(
   $path
 )
 
-. /etc/zsh/zprofile
+if [[ -f "/etc/zsh/zprofile" ]]; then
+  . /etc/zsh/zprofile
+fi
 
 # Set the the list of directories that cd searches.
 # cdpath=(
